@@ -1,0 +1,313 @@
+@import "tailwindcss";
+
+/*Peyda Font Family Persian Number Version*/
+@layer base {
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Thin.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Thin.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Thin.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-ExtraLight.woff2")
+        format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-ExtraLight.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-ExtraLight.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Light.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Light.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Light.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Regular.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Regular.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Regular.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Medium.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Medium.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Medium.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-SemiBold.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-SemiBold.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-SemiBold.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Bold.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Bold.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Bold.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-ExtraBold.woff2")
+        format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-ExtraBold.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-ExtraBold.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "PeydaFaNumber";
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src:
+      url("../../font/peyda/woff2/PeydaWebFaNum-Black.woff2") format("woff2"),
+      url("../../font/peyda/TTF/PeydaFaNum-Black.ttf") format("TrueType"),
+      url("../../font/peyda/woff/PeydaWebFaNum-Black.woff") format("woff");
+  }
+}
+
+@layer base {
+  body {
+    font-family: "PeydaFaNumber", sans-serif;
+    font-feature-settings: "ss01" 1;
+    font-variant-ligatures: discretionary-ligatures;
+  }
+
+  svg {
+    width: inherit;
+    height: inherit;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@theme {
+  --color-cynBgBase: #ffffff;
+  --color-cynWhite: #ffffff;
+  --color-cynRed: #b03030;
+  --color-cynBlack: #1e1311;
+  --color-cynHover: #1e1311;
+  --color-cynBorder: #1e1311;
+  --color-cynBlue: #2969ff;
+  --color-cynBgItem: #d2d2d2;
+  --color-cynStars: #fecf00;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+header::before {
+  background-image: url("../../image/noise.svg");
+}
+
+.primary-btn {
+  @apply py-3 px-5 text-sm font-medium bg-cynRed text-cynWhite rounded-4xl border border-cynRed hover:bg-cynWhite hover:text-cynBlack transition-all duration-300;
+}
+
+.secondary-btn {
+  @apply py-3 px-5 text-sm font-medium bg-cynWhite text-cynBlack rounded-4xl border border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300;
+}
+
+.mobile-menu-scroll {
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.shadow-item {
+  box-shadow: 0px 4px 9px 0px #00000024;
+}
+
+/*-------mobile-menu---------*/
+#mobile-menu li {
+  position: relative;
+}
+
+#mobile-menu > li {
+  @apply w-full mx-auto;
+}
+
+#mobile-menu li a {
+  display: block;
+}
+
+#mobile-menu li ul {
+  display: none;
+  position: static;
+  width: 100%;
+  @apply gap-0.5 [&>li]:border-t [&>li]:border-[#F4F4F6] [&>li]:first:border-t-0 flex-col text-cynBlack [&_li_a]:flex [&_li_a]:pb-2 [&_li_a]:pt-3 [&_li_a]:w-full text-base font-semibold;
+}
+
+#mobile-menu .sub-menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+#mobile-menu i {
+  float: left;
+  width: 100%;
+  text-align: left;
+  left: 0;
+  position: absolute;
+  z-index: 0;
+  line-height: 0;
+  font-style: normal;
+}
+
+#mobile-menu .menu-item-has-children > .sub-menu-toggle {
+  display: block;
+}
+
+/*-------main-menu---------*/
+#main-menu li {
+  position: relative;
+}
+
+#main-menu li ul {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 9px 0px #00000024;
+  @apply border border-cynBlack [&>li]:border-t-1 [&>li]:border-[#F7EAEA] [&>li]:first:border-t-0;
+}
+
+#main-menu li ul li {
+  min-width: 12.5rem;
+}
+
+#main-menu li a {
+  display: block;
+  white-space: nowrap;
+}
+
+#main-menu li ul li a {
+  padding: 0.625rem;
+  display: block;
+}
+
+#main-menu li:hover > ul {
+  pointer-events: all;
+  opacity: 1;
+}
+
+#main-menu li ul li ul {
+  top: 0;
+  right: 100%;
+}
+
+#main-menu li ul li:hover > ul {
+  display: block;
+}
+
+#main-menu > li.menu-item-has-children a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#main-menu > li.menu-item-has-children > ul > li > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+#main-menu li.menu-item-has-children::after {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 0;
+  right: -16px;
+  width: 16vw;
+  height: 40px;
+  z-index: 51;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#main-menu li.menu-item-has-children:hover::after {
+  pointer-events: auto;
+}
+
+#main-menu li.menu-item-has-children:hover li {
+  color: var(--color-cynBlack);
+}
+
+#main-menu > li:hover {
+  color: var(--color-cynOrange);
+}
+
+#main-menu li li:hover {
+  color: var(--color-cynOrange) !important;
+}
+
+/* حذف فلش‌ها در Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* حذف فلش‌ها در Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
