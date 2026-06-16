@@ -1,16 +1,18 @@
 <?php
-/*
-Template Name: Archive
-Description: A template for displaying an archive of post types
-More information at https://developer.wordpress.org/themes/templates/template-hierarchy/#archive-hierarchy
 
-*/
+/**
+ * Fallback archive template for post archives.
+ *
+ * @package CyanTheme
+ * @see https://developer.wordpress.org/themes/templates/template-hierarchy/#archive-hierarchy
+ */
 
-?>
-<?php get_header(); ?>
+defined('ABSPATH') || exit;
 
-<main class="container">
-	<!-- write your code here -->
-</main>
+use Cyan\Theme\Helpers\Templates;
 
-<?php get_footer();
+get_header();
+
+Templates::getPart('blog/archive-layout');
+
+get_footer();

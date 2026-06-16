@@ -14,6 +14,8 @@ import { SubMenuDesktop } from "./functions/subMenuDesktop";
 import { ShareBtn } from "./functions/shareBtn";
 import { SearchPage } from "./functions/search";
 import { Accordion } from "./functions/accordion";
+import { BlogCategoryTabs } from "./functions/blogCategoryTabs";
+import { BlogArchiveSort } from "./functions/blogArchiveSort";
 
 Modals();
 register();
@@ -26,3 +28,5 @@ SubMenuDesktop();
 ShareBtn();
 SearchPage();
 Accordion();
+BlogCategoryTabs();
+BlogArchiveSort();
