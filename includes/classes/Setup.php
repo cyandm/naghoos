@@ -12,7 +12,6 @@ class Setup
 
 	public static function init()
 	{
-
 		ThemeInit::init();
 
 		ThirdParty::init();
@@ -28,5 +27,7 @@ class Setup
 		Meta::init();
 
 		ViewsCount::init();
+
+		WooCommerce::init();
 	}
 }
