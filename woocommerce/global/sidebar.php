@@ -48,14 +48,6 @@ $product_genders = get_terms([
 ]);
 $current_gender_slug = isset($_GET['product_gender']) ? sanitize_title(wp_unslash($_GET['product_gender'])) : '';
 
-$product_poets = get_terms([
-	'taxonomy'   => 'product_poet',
-	'hide_empty' => true,
-	'orderby'    => 'name',
-	'order'      => 'ASC',
-]);
-$current_poet_slug = isset($_GET['product_poet']) ? sanitize_title(wp_unslash($_GET['product_poet'])) : '';
-
 // Base URL for attribute filters (size, color) – keep current query, drop paged
 $shop_base_link = (is_shop() || is_product_taxonomy()) ? remove_query_arg('paged', get_pagenum_link(1, false)) : '';
 
@@ -145,14 +137,6 @@ $attr_color_tax = 'pa_color';
 $size_terms     = (taxonomy_exists($attr_size_tax) && $shop_base_link) ? get_terms(array('taxonomy' => $attr_size_tax, 'hide_empty' => true, 'orderby' => 'name', 'order' => 'ASC')) : array();
 $color_terms    = (taxonomy_exists($attr_color_tax) && $shop_base_link) ? get_terms(array('taxonomy' => $attr_color_tax, 'hide_empty' => true, 'orderby' => 'name', 'order' => 'ASC')) : array();
 
-
-$product_collections = get_terms([
-	'taxonomy'   => 'product_collection',
-	'hide_empty' => true,
-	'orderby'    => 'name',
-	'order'      => 'ASC',
-]);
-$current_collection_slug = isset($_GET['product_collection']) ? sanitize_title(wp_unslash($_GET['product_collection'])) : '';
 
 $product_side = get_terms([
 	'taxonomy'   => 'product_side',
@@ -319,37 +303,6 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		</div>
 	</div>
 
-
-	<div class="filter-poet rounded-3xl bg-cynBgItem/15 p-4 mt-4">
-		<!-- Product filter by poet -->
-		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-poet-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-poet-main')); ?>">
-			<span class="text-sm font-medium"><?php _e('بر اساس شاعر', 'taghechian'); ?></span>
-			<i class="accordion-icon size-6 stroke-[1.5] transition-transform duration-300 flex-shrink-0" style="transform: rotate(0deg);">
-				<?php Icon::print('Arrow-28'); ?>
-			</i>
-		</button>
-
-		<div id="<?php echo esc_attr($sid('filter-poet-main')); ?>" class="grid transition-[grid-template-rows] duration-300 ease-out !mt-0" data-accordion-content="<?php echo esc_attr($sid('filter-poet-main')); ?>" style="grid-template-rows: 0fr;">
-			<div class="min-h-0 overflow-hidden">
-				<div class="pt-3 space-y-1.5">
-					<?php
-					if ($shop_base_link && ! empty($product_poets) && ! is_wp_error($product_poets)) {
-						foreach ($product_poets as $poet) {
-							$poet_link = taghechian_taxonomy_filter_term_link($shop_base_link, 'product_poet', $poet, $current_poet_slug === $poet->slug);
-							$is_active = ($current_poet_slug === $poet->slug);
-					?>
-							<a href="<?php echo esc_url($poet_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynYellow <?php echo $is_active ? 'bg-cynYellow' : ''; ?>">
-								<?php echo esc_html($poet->name); ?>
-							</a>
-					<?php
-						}
-					}
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<?php
 	if ($shop_base_link && taxonomy_exists($attr_size_tax) && ! empty($size_terms) && ! is_wp_error($size_terms)) :
 		$filter_size_name = 'filter_' . wc_attribute_taxonomy_slug($attr_size_tax);
@@ -414,36 +367,6 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 			</div>
 		</div>
 	<?php endif; ?>
-
-	<div class="filter-collection rounded-3xl bg-cynBgItem/15 p-4 mt-4">
-		<!-- Product filter by collection -->
-		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-collection-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-collection-main')); ?>">
-			<span class="text-sm font-medium"><?php _e('کالکشن', 'taghechian'); ?></span>
-			<i class="accordion-icon size-6 stroke-[1.5] transition-transform duration-300 flex-shrink-0" style="transform: rotate(0deg);">
-				<?php Icon::print('Arrow-28'); ?>
-			</i>
-		</button>
-
-		<div id="<?php echo esc_attr($sid('filter-collection-main')); ?>" class="grid transition-[grid-template-rows] duration-300 ease-out !mt-0" data-accordion-content="<?php echo esc_attr($sid('filter-collection-main')); ?>" style="grid-template-rows: 0fr;">
-			<div class="min-h-0 overflow-hidden">
-				<div class="pt-3 space-y-1.5">
-					<?php
-					if ($shop_base_link && ! empty($product_collections) && ! is_wp_error($product_collections)) {
-						foreach ($product_collections as $collection) {
-							$collection_link = taghechian_taxonomy_filter_term_link($shop_base_link, 'product_collection', $collection, $current_collection_slug === $collection->slug);
-							$is_active = ($current_collection_slug === $collection->slug);
-					?>
-							<a href="<?php echo esc_url($collection_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynYellow <?php echo $is_active ? 'bg-cynYellow' : ''; ?>">
-								<?php echo esc_html($collection->name); ?>
-							</a>
-					<?php
-						}
-					}
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="filter-side rounded-3xl bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by side -->
