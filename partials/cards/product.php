@@ -12,21 +12,35 @@ if (!$product) {
 $prices = WooCommerce::getProductPrices($product);
 $percent = WooCommerce::getProductDiscountPercent($product);
 $is_out_of_stock = WooCommerce::isProductFullyOutOfStock($product);
+$writer = wc_get_product_terms($product_id, 'pa_writer', ['fields' => 'names']);
 ?>
 
 <div class="product-card relative">
     <a href="<?php echo esc_url(get_permalink($product_id)); ?>" class="block relative group p-2 rounded-3xl backdrop-blur-sm shadow-cart">
-        <div class="py-6 px-4 rounded-2xl overflow-hidden">
-            <?php echo has_post_thumbnail($product_id) ? get_the_post_thumbnail($product_id, 'full', ['class' => '!object-contain !w-full h-[320px] lg:!h-[500px] group-hover:brightness-[80%] transition-all duration-300 rounded-2xl']) : '<img src="' . esc_url((function_exists('wc_placeholder_img_src') && wc_placeholder_img_src('full')) ? wc_placeholder_img_src('full') : get_template_directory_uri() . '/assets/image/woocommerce-placeholder.webp') . '" class="!object-cover !w-full h-[320px] lg:!h-[500px] group-hover:brightness-65 transition-all duration-300 rounded-2xl" alt="placeholder">'; ?>
+        <div class="py-8 px-12">
+            <?php echo has_post_thumbnail($product_id) ? get_the_post_thumbnail($product_id, 'full', ['class' => '!object-contain !w-full !h-full group-hover:brightness-[80%] transition-all duration-300']) : '<img src="' . esc_url((function_exists('wc_placeholder_img_src') && wc_placeholder_img_src('full')) ? wc_placeholder_img_src('full') : get_template_directory_uri() . '/assets/image/woocommerce-placeholder.webp') . '" class="!object-cover !w-full h-auto group-hover:brightness-65 transition-all duration-300" alt="placeholder">'; ?>
         </div>
-        <div class="p-3 md:p-4 text-cynBlack flex justify-between items-end gap-1 md:gap-3 h-full">
-            <p class="text-base font-medium"><?php echo esc_html(get_the_title($product_id)); ?></p>
+        <div class="text-cynBlack flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <p class="text-base font-medium"><?php echo esc_html(get_the_title($product_id)); ?></p>
 
-            <div class="text-left">
+                <?php if (!empty($writer)) : ?>
+                    <span class="text-sm font-medium text-cynBlack/60">
+                        <?php echo implode('، ', $writer); ?>
+                    </span>
+                <?php endif; ?>
+
+            </div>
+
+            <div>
+
+            </div>
+
+            <div class="text-left [&_p]:bg-[#E9E9E9] [&_p]:py-1.5 [&_p]:px-3 [&_p]:rounded-xl [&_p]:w-fit">
 
                 <?php if ($is_out_of_stock) : ?>
 
-                    <p class="text-base font-medium text-cynRed">
+                    <p class="text-sm font-medium text-cynRed">
                         <?php esc_html_e('ناموجود', 'taghechian'); ?>
                     </p>
 
@@ -36,20 +50,19 @@ $is_out_of_stock = WooCommerce::isProductFullyOutOfStock($product);
                         <?php echo number_format($prices['regular_price'], 0); ?>
                     </p>
 
-                    <p class="text-base font-medium text-cynRed">
+                    <p class="text-sm font-medium text-cynRed">
                         <?php echo number_format($prices['sale_price'], 0); ?>
                     </p>
 
                 <?php else : ?>
 
-                    <p class="text-base font-medium">
-                        <?php echo number_format($prices['final_price'], 0); ?>
+                    <p class="text-sm font-medium bg-[#E9E9E9] py-1.5 px-3 rounded-xl">
+                        <?php echo wc_price($prices['final_price']); ?>
                     </p>
 
                 <?php endif; ?>
 
             </div>
-
         </div>
     </a>
 

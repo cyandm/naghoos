@@ -163,7 +163,7 @@ header::before {
   scrollbar-width: none;
 }
 
-.shadow-item {
+.shadow-cart {
   box-shadow: 0px 4px 9px 0px #00000024;
 }
 
@@ -436,8 +436,4 @@ swiper-container {
 
 #breadcrumb nav::-webkit-scrollbar-thumb {
   display: none !important;
-}
-
-.shadow-cart {
-  box-shadow: 0px 0px 8px 0px #00000014;
 }

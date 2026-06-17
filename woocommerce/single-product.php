@@ -45,6 +45,8 @@ $product_size_guide = get_field('product_size_guide', $product->get_id());
 
 $related_products_query = ThemeWooCommerce::getRelatedProductsQuery($product->get_id());
 
+$attributes = $product->get_attributes();
+
 get_header();
 ?>
 
@@ -175,12 +177,7 @@ get_header();
 			$is_in_stock = $product->is_in_stock();
 			?>
 
-			<div
-				id="stock-status-wrapper"
-				class="mt-3.5 transition-all duration-300 ease-out
-         <?php echo (!$is_in_stock || ($stock_quantity !== null && $stock_quantity <= 4))
-				? 'opacity-100 translate-y-0'
-				: 'opacity-0 -translate-y-1 pointer-events-none'; ?>">
+			<div id="stock-status-wrapper" class="mt-3.5 transition-all duration-300 ease-out <?php echo (!$is_in_stock ||($stock_quantity !== null && $stock_quantity <= 4)) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'; ?>">
 				<div class="py-1 px-3 rounded-md bg-[#dd4a4a]/14 flex items-center justify-center w-fit">
 					<p class="text-[#dd4a4a] text-xs font-medium" id="stock-status-text">
 						<?php if (!$is_in_stock) : ?>
@@ -191,6 +188,8 @@ get_header();
 					</p>
 				</div>
 			</div>
+
+			
 
 			<hr class="border-cynBgItem/30 h-px w-full my-5">
 
@@ -574,21 +573,21 @@ get_header();
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
 							</a>
 
-							<?php if (is_user_logged_in()) : ?>
-								<a href="<?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
-									<?php if ($wishlist_is_liked) : ?>
+							<!-- <//?php if (is_user_logged_in()) : ?>
+								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
+									<//?php if ($wishlist_is_liked) : ?>
 										<svg class="size-5" viewBox="0 0 20 20" aria-hidden="true">
 											<path fill="currentColor" d="M3.172 5.172a4 4 0 0 1 5.656 0L10 6.343l1.172-1.171a4 4 0 1 1 5.656 5.656L10 17.657l-6.828-6.829a4 4 0 0 1 0-5.656z" />
 										</svg>
-									<?php else : ?>
-										<i class="size-6 stroke-[1.5]"><?php Icon::print('Heart'); ?></i>
-									<?php endif; ?>
+									<//?php else : ?>
+										<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
+									<//?php endif; ?>
 								</a>
-							<?php else : ?>
-								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
-									<i class="size-6 stroke-[1.5]"><?php Icon::print('Heart'); ?></i>
+							<//?php else : ?>
+								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
+									<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
 								</button>
-							<?php endif; ?>
+							<//?php endif; ?> -->
 						</div>
 
 						<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button primary-btn flex items-center justify-center gap-2 !py-3 !px-6 text-base font-medium text-cynBlack">
@@ -609,21 +608,21 @@ get_header();
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
 							</a>
 
-							<?php if (is_user_logged_in()) : ?>
-								<a href="<?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
-									<?php if ($wishlist_is_liked) : ?>
+							<!-- <//?php if (is_user_logged_in()) : ?>
+								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
+									<//?php if ($wishlist_is_liked) : ?>
 										<svg class="size-5" viewBox="0 0 20 20" aria-hidden="true">
 											<path fill="currentColor" d="M3.172 5.172a4 4 0 0 1 5.656 0L10 6.343l1.172-1.171a4 4 0 1 1 5.656 5.656L10 17.657l-6.828-6.829a4 4 0 0 1 0-5.656z" />
 										</svg>
-									<?php else : ?>
-										<i class="size-6 stroke-[1.5]"><?php Icon::print('Heart'); ?></i>
-									<?php endif; ?>
+									<//?php else : ?>
+										<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
+									<//?php endif; ?>
 								</a>
-							<?php else : ?>
-								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
-									<i class="size-6 stroke-[1.5]"><?php Icon::print('Heart'); ?></i>
+							<//?php else : ?>
+								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
+									<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
 								</button>
-							<?php endif; ?>
+							<//?php endif; ?> -->
 						</div>
 
 						<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button primary-btn flex items-center justify-center gap-2 !py-3 !px-6 text-base font-medium text-cynBlack <?php echo !$product->is_in_stock() ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''; ?>" <?php echo !$product->is_in_stock() ? 'disabled' : ''; ?>>

@@ -315,9 +315,6 @@
   .top-1\/2 {
     top: calc(1/2 * 100%);
   }
-  .top-2 {
-    top: calc(var(--spacing) * 2);
-  }
   .top-3 {
     top: calc(var(--spacing) * 3);
   }
@@ -351,9 +348,6 @@
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
-  .bottom-0 {
-    bottom: calc(var(--spacing) * 0);
-  }
   .bottom-3 {
     bottom: calc(var(--spacing) * 3);
   }
@@ -365,9 +359,6 @@
   }
   .left-1\/2 {
     left: calc(1/2 * 100%);
-  }
-  .left-2 {
-    left: calc(var(--spacing) * 2);
   }
   .left-3 {
     left: calc(var(--spacing) * 3);
@@ -1159,9 +1150,6 @@
   .overflow-y-auto {
     overflow-y: auto;
   }
-  .rounded {
-    border-radius: 0.25rem;
-  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -1321,6 +1309,9 @@
   .bg-\[\#DD4A4A\] {
     background-color: #DD4A4A;
   }
+  .bg-\[\#E9E9E9\] {
+    background-color: #E9E9E9;
+  }
   .bg-\[\#F5F5F5\] {
     background-color: #F5F5F5;
   }
@@ -1425,9 +1416,6 @@
   }
   .bg-white\/60 {
     background-color: color-mix(in oklab, var(--color-white) 60%, transparent);
-  }
-  .bg-white\/90 {
-    background-color: color-mix(in oklab, var(--color-white) 90%, transparent);
   }
   .bg-yellow-50 {
     background-color: var(--color-yellow-50);
@@ -1581,6 +1569,9 @@
   }
   .py-7 {
     padding-block: calc(var(--spacing) * 7);
+  }
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
   }
   .py-10 {
     padding-block: calc(var(--spacing) * 10);
@@ -1831,14 +1822,11 @@
   .text-\[\#EFA114\] {
     color: #EFA114;
   }
-  .text-\[\#FF7D7D\] {
-    color: #FF7D7D;
-  }
-  .text-\[\#cf255d\] {
-    color: #cf255d;
-  }
   .text-\[\#dd4a4a\] {
     color: #dd4a4a;
+  }
+  .text-\[\#ffe31e\] {
+    color: #ffe31e;
   }
   .text-amber-600 {
     color: var(--color-amber-600);
@@ -2347,13 +2335,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-slate-100);
-      }
-    }
-  }
-  .hover\:bg-white {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-white);
       }
     }
   }
@@ -2997,11 +2978,6 @@
   .lg\:hidden {
     @media (width >= 64rem) {
       display: none;
-    }
-  }
-  .lg\:\!h-\[500px\] {
-    @media (width >= 64rem) {
-      height: 500px !important;
     }
   }
   .lg\:h-\[770px\] {
@@ -3693,14 +3669,39 @@
       display: flex;
     }
   }
+  .\[\&_p\]\:w-fit {
+    & p {
+      width: fit-content;
+    }
+  }
   .\[\&_p\]\:gap-1 {
     & p {
       gap: calc(var(--spacing) * 1);
     }
   }
+  .\[\&_p\]\:rounded-xl {
+    & p {
+      border-radius: var(--radius-xl);
+    }
+  }
+  .\[\&_p\]\:bg-\[\#E9E9E9\] {
+    & p {
+      background-color: #E9E9E9;
+    }
+  }
   .\[\&_p\]\:px-2 {
     & p {
       padding-inline: calc(var(--spacing) * 2);
+    }
+  }
+  .\[\&_p\]\:px-3 {
+    & p {
+      padding-inline: calc(var(--spacing) * 3);
+    }
+  }
+  .\[\&_p\]\:py-1\.5 {
+    & p {
+      padding-block: calc(var(--spacing) * 1.5);
     }
   }
   .\[\&_p\]\:py-3 {
@@ -4438,7 +4439,7 @@ header::before {
   overflow-y: scroll;
   scrollbar-width: none;
 }
-.shadow-item {
+.shadow-cart {
   box-shadow: 0px 4px 9px 0px #00000024;
 }
 #mobile-menu li {
@@ -4738,9 +4739,6 @@ swiper-container {
 }
 #breadcrumb nav::-webkit-scrollbar-thumb {
   display: none !important;
-}
-.shadow-cart {
-  box-shadow: 0px 0px 8px 0px #00000014;
 }
 @property --tw-translate-x {
   syntax: "*";
