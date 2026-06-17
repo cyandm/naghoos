@@ -16,6 +16,7 @@ import { SearchPage } from "./functions/search";
 import { Accordion } from "./functions/accordion";
 import { BlogCategoryTabs } from "./functions/blogCategoryTabs";
 import { BlogArchiveSort } from "./functions/blogArchiveSort";
+import { initAudioPlayers } from "./functions/wavesurfer";
 
 Modals();
 register();
@@ -30,3 +31,4 @@ SearchPage();
 Accordion();
 BlogCategoryTabs();
 BlogArchiveSort();
+initAudioPlayers();

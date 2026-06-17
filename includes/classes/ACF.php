@@ -36,6 +36,7 @@ class ACF
 		//PostTypes
 		self::forPersonnel();
 		self::forBlogs();
+		self::forProduct();
 
 		//Taxonomies
 
@@ -153,5 +154,31 @@ class ACF
 
 		//register group
 		$acfGroup->register('About Us');
+	}
+
+	private static function forProduct()
+	{
+		//define helper
+		$acfGroup = new AcfGroup();
+
+		//add fields
+		$acfGroup->layoutFields->addTab('product_excert_tab', 'خلاصه کتاب');
+		$acfGroup->contentFields->addTextEditor('product_excert', 'متن یا توضیحات خلاصه کتاب', ['width' => '100%', 'toolbar' => 'advanced']);
+
+		$acfGroup->layoutFields->addTab('product_excert_voice_tab', 'خلاصه صوتی کتاب');
+		$acfGroup->contentFields->addFile('product_excert_voice', 'فایل صوتی');
+
+		$acfGroup->layoutFields->addTab('product_related_tab', 'محصولات مرتبط');
+		$acfGroup->relationshipFields->addPostObject(
+			'product_related_products',
+			'انتخاب محصولات مرتبط (حداکثر 12 — در صورت کمتر، بقیه خودکار پر می‌شود)',
+			['post_type' => 'product', 'multiple' => 1, 'return_format' => 'id', 'width' => '100%']
+		);
+
+		//location
+		$acfGroup->setLocation('post_type', '==', 'product');
+
+		//register group
+		$acfGroup->register('Product');
 	}
 }

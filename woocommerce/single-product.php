@@ -38,9 +38,8 @@ $wishlist_toggle_url = ThemeWooCommerce::getWishlistToggleUrl($product->get_id()
 // Get featured image as fallback for video covers
 $featured_image_id = get_post_thumbnail_id(get_the_ID());
 
-$product_certificate = get_field('product_certificate', $product->get_id());
-$product_details = get_field('product_details', $product->get_id());
-$product_care = get_field('product_care', $product->get_id());
+$product_excert = get_field('product_excert', $product->get_id());
+$product_excert_voice = get_field('product_excert_voice', $product->get_id());
 $product_size_guide = get_field('product_size_guide', $product->get_id());
 
 $related_products_query = ThemeWooCommerce::getRelatedProductsQuery($product->get_id());
@@ -87,12 +86,12 @@ get_header();
 					breakpoints='{"768":{"direction":"vertical","slidesPerView":"auto","spaceBetween":8}}'>
 					<?php foreach ($image_ids as $index => $img_id) : ?>
 						<?php if ($img_id) : ?>
-							<swiper-slide class="w-[120px] h-[140px] md:w-[100px] lg:w-[120px] cursor-pointer opacity-60 hover:opacity-100 transition-opacity [&.swiper-slide-thumb-active]:!opacity-100 overflow-hidden">
+							<swiper-slide class="w-[120px] h-[140px] md:w-[100px] lg:w-[120px] cursor-pointer opacity-60 hover:opacity-100 transition-opacity [&.swiper-slide-thumb-active]:!opacity-100 overflow-hidden border border-cynBlack/10 py-4 px-6">
 								<div
 									class="w-full h-full cursor-pointer"
 									data-fancybox-delegate="product-gallery"
 									data-fancybox-index="<?php echo (int) $index; ?>">
-									<?php echo wp_get_attachment_image($img_id, 'thumbnail', false, ['class' => 'w-full h-full object-cover']); ?>
+									<?php echo wp_get_attachment_image($img_id, 'full', false, ['class' => 'w-full h-full object-cover']); ?>
 								</div>
 							</swiper-slide>
 						<?php else : ?>
@@ -119,8 +118,7 @@ get_header();
 					<?php foreach ($image_ids as $index => $img_id) : ?>
 						<?php if ($img_id) : ?>
 							<swiper-slide class="!h-full">
-								<div
-									class="w-full h-full flex items-center justify-center bg-[#FCFCFC] overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover cursor-zoom-in"
+								<div class="w-[450px] h-full flex items-center justify-center bg-[#FCFCFC] overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover cursor-zoom-in m-auto"
 									data-fancybox-delegate="product-gallery"
 									data-fancybox-index="<?php echo (int) $index; ?>">
 									<?php echo wp_get_attachment_image($img_id, 'full', false, ['class' => 'w-full h-full object-cover']); ?>
@@ -177,7 +175,7 @@ get_header();
 			$is_in_stock = $product->is_in_stock();
 			?>
 
-			<div id="stock-status-wrapper" class="mt-3.5 transition-all duration-300 ease-out <?php echo (!$is_in_stock ||($stock_quantity !== null && $stock_quantity <= 4)) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'; ?>">
+			<div id="stock-status-wrapper" class="mt-3.5 transition-all duration-300 ease-out <?php echo (!$is_in_stock || ($stock_quantity !== null && $stock_quantity <= 4)) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1 pointer-events-none'; ?>">
 				<div class="py-1 px-3 rounded-md bg-[#dd4a4a]/14 flex items-center justify-center w-fit">
 					<p class="text-[#dd4a4a] text-xs font-medium" id="stock-status-text">
 						<?php if (!$is_in_stock) : ?>
@@ -189,7 +187,61 @@ get_header();
 				</div>
 			</div>
 
-			
+			<?php if (!empty($attributes) && is_array($attributes)) : ?>
+
+				<hr class="border-cynBgItem/30 h-px w-full my-5">
+
+				<div class="text-base font-medium text-cynBlack flex flex-col gap-5 [&_div]:flex [&_div]:items-center [&_div]:justify-between [&_div]:bg-[#e9e9e9] [&_div]:p-2 [&_div]:rounded-xl">
+
+					<?php foreach ($attributes as $attribute) :
+
+						if (!$attribute->get_visible()) {
+							continue;
+						}
+
+						$label = wc_attribute_label($attribute->get_name());
+
+						if ($attribute->is_taxonomy()) :
+
+							$terms = wc_get_product_terms(
+								$product->get_id(),
+								$attribute->get_name(),
+								['fields' => 'names']
+							);
+
+							if (!empty($terms)) : ?>
+								<div class="flex justify-between">
+									<span class="font-medium text-cynBlack">
+										<?php echo esc_html($label); ?>
+									</span>
+									<span>
+										<?php echo esc_html(implode('، ', $terms)); ?>
+									</span>
+								</div>
+							<?php endif; ?>
+
+							<?php else :
+
+							$options = $attribute->get_options();
+
+							if (!empty($options)) : ?>
+								<div class="flex justify-between">
+									<span class="font-medium text-cynBlack">
+										<?php echo esc_html($label); ?>
+									</span>
+									<span>
+										<?php echo esc_html(implode('، ', $options)); ?>
+									</span>
+								</div>
+							<?php endif; ?>
+
+					<?php endif;
+
+					endforeach; ?>
+
+				</div>
+
+			<?php endif; ?>
 
 			<hr class="border-cynBgItem/30 h-px w-full my-5">
 
@@ -565,16 +617,16 @@ get_header();
 
 					<div class="flex items-center justify-between gap-3 flex-wrap">
 						<div class="flex items-center gap-2">
-							<button type="button" id="shareBtn" class="rounded-full border border-cynBorder flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'taghechian')); ?>">
+							<button type="button" id="shareBtn" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'taghechian')); ?>">
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Share-1'); ?></i>
 							</button>
 
-							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
+							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
 							</a>
 
 							<!-- <//?php if (is_user_logged_in()) : ?>
-								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
+								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynRed hover:bg-cynRed'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
 									<//?php if ($wishlist_is_liked) : ?>
 										<svg class="size-5" viewBox="0 0 20 20" aria-hidden="true">
 											<path fill="currentColor" d="M3.172 5.172a4 4 0 0 1 5.656 0L10 6.343l1.172-1.171a4 4 0 1 1 5.656 5.656L10 17.657l-6.828-6.829a4 4 0 0 1 0-5.656z" />
@@ -584,7 +636,7 @@ get_header();
 									<//?php endif; ?>
 								</a>
 							<//?php else : ?>
-								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
+								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
 									<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
 								</button>
 							<//?php endif; ?> -->
@@ -600,16 +652,16 @@ get_header();
 				<form class="cart" method="post" enctype="multipart/form-data">
 					<div class="flex items-center justify-between gap-3 flex-wrap">
 						<div class="flex items-center gap-2">
-							<button type="button" id="shareBtn" class="rounded-full border border-cynBorder flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'taghechian')); ?>">
+							<button type="button" id="shareBtn" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'taghechian')); ?>">
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Share-1'); ?></i>
 							</button>
 
-							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
+							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
 							</a>
 
 							<!-- <//?php if (is_user_logged_in()) : ?>
-								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynYellow hover:bg-cynYellow'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
+								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynRed hover:bg-cynRed'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
 									<//?php if ($wishlist_is_liked) : ?>
 										<svg class="size-5" viewBox="0 0 20 20" aria-hidden="true">
 											<path fill="currentColor" d="M3.172 5.172a4 4 0 0 1 5.656 0L10 6.343l1.172-1.171a4 4 0 1 1 5.656 5.656L10 17.657l-6.828-6.829a4 4 0 0 1 0-5.656z" />
@@ -619,7 +671,7 @@ get_header();
 									<//?php endif; ?>
 								</a>
 							<//?php else : ?>
-								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynYellow hover:bg-cynYellow transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
+								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
 									<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
 								</button>
 							<//?php endif; ?> -->
@@ -653,14 +705,14 @@ get_header();
 				</span>
 			</div>
 
-			<?php if ($product_certificate || $product_details || $product_care) : ?>
+			<?php if ($product_excert || $product_excert_voice) : ?>
 
 				<div class="mt-7 flex flex-col gap-3">
 
-					<?php if ($product_certificate) : ?>
-						<!-- product certificate -->
+					<?php if ($product_excert) : ?>
+						<!-- product excert -->
 						<div class="accordion-item bg-white overflow-hidden">
-							<button class="accordion-button w-full flex items-center justify-between text-right cursor-pointer" data-accordion-target="accordion-description" aria-expanded="false">
+							<button class="accordion-button w-full flex items-center justify-between text-right cursor-pointer" data-accordion-target="accordion-excert" aria-expanded="false">
 								<span class="font-medium text-xl text-cynBlack flex-1 text-right">
 									<?php _e('شناسنامه محصول', 'taghechian'); ?>
 								</span>
@@ -668,23 +720,23 @@ get_header();
 									<?php Icon::print('Delete,-Disabled'); ?>
 								</i>
 							</button>
-							<div class="accordion-content grid transition-all duration-300 ease-in-out" data-accordion-content="accordion-description" style="grid-template-rows: 0fr;">
+							<div class="accordion-content grid transition-all duration-300 ease-in-out" data-accordion-content="accordion-excert" style="grid-template-rows: 0fr;">
 								<div class="overflow-hidden">
 									<div class="text-sm font-light leading-8 text-cynBlack/80 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:px-5 [&_h2]:py-2 [&_h2]:bg-[#f0f0f0] [&_h2]:rounded-l-3xl [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:px-5 [&_h3]:py-2 [&_h3]:bg-[#f0f0f0] [&_h3]:rounded-l-3xl [&_h4]:text-xl [&_h4]:font-semibold [&_h4]:px-5 [&_h4]:py-2 [&_h4]:bg-[#f0f0f0] [&_h4]:rounded-l-3xl [&_p]:px-2 [&_p]:py-3">
-										<?php echo $product_certificate; ?>
+										<?php echo $product_excert; ?>
 									</div>
 								</div>
 							</div>
 						</div>
 					<?php endif; ?>
 
-					<?php if ($product_details) : ?>
+					<?php if ($product_excert_voice) : ?>
 
 						<hr class="border-cynBgItem/30 h-px w-full my-3">
 
-						<!-- product details -->
+						<!-- product excert voice -->
 						<div class="accordion-item bg-white overflow-hidden">
-							<button class="accordion-button w-full flex items-center justify-between text-right cursor-pointer" data-accordion-target="accordion-specifications" aria-expanded="false">
+							<button class="accordion-button w-full flex items-center justify-between text-right cursor-pointer" data-accordion-target="accordion-excert_voice" aria-expanded="false">
 								<span class="font-medium text-xl text-cynBlack flex-1 text-right">
 									<?php _e('جزئیات محصول', 'taghechian'); ?>
 								</span>
@@ -692,34 +744,10 @@ get_header();
 									<?php Icon::print('Delete,-Disabled'); ?>
 								</i>
 							</button>
-							<div class="accordion-content grid transition-all duration-300 ease-in-out" data-accordion-content="accordion-specifications" style="grid-template-rows: 0fr;">
+							<div class="accordion-content grid transition-all duration-300 ease-in-out" data-accordion-content="accordion-excert_voice" style="grid-template-rows: 0fr;">
 								<div class="overflow-hidden">
 									<div class="text-sm font-light leading-8 text-cynBlack/80 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:px-5 [&_h2]:py-2 [&_h2]:bg-[#f0f0f0] [&_h2]:rounded-l-3xl [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:px-5 [&_h3]:py-2 [&_h3]:bg-[#f0f0f0] [&_h3]:rounded-l-3xl [&_h4]:text-xl [&_h4]:font-semibold [&_h4]:px-5 [&_h4]:py-2 [&_h4]:bg-[#f0f0f0] [&_h4]:rounded-l-3xl [&_p]:px-2 [&_p]:py-3">
-										<?php echo $product_details; ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					<?php endif; ?>
-
-					<?php if ($product_care) : ?>
-
-						<hr class="border-cynBgItem/30 h-px w-full my-3">
-
-						<!-- product care -->
-						<div class="accordion-item bg-white overflow-hidden">
-							<button class="accordion-button w-full flex items-center justify-between text-right cursor-pointer" data-accordion-target="accordion-care" aria-expanded="false">
-								<span class="font-medium text-xl text-cynBlack flex-1 text-right">
-									<?php _e('نکات نگهداری', 'taghechian'); ?>
-								</span>
-								<i class="accordion-icon rotate-45 size-6 stroke-2 text-cynBlack transition-transform duration-300 flex-shrink-0">
-									<?php Icon::print('Delete,-Disabled'); ?>
-								</i>
-							</button>
-							<div class="accordion-content grid transition-all duration-300 ease-in-out" data-accordion-content="accordion-care" style="grid-template-rows: 0fr;">
-								<div class="overflow-hidden">
-									<div class="text-xs font-light leading-8 text-cynBlack/80 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:px-5 [&_h2]:py-2 [&_h2]:bg-[#f0f0f0] [&_h2]:rounded-l-3xl [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:px-5 [&_h3]:py-2 [&_h3]:bg-[#f0f0f0] [&_h3]:rounded-l-3xl [&_h4]:text-xl [&_h4]:font-semibold [&_h4]:px-5 [&_h4]:py-2 [&_h4]:bg-[#f0f0f0] [&_h4]:rounded-l-3xl [&_p]:px-2 [&_p]:py-3">
-										<?php echo $product_care; ?>
+										<?php echo $product_excert_voice; ?>
 									</div>
 								</div>
 							</div>

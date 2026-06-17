@@ -131,7 +131,7 @@
 .plyr__caption {
   background: rgba(0, 0, 0, .8);
   background: var(--plyr-captions-background,#000c);
-  border-radius: 2px;
+  border-radius: 4px;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   color: #fff;
@@ -155,11 +155,11 @@
   padding: 7px;
   padding: calc(var(--plyr-control-spacing, 10px)*.7);
   position: relative;
-  transition: all .3s ease;
+  transition: all .1s ease-in-out;
 }
 .plyr__control svg {
-  fill: currentColor;
   display: block;
+  fill: currentColor;
   height: 18px;
   height: var(--plyr-control-icon-size,18px);
   pointer-events: none;
@@ -757,7 +757,7 @@ a.plyr__control:before {
   height: var(--plyr-range-track-height,5px);
   left: 0;
   margin-top: -2.5px;
-  margin-top: calc((var(--plyr-range-track-height, 5px)/2)*-1);
+  margin-top: calc(var(--plyr-range-track-height, 5px)/2*-1);
   padding: 0;
   position: absolute;
   top: 50%;
@@ -1085,13 +1085,13 @@ a.plyr__control:before {
 .plyr--fullscreen-fallback {
   background: #000;
   border-radius: 0 !important;
-  bottom: 0;
   height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   margin: 0;
   position: fixed;
-  right: 0;
-  top: 0;
   width: 100%;
   z-index: 10000000;
 }
@@ -1115,13 +1115,13 @@ a.plyr__control:before {
 }
 .plyr__ads {
   border-radius: inherit;
-  bottom: 0;
   cursor: pointer;
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   overflow: hidden;
   position: absolute;
-  right: 0;
-  top: 0;
   z-index: -1;
 }
 .plyr__ads > div,
@@ -1248,17 +1248,17 @@ a.plyr__control:before {
   font-size: var(--plyr-font-size-time,var(--plyr-font-size-small,13px));
 }
 .plyr__preview-scrubbing {
-  bottom: 0;
   filter: blur(1px);
   height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   margin: auto;
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
   position: absolute;
-  right: 0;
-  top: 0;
   transition: opacity .3s ease;
   width: 100%;
   z-index: 1;

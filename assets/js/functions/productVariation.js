@@ -69,7 +69,7 @@ export function ProductVariation() {
       $stockText.text(text);
       $stockWrapper
         .removeClass("opacity-0 -translate-y-1 pointer-events-none")
-        .addClass("opacity-100 translate-y-0");
+        .addClass("mt-3.5 opacity-100 translate-y-0");
     }
   }
 
