@@ -25,7 +25,7 @@ if (! wp_doing_ajax()) {
 <div id="payment" class="woocommerce-checkout-payment flex flex-col gap-4">
 	<?php if (WC()->cart && WC()->cart->needs_payment()) : ?>
 
-		<p class="text-xl font-normal font-[dinar]"><?php _e('درگاه پرداخت خود را انتخاب کنید', 'taghechian'); ?></p>
+		<p class="text-xl font-normal"><?php _e('درگاه پرداخت خود را انتخاب کنید', 'taghechian'); ?></p>
 
 		<ul class="wc_payment_methods payment_methods methods flex gap-2 text-sm font-medium [&_li]:flex-1 [&_input]:hidden [&_label]:p-6 [&_label]:border [&_label]:border-cynBlack/10 [&_label]:rounded-3xl [&_label]:flex [&_label]:flex-col [&_label]:gap-1 [&_label]:justify-center [&_label]:items-center [&_label_img]:w-16">
 			<?php

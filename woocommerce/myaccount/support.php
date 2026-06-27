@@ -27,7 +27,7 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
 
     <div class="flex flex-col gap-3">
 
-        <h2 class="text-xl md:text-2xl leading-tight font-[dinar] text-cynBlack">
+        <h2 class="text-xl md:text-2xl leading-tight text-cynBlack">
             <?php esc_html_e('چیزی هست که بخوای به ما بگی', 'taghechian'); ?>
         </h2>
 

@@ -30,7 +30,7 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 
 	<div class="bg-white rounded-2xl border border-gray-200 p-6">
 		<div class="mb-6">
-			<h2 class="text-xl font-[dinar] font-medium text-gray-900 mb-2">
+			<h2 class="text-xl font-medium text-gray-900 mb-2">
 				<?php echo esc_html(apply_filters('woocommerce_my_account_edit_address_title', $page_title, $load_address)); ?>
 			</h2>
 			<p class="text-sm text-gray-500">

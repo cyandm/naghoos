@@ -52,7 +52,7 @@ if (! wc_ship_to_billing_address_only() && wc_shipping_enabled()) {
 			<?php $address = wc_get_account_formatted_address($name); ?>
 			<div class="border border-gray-200 rounded-xl p-4">
 				<header class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
-					<h2 class="text-base font-[dinar] font-medium text-gray-900"><?php echo esc_html($address_title); ?></h2>
+					<h2 class="text-base font-medium text-gray-900"><?php echo esc_html($address_title); ?></h2>
 					<a href="<?php echo esc_url(wc_get_endpoint_url('edit-address', $name)); ?>"
 						class="text-blue-600 flex items-center gap-1 text-sm">
 						<?php

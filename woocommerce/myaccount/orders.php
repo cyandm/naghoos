@@ -21,7 +21,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 	<div class="bg-white border-gray-200 overflow-hidden">
 		<!-- Header - Desktop -->
 		<div class="hidden lg:flex items-center justify-between px-6 py-4 border-gray-200">
-			<h2 class="text-3xl font-[dinar] text-gray-900">تاریخچه سفارش ها</h2>
+			<h2 class="text-3xl text-gray-900">تاریخچه سفارش ها</h2>
 			<div class="flex items-center gap-2">
 				<label for="orders-sort-desktop" class="sr-only">مرتب سازی سفارش ها</label>
 				<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -38,7 +38,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 
 		<!-- Mobile Header with Sort Button -->
 		<div class="lg:hidden flex px-1 items-center justify-between lg:px-4 py-4">
-			<h2 class="text-xl font-[dinar] text-gray-900">تاریخچه سفارش ها</h2>
+			<h2 class="text-xl text-gray-900">تاریخچه سفارش ها</h2>
 			<div class="flex items-center gap-2">
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

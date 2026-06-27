@@ -1,16 +1,23 @@
 import WaveSurfer from "wavesurfer.js";
 
 export function initAudioPlayers() {
-  // پیدا کردن تمام کانتینرهایی که کلاس waveform دارند
   const containers = document.querySelectorAll(
     ".waveform-container:not(.initialized)",
   );
 
   containers.forEach((container) => {
-    const audioUrl = container.dataset.url; // آدرس فایل صوتی از دیتا-اتریبیوت
+    if (container.offsetParent === null) {
+      return;
+    }
+
+    const audioUrl = container.dataset.url;
     const playerContainer = container.querySelector(".waveform-id");
     const playBtn = container.querySelector(".play-btn");
     const durationEl = container.querySelector(".duration");
+
+    if (!audioUrl || !playerContainer || !playBtn || !durationEl) {
+      return;
+    }
 
     const wavesurfer = WaveSurfer.create({
       container: playerContainer,
@@ -24,26 +31,28 @@ export function initAudioPlayers() {
       normalize: true,
     });
 
+    const syncPlayingState = () => {
+      playBtn.classList.toggle("playing", wavesurfer.isPlaying());
+    };
+
     wavesurfer.load(audioUrl);
 
-    // مدیریت دکمه Play/Pause
     playBtn.addEventListener("click", () => {
       wavesurfer.playPause();
-      playBtn.classList.toggle("playing");
     });
 
-    // نمایش زمان (تبدیل به فارسی)
     wavesurfer.on("ready", () => {
-      const duration = wavesurfer.getDuration();
-      durationEl.innerText = formatTimePersian(duration);
+      durationEl.innerText = formatTimePersian(wavesurfer.getDuration());
     });
 
-    // علامت‌گذاری برای اینکه دوباره مقداردهی نشود
+    wavesurfer.on("play", syncPlayingState);
+    wavesurfer.on("pause", syncPlayingState);
+    wavesurfer.on("finish", syncPlayingState);
+
     container.classList.add("initialized");
   });
 }
 
-// تابع کمکی برای فرمت زمان و تبدیل به اعداد فارسی
 function formatTimePersian(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);

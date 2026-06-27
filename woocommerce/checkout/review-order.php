@@ -14,7 +14,7 @@ $has_coupon      = $applied_coupons !== [];
 
 	<div class="flex flex-col gap-4 text-sm border border-cynBlack/10 rounded-2xl p-4 md:p-6">
 
-		<p class="text-2xl font-[dinar] mb-4">
+		<p class="text-2xl mb-4">
 			جمع کل سبد خرید
 		</p>
 

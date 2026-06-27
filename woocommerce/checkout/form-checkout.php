@@ -39,7 +39,7 @@ if (! $checkout->is_registration_enabled() && $checkout->is_registration_require
 ?>
 
 <div class="mb-3 md:mb-5">
-	<h1 class="text-3xl font-[dinar] text-center md:text-start"><?php the_title(); ?></h1>
+	<h1 class="text-3xl text-center md:text-start"><?php the_title(); ?></h1>
 </div>
 
 <form name="checkout"

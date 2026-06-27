@@ -18,7 +18,7 @@ do_action('woocommerce_before_account_navigation');
 ?>
 
 <div class="min-h-screen" dir="rtl">
-	<h1 class="text-3xl hidden lg:block font-[dinar] text-gray-900 mb-8">حساب من</h1>
+	<h1 class="text-3xl hidden lg:block text-gray-900 mb-8">حساب من</h1>
 
 	<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 		<!-- Sidebar Column (Navigation) -->

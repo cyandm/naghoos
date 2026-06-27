@@ -109,7 +109,7 @@ get_header(); ?>
         </div>
 
         <div class="single-product-gift-card__summary w-full md:w-1/2 flex flex-col gap-6">
-            <h1 class="text-3xl text-cynBlack font-[Dinar]">
+            <h1 class="text-3xl text-cynBlack">
                 <?php the_title(); ?>
             </h1>
 

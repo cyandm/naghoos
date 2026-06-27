@@ -164,7 +164,7 @@ foreach ($address_items as $address_item) {
 
 	<!-- User Info Card -->
 	<div class="bg-white rounded-2xl border border-gray-200 p-6">
-		<h2 class="text-xl font-medium text-gray-900 font-[dinar] mb-6 text-right">اطلاعات حساب کاربری</h2>
+		<h2 class="text-xl font-medium text-gray-900 mb-6 text-right">اطلاعات حساب کاربری</h2>
 
 		<div class="flex items-center justify-between mb-6 pb-6 border-b border-gray-100">
 			<p class="text-gray-500 text-sm">شماره موبایل</p>
@@ -198,7 +198,7 @@ foreach ($address_items as $address_item) {
 	<!-- Secondary Info Card (Edit Account Form) -->
 	<form method="post" class="bg-white rounded-2xl border-1 border-gray-200 p-6"
 		action="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">
-		<h2 class="text-xl font-medium font-[dinar] text-gray-900 mb-6">اطلاعات ثانویه</h2>
+		<h2 class="text-xl font-medium text-gray-900 mb-6">اطلاعات ثانویه</h2>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 			<input type="text" name="account_first_name" placeholder="نام" value="<?php echo esc_attr($first_name); ?>"
 				class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right text-gray-900" />
@@ -242,7 +242,7 @@ foreach ($address_items as $address_item) {
 	<!-- Addresses Card -->
 	<div class="bg-white rounded-2xl border-1 border-gray-200 p-6">
 		<div class="flex items-center justify-between mb-6">
-			<h2 class="text-xl font-[dinar] font-medium text-gray-900">آدرس ها</h2>
+			<h2 class="text-xl font-medium text-gray-900">آدرس ها</h2>
 
 			<!--             <button type="button" modal-opener data-modal-name="<?php echo esc_attr($default_add_modal_name); ?>"
                 class="text-blue-600 flex items-center gap-1 text-sm">

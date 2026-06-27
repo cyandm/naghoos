@@ -30,7 +30,7 @@ if (!empty($visible_ids)) {
 }
 ?>
 
-<h2 class="text-2xl md:text-4xl font-[dinar] mb-3 text-gray-900">اعلان ها</h2>
+<h2 class="text-2xl md:text-4xl mb-3 text-gray-900">اعلان ها</h2>
 
 <section class="notifications-account-page bg-white rounded-2xl p-4 md:p-6 lg:p-8">
     <?php if (!empty($notifications)) : ?>
@@ -57,7 +57,7 @@ if (!empty($visible_ids)) {
                                 <span class="inline-block size-2 rounded-full bg-yellow-500 shrink-0" aria-hidden="true"></span>
                                 <span class="sr-only"><?php esc_html_e('اعلان جدید', 'taghechian'); ?></span>
                             <?php endif; ?>
-                            <h3 class="text-base md:text-lg font-[dinar] text-cynBlack truncate">
+                            <h3 class="text-base md:text-lg text-cynBlack truncate">
                                 <?php echo esc_html($title); ?>
                             </h3>
                         </div>

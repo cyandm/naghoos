@@ -21,7 +21,7 @@ do_action('woocommerce_before_cart'); ?>
 
 		<!-- Cart Header -->
 		<div class="bg-white">
-			<h1 class="text-3xl font-normal font-[dinar] text-cynBlack pb-3 md:pb-6"><?php the_title(); ?></h1>
+			<h1 class="text-3xl font-normal text-cynBlack pb-3 md:pb-6"><?php the_title(); ?></h1>
 
 			<!-- Table Header -->
 			<div class="hidden md:grid grid-cols-12 gap-4 px-12 py-4 bg-cynBgItem/30 rounded-xl text-xs md:text-base font-medium text-cynBlack">
@@ -286,7 +286,7 @@ do_action('woocommerce_before_cart'); ?>
 		<?php do_action('woocommerce_before_cart_collaterals'); ?>
 
 		<div class="cart-totals-wrapper">
-			<p class="text-2xl font-[dinar] text-cynBlack text-start mb-6"><?php _e('جمع کل سبد خرید', 'taghechain'); ?></p>
+			<p class="text-2xl text-cynBlack text-start mb-6"><?php _e('جمع کل سبد خرید', 'taghechain'); ?></p>
 
 			<!-- Subtotal -->
 			<div class="flex justify-between items-center py-3 px-2">

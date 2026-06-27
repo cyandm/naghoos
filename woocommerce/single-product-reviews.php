@@ -219,7 +219,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 			<div class="flex flex-col gap-5 mb-5">
 				<div class="p-6 bg-[#f8f8f8] rounded-3xl flex flex-col gap-6 justify-center">
 
-					<p class="text-[28px] font-[dinar] font-medium text-cynBlack/80"><?php _e('دیدگاه و امتیاز خریداران', 'taghechian') ?></p>
+					<p class="text-[28px] font-medium text-cynBlack/80"><?php _e('دیدگاه و امتیاز خریداران', 'taghechian') ?></p>
 
 					<div class="flex gap-1 justify-end items-center">
 						<span class="text-green-600 font-semibold text-xl">

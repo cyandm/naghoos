@@ -89,7 +89,7 @@ get_header();
 			);
 			?>
 			<div class="flex justify-between items-center">
-				<h1 class="text-3xl font-normal font-[Dinar]"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'taghechian')); ?></h1>
+				<h1 class="text-3xl font-normal"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'taghechian')); ?></h1>
 
 				<div class="flex gap-2">
 					<?php foreach ($archive_orderby_filters as $filter) : ?>

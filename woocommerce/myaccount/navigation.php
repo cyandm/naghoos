@@ -246,7 +246,7 @@ $logout_url = wp_logout_url(home_url('/'));
 	<div
 		class="w-full px-6 py-5 bg-cynWhite rounded-2xl border border-cynBlack/10 shadow-item flex flex-col items-center gap-5">
 		<div class="text-center space-y-2">
-			<p class="text-[30px] font-[dinar] text-cynBlack leading-none">خروج از حساب</p>
+			<p class="text-[30px] text-cynBlack leading-none">خروج از حساب</p>
 			<p class="text-base text-cynBlack/70">ایا میخواهید از حساب کاربری خود خارج شوید؟</p>
 		</div>
 
