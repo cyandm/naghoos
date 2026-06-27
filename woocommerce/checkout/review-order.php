@@ -134,7 +134,7 @@ $has_coupon      = $applied_coupons !== [];
 
 		<div class="flex items-center gap-2">
 
-			<i class="text-cynYellow size-6">
+			<i class="text-cynRed size-6">
 				<?php Icon::print('Gift,-Box-1'); ?>
 			</i>
 

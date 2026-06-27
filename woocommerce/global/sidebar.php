@@ -158,14 +158,14 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 	<?php
 	$instock_active = isset($_GET['instock']) && $_GET['instock'] === '1';
 	?>
-	<div class="flex justify-between items-center gap-2 rounded-3xl bg-cynBgItem/15 p-4">
+	<div class="flex justify-between items-center gap-2 rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4">
 		<span class="text-cynBlack text-xs font-medium"><?php _e('نمایش کالاهای موجود', 'taghechian'); ?></span>
 		<button type="button" role="switch" aria-checked="<?php echo $instock_active ? 'true' : 'false'; ?>" data-instock-toggle class="instock-toggle-btn <?php echo $instock_active ? 'is-on ' : ''; ?>relative h-6 w-11 flex-shrink-0 rounded-full transition-colors duration-200 focus:outline-none" aria-label="<?php esc_attr_e('نمایش کالاهای موجود', 'taghechian'); ?>">
 			<span class="absolute top-1 start-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200" data-toggle-knob></span>
 		</button>
 	</div>
 
-	<div class="filter-cat rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+	<div class="filter-cat rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product categories (main) -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-cat-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="true" aria-controls="<?php echo esc_attr($sid('filter-cat-main')); ?>">
 			<span class="text-sm font-medium"><?php _e('دسته‌بندی کالاها', 'taghechian'); ?></span>
@@ -197,11 +197,11 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 							$parent_id = $sid('filter-cat-' . (int) $parent->term_id);
 							$parent_div_class = 'filter-cat-parent rounded-xl py-2 px-3 transition-all duration-300 ';
 							if ($is_parent_current && ! $has_children) {
-								$parent_div_class .= 'bg-cynYellow';
+								$parent_div_class .= 'bg-cynRed text-white';
 							} else {
 								$parent_div_class .= 'bg-cynWhite';
 								if (! $has_children) {
-									$parent_div_class .= ' hover:bg-cynYellow';
+									$parent_div_class .= ' hover:bg-cynRed hover:text-white';
 								}
 							}
 					?>
@@ -221,7 +221,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 													$child_link = taghechian_term_link_with_filters(get_term_link($child));
 													$is_active = ($current_cat_id === (int) $child->term_id);
 												?>
-													<a href="<?php echo esc_url($child_link); ?>" class="block p-1 rounded-md text-xs text-cynBlack transition-all duration-300 <?php echo $is_active ? 'bg-cynYellow' : 'bg-[#F5F5F5] hover:bg-cynYellow'; ?>">
+													<a href="<?php echo esc_url($child_link); ?>" class="block p-1 rounded-md text-xs text-cynBlack transition-all duration-300 <?php echo $is_active ? 'bg-cynRed' : 'bg-[#F5F5F5] hover:bg-cynRed'; ?>">
 														<?php echo esc_html($child->name); ?>
 													</a>
 												<?php } ?>
@@ -243,7 +243,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		</div>
 	</div>
 
-	<div class="filter-gender rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+	<div class="filter-gender rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by gender -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-gender-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-gender-main')); ?>">
 			<span class="text-sm font-medium"><?php _e('مناسب', 'taghechian'); ?></span>
@@ -260,7 +260,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 							$gender_link = taghechian_taxonomy_filter_term_link($shop_base_link, 'product_gender', $gender, $current_gender_slug === $gender->slug);
 							$is_active = ($current_gender_slug === $gender->slug);
 					?>
-							<a href="<?php echo esc_url($gender_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynYellow <?php echo $is_active ? 'bg-cynYellow' : ''; ?>">
+							<a href="<?php echo esc_url($gender_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynRed <?php echo $is_active ? 'bg-cynRed' : ''; ?>">
 								<?php echo esc_html($gender->name); ?>
 							</a>
 					<?php
@@ -272,7 +272,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		</div>
 	</div>
 
-	<div class="filter-price rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+	<div class="filter-price rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by price -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-price-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-price-main')); ?>">
 			<span class="text-sm font-medium"><?php _e('رنج قیمت', 'taghechian'); ?></span>
@@ -308,7 +308,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		$filter_size_name = 'filter_' . wc_attribute_taxonomy_slug($attr_size_tax);
 		$current_size     = isset($_GET[$filter_size_name]) ? array_map('sanitize_title', explode(',', wc_clean(wp_unslash($_GET[$filter_size_name])))) : array();
 	?>
-		<div class="filter-attr filter-size rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+		<div class="filter-attr filter-size rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 			<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-size-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-size-main')); ?>">
 				<span class="text-sm font-medium"><?php _e('سایز', 'taghechian'); ?></span>
 				<i class="accordion-icon size-6 stroke-[1.5] transition-transform duration-300 flex-shrink-0" style="transform: rotate(0deg);">
@@ -322,7 +322,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 							$link       = taghechian_layered_nav_term_link($shop_base_link, $attr_size_tax, $term);
 							$is_checked = in_array($term->slug, $current_size, true);
 						?>
-							<a href="<?php echo esc_url($link); ?>" class="inline-flex items-center justify-center min-h-10 min-w-14 rounded-xl py-2 px-3 text-sm font-normal text-cynBlack bg-cynWhite hover:bg-cynYellow transition-all duration-300 <?php echo $is_checked ? 'bg-cynYellow' : ''; ?>">
+							<a href="<?php echo esc_url($link); ?>" class="inline-flex items-center justify-center min-h-10 min-w-14 rounded-xl py-2 px-3 text-sm font-normal text-cynBlack bg-cynWhite hover:bg-cynRed transition-all duration-300 <?php echo $is_checked ? 'bg-cynRed' : ''; ?>">
 								<?php echo esc_html($term->name); ?>
 							</a>
 						<?php endforeach; ?>
@@ -337,7 +337,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		$filter_color_name = 'filter_' . wc_attribute_taxonomy_slug($attr_color_tax);
 		$current_color     = isset($_GET[$filter_color_name]) ? array_map('sanitize_title', explode(',', wc_clean(wp_unslash($_GET[$filter_color_name])))) : array();
 	?>
-		<div class="filter-attr filter-color rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+		<div class="filter-attr filter-color rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 			<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-color-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-color-main')); ?>">
 				<span class="text-sm font-medium"><?php _e('رنگ', 'taghechian'); ?></span>
 				<i class="accordion-icon size-6 stroke-[1.5] transition-transform duration-300 flex-shrink-0" style="transform: rotate(0deg);">
@@ -368,7 +368,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 		</div>
 	<?php endif; ?>
 
-	<div class="filter-side rounded-3xl bg-cynBgItem/15 p-4 mt-4">
+	<div class="filter-side rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by side -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-side-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-side-main')); ?>">
 			<span class="text-sm font-medium"><?php _e('یک رو و دو رو', 'taghechian'); ?></span>
@@ -386,7 +386,7 @@ $current_side_slug = isset($_GET['product_side']) ? sanitize_title(wp_unslash($_
 							$side_link = taghechian_taxonomy_filter_term_link($shop_base_link, 'product_side', $side, $current_side_slug === $side->slug);
 							$is_active = ($current_side_slug === $side->slug);
 					?>
-							<a href="<?php echo esc_url($side_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynYellow <?php echo $is_active ? 'bg-cynYellow' : ''; ?>">
+							<a href="<?php echo esc_url($side_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 text-cynBlack transition-all duration-300 bg-cynWhite hover:bg-cynRed <?php echo $is_active ? 'bg-cynRed' : ''; ?>">
 								<?php echo esc_html($side->name); ?>
 							</a>
 					<?php

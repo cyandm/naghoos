@@ -29,11 +29,11 @@ $link_for = function ($page) {
 
 	<!-- Previous -->
 	<?php if ($current > 1) : ?>
-		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynYellow hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'taghechian'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 		</a>
 	<?php else : ?>
-		<span class="size-11 rounded-full bg-cynYellow/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
+		<span class="size-11 rounded-full bg-cynRed/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 		</span>
 	<?php endif; ?>
@@ -52,7 +52,7 @@ $link_for = function ($page) {
 				<span class="size-11 rounded-full bg-cynBlack text-white flex items-center justify-center shrink-0 font-medium shadow-md min-w-[2.75rem]"><?php echo (int) $i; ?></span>
 			<?php else : ?>
 				<a href="<?php echo esc_url($link_for($i)); ?>" class="size-11 rounded-full bg-white border border-[#E5E5E5] text-cynBlack hover:border-cynBlack/30 flex items-center justify-center shrink-0 font-medium transition-colors no-underline min-w-[2.75rem]"><?php echo (int) $i; ?></a>
-			<?php endif;
+	<?php endif;
 		else :
 			if ($i < $current && !$dots_before) {
 				$dots_before = true;
@@ -67,11 +67,11 @@ $link_for = function ($page) {
 
 	<!-- Next -->
 	<?php if ($current < $total) : ?>
-		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynYellow hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'taghechian'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 		</a>
 	<?php else : ?>
-		<span class="size-11 rounded-full bg-cynYellow/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
+		<span class="size-11 rounded-full bg-cynRed/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 		</span>
 	<?php endif; ?>

@@ -103,7 +103,7 @@ get_header();
 						}
 						$filter_url = add_query_arg($params, $archive_filters_base_url);
 						?>
-						<a href="<?php echo esc_url($filter_url); ?>" class="max-xl:hidden py-3 px-3 rounded-3xl flex gap-1 items-center transition-colors no-underline <?php echo $active ? 'bg-cynYellow' : 'bg-cynBgItem/15 hover:bg-cynYellow'; ?>">
+						<a href="<?php echo esc_url($filter_url); ?>" class="max-xl:hidden py-3 px-3 rounded-3xl flex gap-1 items-center transition-colors no-underline <?php echo $active ? 'bg-cynRed text-white' : 'bg-cynBgItem/15 hover:bg-cynRed'; ?>">
 							<span class="text-sm font-medium text-cynBlack"><?php echo esc_html($filter['label']); ?></span>
 							<i class="size-5 stroke-[1.5] text-cynBlack">
 								<?php Icon::print($filter['icon']); ?>
@@ -111,7 +111,7 @@ get_header();
 						</a>
 					<?php endforeach; ?>
 
-					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynYellow" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'taghechian'); ?>" modal-opener data-modal-name="filter-modal">
+					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'taghechian'); ?>" modal-opener data-modal-name="filter-modal">
 						<i class="size-5 text-cynBlack">
 							<?php Icon::print('Filter,-Sort-1'); ?>
 						</i>
@@ -127,7 +127,7 @@ get_header();
 						?>
 
 						<!-- Mobile: all sort options -->
-						<div class="xl:hidden cursor-pointer relative py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynYellow">
+						<div class="xl:hidden cursor-pointer relative py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed">
 							<i class="size-5 text-cynBlack">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
@@ -142,7 +142,7 @@ get_header();
 						</div>
 
 						<!-- Desktop xl: price low-to-high and high-to-low only -->
-						<div class="hidden xl:flex cursor-pointer relative py-3 px-3 rounded-3xl gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynYellow">
+						<div class="hidden xl:flex cursor-pointer relative py-3 px-3 rounded-3xl gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed">
 							<i class="size-5 text-cynBlack">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
@@ -175,9 +175,9 @@ get_header();
 
 					<div class="flex gap-2 xl:mt-5 flex-wrap items-center">
 						<?php foreach ($archive_active_filters as $filter) : ?>
-							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynYellow/80 transition-all duration-300" title="<?php esc_attr_e('حذف فیلتر', 'taghechian'); ?>">
+							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynRed/80 transition-all duration-300" title="<?php esc_attr_e('حذف فیلتر', 'taghechian'); ?>">
 								<span class="p-0.5 bg-[#c2c2c2] group-hover:bg-white transition-all duration-300 rounded-full size-5 flex items-center justify-center shrink-0">
-									<i class="size-5 stroke-[1.5] text-cynWhite group-hover:text-cynYellow transition-all duration-300 pointer-events-none">
+									<i class="size-5 stroke-[1.5] text-cynWhite group-hover:text-cynRed transition-all duration-300 pointer-events-none">
 										<?php Icon::print('Delete,-Disabled'); ?>
 									</i>
 								</span>
@@ -191,7 +191,7 @@ get_header();
 				<?php endif; ?>
 
 				<!-- Products Grid -->
-				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 [&_img]:h-[320px] lg:[&_img]:h-[500px] mt-5">
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-5 [&_.product-card]:h-full">
 					<?php
 					if (wc_get_loop_prop('total')) {
 						while (have_posts()) {
@@ -228,7 +228,7 @@ get_header();
 
 			if (is_product_category() && $term instanceof WP_Term && ! empty($term->description)) :
 			?>
-				<div class="rounded-3xl bg-cynBgItem/15 py-2 px-4 text-cynBlack [&_a]:text-cynBlue [&_a]:font-normal [&_h2]:text-2xl [&_h2]:my-4 [&_h3]:text-xl [&_h3]:my-4 [&_h4]:text-xl [&_h4]:my-4 [&_p]:text-base [&_p]:font-light [&_p]:leading-8 [&_p]:my-4 [&_img]:w-full [&_img]:max-h-96 [&_img]:object-cover [&_blockquote]:bg-[#E5E5E5] [&_blockquote]:px-2 [&_blockquote]:my-4 [&_blockquote]:text-base [&_blockquote]:font-medium [&_h2]:font-[Dinar] [&_h3]:font-[Dinar] [&_h4]:font-[Dinar] mt-8">
+				<div class="rounded-3xl bg-cynBgItem/15 py-2 px-4 text-cynBlack [&_a]:text-cynBlue [&_a]:font-normal [&_h2]:text-2xl [&_h2]:my-4 [&_h3]:text-xl [&_h3]:my-4 [&_h4]:text-xl [&_h4]:my-4 [&_p]:text-base [&_p]:font-light [&_p]:leading-8 [&_p]:my-4 [&_img]:w-full [&_img]:max-h-96 [&_img]:object-cover [&_blockquote]:bg-[#E5E5E5] [&_blockquote]:px-2 [&_blockquote]:my-4 [&_blockquote]:text-base [&_blockquote]:font-medium mt-8">
 					<?php echo apply_filters('the_content', $term->description); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 					?>
 				</div>

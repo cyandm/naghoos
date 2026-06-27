@@ -26,7 +26,7 @@ if (! empty($wishlist_product_ids)) {
 }
 ?>
 
-<h2 class="text-2xl md:text-4xl font-[dinar] mb-3 text-gray-900">علاقه مندی ها</h2>
+<h2 class="text-2xl md:text-4xl mb-3 text-gray-900">علاقه مندی ها</h2>
 <section class="wishlist-account-page bg-white rounded-2xl p-4 md:p-6 lg:p-8">
 
     <?php if (! empty($wishlist_query) && $wishlist_query->have_posts()) : ?>

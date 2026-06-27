@@ -169,7 +169,7 @@ $logout_url = wp_logout_url(home_url('/'));
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 							d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
 					</svg>
-					<span class="font-[dinar]">خروج</span>
+					<span>خروج</span>
 				</span>
 			</button>
 		</div>
@@ -236,7 +236,7 @@ $logout_url = wp_logout_url(home_url('/'));
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 					d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
 			</svg>
-			<span class="font-[dinar]">خروج</span>
+			<span>خروج</span>
 		</div>
 	</button>
 </div>
@@ -252,11 +252,11 @@ $logout_url = wp_logout_url(home_url('/'));
 
 		<div class="w-full flex items-center justify-center gap-3">
 			<a href="<?php echo esc_url($logout_url); ?>"
-				class="w-[120px] h-10 rounded-full bg-cynYellow border border-cynYellow text-cynBlack text-sm font-medium flex items-center justify-center hover:bg-[#eac100] transition-colors duration-200">
+				class="w-[120px] h-10 rounded-full bg-cynRed border border-cynRed text-cynBlack text-sm font-medium flex items-center justify-center hover:bg-[#eac100] transition-colors duration-200">
 				تایید
 			</a>
 			<button type="button" modal-closer data-modal-name="logout-confirm-modal"
-				class="w-[120px] h-10 rounded-full border border-cynYellow text-cynBlack text-sm font-medium flex items-center justify-center hover:bg-yellow-50 transition-colors duration-200">
+				class="w-[120px] h-10 rounded-full border border-cynRed text-cynBlack text-sm font-medium flex items-center justify-center hover:bg-yellow-50 transition-colors duration-200">
 				انصراف
 			</button>
 		</div>

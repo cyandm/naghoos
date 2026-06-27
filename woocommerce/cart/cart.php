@@ -98,7 +98,7 @@ do_action('woocommerce_before_cart'); ?>
 									<div class="flex items-center overflow-hidden">
 
 										<!-- Decrease Button -->
-										<button type="button" class="quantity-btn quantity-plus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynYellow text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
+										<button type="button" class="quantity-btn quantity-plus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynRed text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
 											<?php Icon::Print('plus'); ?>
 										</button>
 
@@ -119,7 +119,7 @@ do_action('woocommerce_before_cart'); ?>
 										?>
 
 										<!-- Increase Button -->
-										<button type="button" class="quantity-btn quantity-minus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynYellow text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
+										<button type="button" class="quantity-btn quantity-minus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynRed text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
 											<?php Icon::Print('minus'); ?>
 										</button>
 
@@ -212,7 +212,7 @@ do_action('woocommerce_before_cart'); ?>
 										<div class="flex items-center gap-1">
 
 											<!-- Decrease Button -->
-											<button type="button" class="quantity-btn quantity-plus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynYellow text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
+											<button type="button" class="quantity-btn quantity-plus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynRed text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
 												<?php Icon::Print('plus'); ?>
 											</button>
 
@@ -233,7 +233,7 @@ do_action('woocommerce_before_cart'); ?>
 											?>
 
 											<!-- Increase Button -->
-											<button type="button" class="quantity-btn quantity-minus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynYellow text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
+											<button type="button" class="quantity-btn quantity-minus p-1 md:p-2 bg-white border border-cynBlack/10 rounded-md hover:bg-cynRed text-cynBlack font-bold transition-colors size-6 md:size-8 flex justify-center items-center" data-cart-key="<?php echo esc_attr($cart_item_key); ?>">
 												<?php Icon::Print('minus'); ?>
 											</button>
 

@@ -31,6 +31,7 @@ if (!$product) {
 	return;
 }
 
+$reviews_enabled = wc_reviews_enabled();
 
 $wishlist_is_liked = ThemeWooCommerce::isProductInCurrentUserWishlist($product->get_id());
 $wishlist_toggle_url = ThemeWooCommerce::getWishlistToggleUrl($product->get_id());
@@ -119,15 +120,15 @@ get_header();
 					<?php foreach ($image_ids as $index => $img_id) : ?>
 						<?php if ($img_id) : ?>
 							<swiper-slide class="!h-full">
-								<div class="w-[450px] h-full flex items-center justify-center bg-[#FCFCFC] overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover cursor-zoom-in m-auto"
+								<div class="w-full h-full flex items-center justify-center bg-transparent overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover cursor-zoom-in m-auto"
 									data-fancybox-delegate="product-gallery"
 									data-fancybox-index="<?php echo (int) $index; ?>">
-									<?php echo wp_get_attachment_image($img_id, 'full', false, ['class' => 'w-full h-full object-cover']); ?>
+									<?php echo wp_get_attachment_image($img_id, 'full', false, ['class' => 'w-full h-full object-cover p-20']); ?>
 								</div>
 							</swiper-slide>
 						<?php else : ?>
 							<swiper-slide class="!h-full">
-								<div class="w-full h-full flex items-center justify-center bg-[#FCFCFC] overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover">
+								<div class="w-full h-full flex items-center justify-center bg-transparent overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:object-cover">
 									<?php echo wc_placeholder_img('woocommerce_single'); ?>
 								</div>
 							</swiper-slide>
@@ -337,9 +338,11 @@ get_header();
 							<i class="size-6 stroke-[1.5]"><?php Icon::print('Share-1'); ?></i>
 						</button>
 
-						<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
-							<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
-						</a>
+						<?php if ($reviews_enabled) : ?>
+							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
+								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
+							</a>
+						<?php endif; ?>
 
 						<!-- <//?php if (is_user_logged_in()) : ?>
 								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynRed hover:bg-cynRed'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
@@ -365,25 +368,27 @@ get_header();
 				</div>
 			</form>
 
-			<div class="text-cynBlack text-base font-medium mt-5">
-				<span>
-					<?php
-					$comments_count = get_comments_number();
-					if ($comments_count == 0) {
-						_e('دیدگاهی برای این محصول ثبت نشده است', 'taghechian');
-					} else {
-						$comments_link = '<a href="#reviews" class="text-cynBlue underline">'
-							. $comments_count . ' دیدگاه' .
-							'</a>';
+			<?php if ($reviews_enabled) : ?>
+				<div class="text-cynBlack text-base font-medium mt-5">
+					<span>
+						<?php
+						$comments_count = get_comments_number();
+						if ($comments_count == 0) {
+							_e('دیدگاهی برای این محصول ثبت نشده است', 'taghechian');
+						} else {
+							$comments_link = '<a href="#reviews" class="text-cynBlue underline">'
+								. $comments_count . ' دیدگاه' .
+								'</a>';
 
-						printf(
-							__(' %s برای این محصول', 'taghechian'),
-							$comments_link
-						);
-					}
-					?>
-				</span>
-			</div>
+							printf(
+								__(' %s برای این محصول', 'taghechian'),
+								$comments_link
+							);
+						}
+						?>
+					</span>
+				</div>
+			<?php endif; ?>
 
 			<?php if ($product_excert || $product_excert_voice_url) : ?>
 
@@ -455,27 +460,18 @@ get_header();
 
 	</section>
 
-	<section class="product-reviews mt-14">
-
-		<?php if (function_exists('comments_template')) {
-			comments_template('/woocommerce/single-product-reviews.php');
-		}
-		?>
-
-	</section>
-
 	<?php if ($related_products_query->have_posts()) : ?>
-		<section class="mt-14 flex flex-col gap-3 md:gap-5">
+		<section class="mt-16 flex flex-col gap-3 md:gap-5">
 
 			<div class="max-md:text-center">
 				<p class="text-3xl md:text-[40px] text-cynBlack leading-11"><?php _e('شاید بپسندید', 'taghechian'); ?></p>
 			</div>
 
 			<div class="relative">
-				<swiper-container class="w-full" slides-per-view="1.25" space-between="12" centered-slides="true" breakpoints='{ "640":  { "slidesPerView": 3.15 }, "768":  { "slidesPerView": 3.15 }, "1024": { "slidesPerView": 4.25 }, "1280": { "slidesPerView": 5, "centeredSlides": false }}' loop="true" autoplay="true" pagination="false" navigation="true" navigation-next-el="#relatedProductsNext" navigation-prev-el="#relatedProductsPrev">
+				<swiper-container class="w-full" slides-per-view="1.25" space-between="8" centered-slides="true" breakpoints='{ "640":  { "slidesPerView": 3.15 }, "768":  { "slidesPerView": 3.15 }, "1024": { "slidesPerView": 3.25 }, "1280": { "slidesPerView": 4.15 }}' loop="true" autoplay="true" pagination="false" navigation="true" navigation-next-el="#relatedProductsNext" navigation-prev-el="#relatedProductsPrev">
 					<?php while ($related_products_query->have_posts()) : $related_products_query->the_post(); ?>
 						<swiper-slide>
-							<?php Templates::getCard('product'); ?>
+							<?php Templates::getCard('product', ['class' => 'px-1 py-1.5']); ?>
 						</swiper-slide>
 					<?php endwhile; ?>
 				</swiper-container>
@@ -497,6 +493,14 @@ get_header();
 
 		</section>
 		<?php wp_reset_postdata(); ?>
+	<?php endif; ?>
+
+	<?php if ($reviews_enabled) : ?>
+		<section class="product-reviews mt-14">
+			<?php if (function_exists('comments_template')) {
+				comments_template('/woocommerce/single-product-reviews.php');
+			} ?>
+		</section>
 	<?php endif; ?>
 
 </main>

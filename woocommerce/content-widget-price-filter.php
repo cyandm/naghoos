@@ -21,9 +21,9 @@ defined('ABSPATH') || exit;
 		<div class="price_slider_amount" data-step="<?php echo esc_attr($step); ?>">
 			<div class="flex flex-wrap items-center gap-2 mb-3">
 				<label for="min_price" class="text-xs font-medium text-cynBlack shrink-0"><?php esc_html_e('شروع از', 'taghechian'); ?></label>
-				<input type="number" step="0.01" id="min_price" name="min_price" value="<?php echo esc_attr($current_min_price); ?>" data-min="<?php echo esc_attr($min_price); ?>" placeholder="<?php echo esc_attr($min_price); ?>" class="price-input flex-1 min-w-0 rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynYellow text-center" />
+				<input type="number" step="0.01" id="min_price" name="min_price" value="<?php echo esc_attr($current_min_price); ?>" data-min="<?php echo esc_attr($min_price); ?>" placeholder="<?php echo esc_attr($min_price); ?>" class="price-input flex-1 min-w-0 rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynRed text-center" />
 				<span class="text-xs font-medium text-cynBlack shrink-0"><?php esc_html_e('تا', 'taghechian'); ?></span>
-				<input type="number" step="0.01" id="max_price" name="max_price" value="<?php echo esc_attr($current_max_price); ?>" data-max="<?php echo esc_attr($max_price); ?>" placeholder="<?php echo esc_attr($max_price); ?>" class="price-input flex-1 min-w-0 rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynYellow text-center" />
+				<input type="number" step="0.01" id="max_price" name="max_price" value="<?php echo esc_attr($current_max_price); ?>" data-max="<?php echo esc_attr($max_price); ?>" placeholder="<?php echo esc_attr($max_price); ?>" class="price-input flex-1 min-w-0 rounded-xl border border-gray-200 bg-white px-2 py-2 text-sm text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynRed text-center" />
 			</div>
 			<div class="price_label mt-2 text-sm font-medium text-cynBlack" role="status" aria-live="polite">
 				<span class="from"><?php echo wc_price($current_min_price); ?></span>

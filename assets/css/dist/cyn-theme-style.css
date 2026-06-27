@@ -462,6 +462,9 @@
   .m-auto {
     margin: auto;
   }
+  .-mx-5 {
+    margin-inline: calc(var(--spacing) * -5);
+  }
   .mx-1 {
     margin-inline: calc(var(--spacing) * 1);
   }
@@ -542,6 +545,9 @@
   }
   .mt-32 {
     margin-top: calc(var(--spacing) * 32);
+  }
+  .mt-auto {
+    margin-top: auto;
   }
   .mr-1 {
     margin-right: calc(var(--spacing) * 1);
@@ -687,6 +693,9 @@
   .\!h-\[135px\] {
     height: 135px !important;
   }
+  .\!h-\[320px\] {
+    height: 320px !important;
+  }
   .\!h-full {
     height: 100% !important;
   }
@@ -704,9 +713,6 @@
   }
   .h-10 {
     height: calc(var(--spacing) * 10);
-  }
-  .h-11 {
-    height: calc(var(--spacing) * 11);
   }
   .h-12 {
     height: calc(var(--spacing) * 12);
@@ -902,9 +908,6 @@
   }
   .min-w-\[2\.75rem\] {
     min-width: 2.75rem;
-  }
-  .min-w-\[3rem\] {
-    min-width: 3rem;
   }
   .min-w-\[100px\] {
     min-width: 100px;
@@ -1165,6 +1168,9 @@
   }
   .overflow-hidden {
     overflow: hidden;
+  }
+  .overflow-visible {
+    overflow: visible;
   }
   .overflow-x-auto {
     overflow-x: auto;
@@ -1523,6 +1529,9 @@
   .p-12 {
     padding: calc(var(--spacing) * 12);
   }
+  .p-20 {
+    padding: calc(var(--spacing) * 20);
+  }
   .\!px-6 {
     padding-inline: calc(var(--spacing) * 6) !important;
   }
@@ -1610,6 +1619,12 @@
   .\!ps-6 {
     padding-inline-start: calc(var(--spacing) * 6) !important;
   }
+  .ps-1 {
+    padding-inline-start: calc(var(--spacing) * 1);
+  }
+  .ps-1\.5 {
+    padding-inline-start: calc(var(--spacing) * 1.5);
+  }
   .ps-3 {
     padding-inline-start: calc(var(--spacing) * 3);
   }
@@ -1624,6 +1639,12 @@
   }
   .\!pe-3 {
     padding-inline-end: calc(var(--spacing) * 3) !important;
+  }
+  .pe-1 {
+    padding-inline-end: calc(var(--spacing) * 1);
+  }
+  .pe-1\.5 {
+    padding-inline-end: calc(var(--spacing) * 1.5);
   }
   .pe-4 {
     padding-inline-end: calc(var(--spacing) * 4);
@@ -1714,12 +1735,6 @@
   }
   .align-top {
     vertical-align: top;
-  }
-  .font-\[Dinar\] {
-    font-family: Dinar;
-  }
-  .font-\[dinar\] {
-    font-family: dinar;
   }
   .text-2xl {
     font-size: var(--text-2xl);
@@ -2167,6 +2182,13 @@
       }
     }
   }
+  .group-hover\:text-cynRed {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        color: var(--color-cynRed);
+      }
+    }
+  }
   .group-hover\:text-cynWhite {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -2346,6 +2368,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: color-mix(in oklab, var(--color-cynRed) 20%, transparent);
+      }
+    }
+  }
+  .hover\:bg-cynRed\/80 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in oklab, var(--color-cynRed) 80%, transparent);
       }
     }
   }
@@ -2721,11 +2750,6 @@
       height: calc(var(--spacing) * 14);
     }
   }
-  .md\:h-16 {
-    @media (width >= 48rem) {
-      height: calc(var(--spacing) * 16);
-    }
-  }
   .md\:h-\[460px\] {
     @media (width >= 48rem) {
       height: 460px;
@@ -2759,11 +2783,6 @@
   .md\:w-1\/2 {
     @media (width >= 48rem) {
       width: calc(1/2 * 100%);
-    }
-  }
-  .md\:w-16 {
-    @media (width >= 48rem) {
-      width: calc(var(--spacing) * 16);
     }
   }
   .md\:w-20 {
@@ -3015,6 +3034,16 @@
       display: none;
     }
   }
+  .lg\:\!h-\[500px\] {
+    @media (width >= 64rem) {
+      height: 500px !important;
+    }
+  }
+  .lg\:h-\[500px\] {
+    @media (width >= 64rem) {
+      height: 500px;
+    }
+  }
   .lg\:h-\[770px\] {
     @media (width >= 64rem) {
       height: 770px;
@@ -3163,6 +3192,11 @@
   .xl\:w-3\/5 {
     @media (width >= 80rem) {
       width: calc(3/5 * 100%);
+    }
+  }
+  .\[\&_\.product-card\]\:h-full {
+    & .product-card {
+      height: 100%;
     }
   }
   .\[\&_a\]\:h-\[216px\] {
@@ -3327,11 +3361,6 @@
       padding-block: calc(var(--spacing) * 2);
     }
   }
-  .\[\&_h2\]\:font-\[Dinar\] {
-    & h2 {
-      font-family: Dinar;
-    }
-  }
   .\[\&_h2\]\:text-2xl {
     & h2 {
       font-size: var(--text-2xl);
@@ -3376,11 +3405,6 @@
       padding-block: calc(var(--spacing) * 2);
     }
   }
-  .\[\&_h3\]\:font-\[Dinar\] {
-    & h3 {
-      font-family: Dinar;
-    }
-  }
   .\[\&_h3\]\:text-2xl {
     & h3 {
       font-size: var(--text-2xl);
@@ -3423,11 +3447,6 @@
   .\[\&_h4\]\:py-2 {
     & h4 {
       padding-block: calc(var(--spacing) * 2);
-    }
-  }
-  .\[\&_h4\]\:font-\[Dinar\] {
-    & h4 {
-      font-family: Dinar;
     }
   }
   .\[\&_h4\]\:text-xl {
@@ -4500,7 +4519,7 @@ header::before {
   scrollbar-width: none;
 }
 .shadow-cart {
-  box-shadow: 0px 4px 9px 0px #00000024;
+  box-shadow: 0px 0px 8px 0px #00000024;
 }
 #mobile-menu li {
   position: relative;
