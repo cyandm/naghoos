@@ -37,7 +37,7 @@ get_header();
 	<section class="grid grid-cols-1 lg:grid-cols-13 gap-6 container">
 
 		<!-- sidebar -->
-		<aside class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 max-lg:hidden">
+		<aside class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 max-lg:hidden relative">
 			<?php wc_get_template('global/sidebar.php'); ?>
 		</aside>
 
@@ -89,7 +89,7 @@ get_header();
 			);
 			?>
 			<div class="flex justify-between items-center">
-				<h1 class="text-3xl font-normal"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'taghechian')); ?></h1>
+				<h1 class="text-xl sm:text-3xl font-normal"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'taghechian')); ?></h1>
 
 				<div class="flex gap-2">
 					<?php foreach ($archive_orderby_filters as $filter) : ?>
@@ -103,19 +103,19 @@ get_header();
 						}
 						$filter_url = add_query_arg($params, $archive_filters_base_url);
 						?>
-						<a href="<?php echo esc_url($filter_url); ?>" class="max-xl:hidden py-3 px-3 rounded-3xl flex gap-1 items-center transition-colors no-underline <?php echo $active ? 'bg-cynRed text-white' : 'bg-cynBgItem/15 hover:bg-cynRed'; ?>">
-							<span class="text-sm font-medium text-cynBlack"><?php echo esc_html($filter['label']); ?></span>
-							<i class="size-5 stroke-[1.5] text-cynBlack">
+						<a href="<?php echo esc_url($filter_url); ?>" class="max-xl:hidden py-3 px-3 rounded-3xl flex gap-1 items-center no-underline hover:text-white transition-all duration-300 <?php echo $active ? 'bg-cynRed text-white' : 'bg-cynBgItem/15 hover:bg-cynRed'; ?>">
+							<span class="text-sm font-medium transition-all duration-300"><?php echo esc_html($filter['label']); ?></span>
+							<i class="size-5 stroke-[1.5] transition-all duration-300">
 								<?php Icon::print($filter['icon']); ?>
 							</i>
 						</a>
 					<?php endforeach; ?>
 
-					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'taghechian'); ?>" modal-opener data-modal-name="filter-modal">
-						<i class="size-5 text-cynBlack">
+					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed hover:text-white" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'taghechian'); ?>" modal-opener data-modal-name="filter-modal">
+						<i class="size-5">
 							<?php Icon::print('Filter,-Sort-1'); ?>
 						</i>
-						<span class="text-sm font-medium text-cynBlack"><?php esc_html_e('نمایش فیلتر ها', 'taghechian'); ?></span>
+						<span class="text-sm font-medium"><?php esc_html_e('نمایش فیلتر ها', 'taghechian'); ?></span>
 					</div>
 
 					<?php if (wc_get_loop_prop('is_paginated') && woocommerce_products_will_display()) : ?>
@@ -127,11 +127,11 @@ get_header();
 						?>
 
 						<!-- Mobile: all sort options -->
-						<div class="xl:hidden cursor-pointer relative py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed">
-							<i class="size-5 text-cynBlack">
+						<div class="xl:hidden cursor-pointer relative py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed hover:[&_i]:text-cynWhite hover:[&_span]:text-cynWhite">
+							<i class="size-5 text-cynBlack transition-all duration-300">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
-							<span class="text-sm font-medium text-cynBlack"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
+							<span class="text-sm font-medium text-cynBlack transition-all duration-300"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
 							<div class="absolute inset-0 opacity-0">
 								<?php
 								remove_filter('woocommerce_catalog_orderby', array(\Cyan\Theme\Classes\WooCommerce::class, 'catalogOrderbyRemoveOptions'), 20);
@@ -142,11 +142,11 @@ get_header();
 						</div>
 
 						<!-- Desktop xl: price low-to-high and high-to-low only -->
-						<div class="hidden xl:flex cursor-pointer relative py-3 px-3 rounded-3xl gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed">
-							<i class="size-5 text-cynBlack">
+						<div class="hidden xl:flex cursor-pointer relative py-3 px-3 rounded-3xl gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed hover:[&_i]:text-cynWhite hover:[&_span]:text-cynWhite">
+							<i class="size-5 transition-all duration-300">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
-							<span class="text-sm font-medium text-cynBlack"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
+							<span class="text-sm font-medium transition-all duration-300"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
 							<div class="absolute inset-0 opacity-0">
 								<?php wc_get_template('loop/orderby-desktop.php', array('catalog_orderby_options' => $orderby_desktop_options)); ?>
 							</div>
@@ -175,13 +175,13 @@ get_header();
 
 					<div class="flex gap-2 xl:mt-5 flex-wrap items-center">
 						<?php foreach ($archive_active_filters as $filter) : ?>
-							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynRed/80 transition-all duration-300" title="<?php esc_attr_e('حذف فیلتر', 'taghechian'); ?>">
+							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynRed/80 transition-all duration-300 hover:text-white" title="<?php esc_attr_e('حذف فیلتر', 'taghechian'); ?>">
 								<span class="p-0.5 bg-[#c2c2c2] group-hover:bg-white transition-all duration-300 rounded-full size-5 flex items-center justify-center shrink-0">
 									<i class="size-5 stroke-[1.5] text-cynWhite group-hover:text-cynRed transition-all duration-300 pointer-events-none">
 										<?php Icon::print('Delete,-Disabled'); ?>
 									</i>
 								</span>
-								<span class="text-xs font-medium text-cynBlack"><?php echo esc_html($filter['label']); ?></span>
+								<span class="text-xs font-medium"><?php echo esc_html($filter['label']); ?></span>
 							</a>
 						<?php endforeach; ?>
 					</div>

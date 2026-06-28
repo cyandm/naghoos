@@ -42,11 +42,16 @@ class Register
 	{
 		self::makePostType('contact_form', 'فرم تماس با ما', 'فرم تماس با ما', 'dashicons-phone', ['title']);
 		self::makePostType('personnel', 'مولف (پرسنل)', 'مولف ها (پرسنل)', 'dashicons-groups', ['title', 'thumbnail']);
+		self::makePostType('faq', 'سوالات متداول', 'سوالات متداول', 'dashicons-editor-help', ['title', 'editor']);
+		self::makePostType('slider', 'اسلایدر', 'اسلایدر', 'dashicons-images-alt2', ['title']);
 	}
 
 	public static function registerTaxonomy()
 	{
-		// self::makeTaxonomy( 'category', 'دسته بندی', 'دسته بندی ها', [ 'post' ], true );
+		self::makeTaxonomy('faq_cat', 'دسته سوالات ', 'دسته ها', ['faq']);
+		self::makeTaxonomy('faq_place', 'مکان نمایش ', 'مکان ها', ['faq']);
+		self::makeTaxonomy('product_age', 'گروه سنی', 'گروه های سنی', ['product'], true);
+		self::makeTaxonomy('slider_place', 'مکان نمایش اسلایدر', 'مکان ها', ['slider'], false);
 	}
 
 	/**
@@ -56,8 +61,17 @@ class Register
 	 */
 	public static function registerTerm()
 	{
+		$product_ages = [
+			['name' => 'بزرگسالان', 'slug' => 'adults'],
+			['name' => 'کودکان', 'slug' => 'children'],
+			['name' => 'خردسالان', 'slug' => 'toddlers'],
+		];
 
-		// wp_insert_term( 'دسته بندی جدید', 'category' );
+		foreach ($product_ages as $age) {
+			if (! term_exists($age['slug'], 'product_age')) {
+				wp_insert_term($age['name'], 'product_age', ['slug' => $age['slug']]);
+			}
+		}
 	}
 
 	/**
@@ -70,7 +84,7 @@ class Register
 		// self::makePage( 'about-us', 'درباره ما' );
 	}
 
-	private static function makePostType($slug, $singular_name, $plural_name, $icon, $supports = ['title', 'thumbnail'], $search_include = true)
+	private static function makePostType($slug, $singular_name, $plural_name, $icon, $supports = ['title', 'thumbnail'], $search_include = true, $has_single = true, $has_archive = true)
 	{
 		$labels = [
 			'name' => $singular_name,
@@ -91,13 +105,13 @@ class Register
 		$args = [
 			'labels' => $labels,
 			'public' => true,
-			'publicly_queryable' => true,
+			'publicly_queryable' => $has_single,
 			'show_ui' => true,
 			'show_in_menu' => true,
 			'query_var' => true,
-			'rewrite' => ['slug' => $slug],
+			'rewrite' => $has_single ? ['slug' => $slug] : false,
 			'exclude_from_search' => ! $search_include,
-			'has_archive' => true,
+			'has_archive' => $has_archive,
 			'hierarchical' => false,
 			'menu_position' => null,
 			'menu_icon' => $icon,

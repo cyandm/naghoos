@@ -39,7 +39,7 @@ $current_cat_id = is_category() ? get_queried_object_id() : 0;
 $current_tag_id = is_tag() ? get_queried_object_id() : 0;
 ?>
 
-<aside class="blog-archive-sidebar">
+<aside class="blog-archive-sidebar sticky top-2">
     <?php if (! empty($blog_categories)) : ?>
         <div class="filter-cat rounded-3xl border border-cynBlack bg-[#f9f9f9] p-4">
             <button
@@ -60,7 +60,7 @@ $current_tag_id = is_tag() ? get_queried_object_id() : 0;
                 data-accordion-content="<?php echo esc_attr($sid('blog-archive-cat-main')); ?>"
                 style="grid-template-rows: 1fr;">
                 <div class="min-h-0 overflow-hidden">
-                    <div class="pt-3 space-y-1.5">
+                    <div class="pt-3 space-y-3">
                         <?php foreach ($blog_categories as $parent) :
                             $children = get_terms([
                                 'taxonomy'   => 'category',
@@ -81,7 +81,7 @@ $current_tag_id = is_tag() ? get_queried_object_id() : 0;
                             $current_in_children = in_array($current_cat_id, $child_ids, true);
                             $parent_open       = $is_parent_current || $current_in_children;
                             $parent_id         = $sid('blog-archive-cat-' . (int) $parent->term_id);
-                            $parent_div_class  = 'filter-cat-parent rounded-xl py-2 px-3 transition-all duration-300 ';
+                            $parent_div_class  = 'filter-cat-parent rounded-xl transition-all duration-300 ';
 
                             if ($is_parent_current && ! $has_children) {
                                 $parent_div_class .= 'bg-cynRed text-white';

@@ -57,7 +57,7 @@ class WooCommerce
 
         // Filter "in stock only" on shop archive
         add_action('woocommerce_product_query', [__CLASS__, 'filterByInstock']);
-        // Filter by gender, poet, collection, side via URL (no full page reload)
+        // Filter by age via URL query param
         add_action('woocommerce_product_query', [__CLASS__, 'filterByTaxonomyQueryVars'], 20);
         // orderby=sale: only sale products + sort by date
         add_filter('woocommerce_get_catalog_ordering_args', [__CLASS__, 'catalogOrderBySale'], 10, 3);
@@ -1020,7 +1020,7 @@ class WooCommerce
      */
     public static function filterByInstock($q)
     {
-        if (!is_shop() && !is_product_category()) {
+        if (! $q->is_main_query() || (! is_shop() && ! is_product_taxonomy())) {
             return;
         }
         if (!isset($_GET['instock']) || $_GET['instock'] !== '1') {
@@ -1036,7 +1036,7 @@ class WooCommerce
     }
 
     /**
-     * Apply taxonomy filters (gender, poet, collection, side) from URL params.
+     * Apply taxonomy filters (product_age) from URL params.
      *
      * @param \WP_Query $q
      */
@@ -1046,7 +1046,7 @@ class WooCommerce
             return;
         }
         $tax_query = is_array($q->get('tax_query')) ? $q->get('tax_query') : [];
-        $filter_taxonomies = ['product_gender', 'product_poet', 'product_collection', 'product_side'];
+        $filter_taxonomies = ['product_age'];
         foreach ($filter_taxonomies as $taxonomy) {
             if (! taxonomy_exists($taxonomy)) {
                 continue;
@@ -1163,67 +1163,12 @@ class WooCommerce
             $filters[] = ['label' => __('موجود در انبار', 'taghechian'), 'url' => add_query_arg($params, $base_url)];
         }
 
-        // Size (filter_size)
-        $filter_size = 'filter_' . wc_attribute_taxonomy_slug('pa_size');
-        if (! empty($get[$filter_size])) {
-            $slugs   = array_map('sanitize_title', explode(',', wc_clean($get[$filter_size])));
-            $names   = [];
-            foreach ($slugs as $slug) {
-                $t = get_term_by('slug', $slug, 'pa_size');
-                $names[] = $t && ! is_wp_error($t) ? $t->name : $slug;
-            }
+        // product_age
+        if (! empty($get['product_age'])) {
+            $slug = sanitize_title($get['product_age']);
+            $t   = get_term_by('slug', $slug, 'product_age');
             $params = $get;
-            unset($params[$filter_size], $params['query_type_size']);
-            $filters[] = ['label' => __('سایز', 'taghechian') . ': ' . implode(', ', $names), 'url' => add_query_arg($params, $base_url)];
-        }
-
-        // Color (filter_color)
-        $filter_color = 'filter_' . wc_attribute_taxonomy_slug('pa_color');
-        if (! empty($get[$filter_color])) {
-            $slugs   = array_map('sanitize_title', explode(',', wc_clean($get[$filter_color])));
-            $names   = [];
-            foreach ($slugs as $slug) {
-                $t = get_term_by('slug', $slug, 'pa_color');
-                $names[] = $t && ! is_wp_error($t) ? $t->name : $slug;
-            }
-            $params = $get;
-            unset($params[$filter_color], $params['query_type_color']);
-            $filters[] = ['label' => __('رنگ', 'taghechian') . ': ' . implode(', ', $names), 'url' => add_query_arg($params, $base_url)];
-        }
-
-        // product_gender
-        if (! empty($get['product_gender'])) {
-            $slug = sanitize_title($get['product_gender']);
-            $t   = get_term_by('slug', $slug, 'product_gender');
-            $params = $get;
-            unset($params['product_gender']);
-            $filters[] = ['label' => ($t && ! is_wp_error($t) ? $t->name : $slug), 'url' => add_query_arg($params, $base_url)];
-        }
-
-        // product_poet
-        if (! empty($get['product_poet'])) {
-            $slug = sanitize_title($get['product_poet']);
-            $t   = get_term_by('slug', $slug, 'product_poet');
-            $params = $get;
-            unset($params['product_poet']);
-            $filters[] = ['label' => ($t && ! is_wp_error($t) ? $t->name : $slug), 'url' => add_query_arg($params, $base_url)];
-        }
-
-        // product_collection
-        if (! empty($get['product_collection'])) {
-            $slug = sanitize_title($get['product_collection']);
-            $t   = get_term_by('slug', $slug, 'product_collection');
-            $params = $get;
-            unset($params['product_collection']);
-            $filters[] = ['label' => ($t && ! is_wp_error($t) ? $t->name : $slug), 'url' => add_query_arg($params, $base_url)];
-        }
-
-        // product_side
-        if (! empty($get['product_side'])) {
-            $slug = sanitize_title($get['product_side']);
-            $t   = get_term_by('slug', $slug, 'product_side');
-            $params = $get;
-            unset($params['product_side']);
+            unset($params['product_age']);
             $filters[] = ['label' => ($t && ! is_wp_error($t) ? $t->name : $slug), 'url' => add_query_arg($params, $base_url)];
         }
 

@@ -16,6 +16,7 @@ import { SearchPage } from "./functions/search";
 import { Accordion } from "./functions/accordion";
 import { BlogCategoryTabs } from "./functions/blogCategoryTabs";
 import { BlogArchiveSort } from "./functions/blogArchiveSort";
+import { InstockToggle } from "./functions/instockToggle";
 import { initAudioPlayers } from "./functions/wavesurfer";
 
 Modals();
@@ -31,4 +32,5 @@ SearchPage();
 Accordion();
 BlogCategoryTabs();
 BlogArchiveSort();
+InstockToggle();
 initAudioPlayers();

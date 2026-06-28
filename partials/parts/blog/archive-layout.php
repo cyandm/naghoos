@@ -51,7 +51,7 @@ $total_pages  = (int) $archive_query->max_num_pages;
 
 <main class="blog-archive">
     <section class="container grid grid-cols-1 lg:grid-cols-13 gap-6">
-        <aside class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 max-lg:hidden">
+        <aside class="lg:col-span-4 xl:col-span-3 order-2 lg:order-1 max-lg:hidden relative">
             <?php Templates::getPart('blog/archive-sidebar'); ?>
         </aside>
 

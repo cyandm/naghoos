@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Pagination - circular buttons: prev/next yellow, current page black, others white with border
+ * Pagination - circular buttons: prev/next cynRed, current page black, others white with border
  *
  * @package CyanTheme
  * @version 9.3.0
@@ -29,11 +29,11 @@ $link_for = function ($page) {
 
 	<!-- Previous -->
 	<?php if ($current > 1) : ?>
-		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'taghechian'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 		</a>
 	<?php else : ?>
-		<span class="size-11 rounded-full bg-cynRed/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
+		<span class="size-11 rounded-full bg-cynRed/50 text-white/70 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 		</span>
 	<?php endif; ?>
@@ -67,11 +67,11 @@ $link_for = function ($page) {
 
 	<!-- Next -->
 	<?php if ($current < $total) : ?>
-		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-cynBlack flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'taghechian'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 		</a>
 	<?php else : ?>
-		<span class="size-11 rounded-full bg-cynRed/50 text-cynBlack/60 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
+		<span class="size-11 rounded-full bg-cynRed/50 text-white/70 flex items-center justify-center shrink-0 cursor-not-allowed" aria-hidden="true">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 		</span>
 	<?php endif; ?>

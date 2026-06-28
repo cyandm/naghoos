@@ -437,3 +437,74 @@ swiper-container {
 #breadcrumb nav::-webkit-scrollbar-thumb {
   display: none !important;
 }
+
+/* سایدبار فروشگاه – سوئیچ: غیرفعال چپ، فعال راست */
+.shop-sidebar .instock-toggle-btn {
+  background-color: #d1d5db;
+}
+/* LTR: غیرفعال = چپ (۰)، فعال = راست (۱.۲۵rem) */
+.shop-sidebar .instock-toggle-btn [data-toggle-knob] {
+  transform: translateX(0);
+}
+.shop-sidebar .instock-toggle-btn.is-on {
+  /* background-color: #22c55e; */
+  @apply bg-cynRed;
+}
+.shop-sidebar .instock-toggle-btn.is-on [data-toggle-knob] {
+  transform: translateX(1.25rem);
+}
+/* RTL: غیرفعال = چپ (-1.25rem)، فعال = راست (۰) */
+html[dir="rtl"] .shop-sidebar .instock-toggle-btn [data-toggle-knob] {
+  transform: translateX(-1.25rem);
+}
+html[dir="rtl"] .shop-sidebar .instock-toggle-btn.is-on [data-toggle-knob] {
+  transform: translateX(0);
+}
+
+/* Price filter slider (shop sidebar) */
+.shop-sidebar .price_slider_wrapper .price_slider.ui-slider {
+  position: relative;
+  height: 6px;
+  margin: 0.75rem 0;
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+.shop-sidebar .price_slider.ui-slider .ui-slider-range {
+  position: absolute;
+  height: 100%;
+  background: #9ca3af;
+  border-radius: 3px;
+}
+.shop-sidebar .price_slider.ui-slider .ui-slider-handle {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+.shop-sidebar .price_slider.ui-slider .ui-slider-handle:focus {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4);
+}
+
+/*-------login-btn---------*/
+#login-btn::after {
+  content: "";
+  position: absolute;
+  top: 80%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 30px;
+  z-index: 51;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#login-btn:hover::after {
+  pointer-events: auto;
+}

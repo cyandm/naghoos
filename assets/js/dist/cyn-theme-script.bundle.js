@@ -25017,6 +25017,24 @@
     });
   }
 
+  // assets/js/functions/instockToggle.js
+  function InstockToggle() {
+    document.querySelectorAll(".shop-sidebar [data-instock-toggle]").forEach((btn) => {
+      btn.addEventListener("click", function() {
+        const on2 = this.getAttribute("aria-checked") !== "true";
+        this.setAttribute("aria-checked", on2 ? "true" : "false");
+        this.classList.toggle("is-on", on2);
+        const url = new URL(window.location.href);
+        if (on2) {
+          url.searchParams.set("instock", "1");
+        } else {
+          url.searchParams.delete("instock");
+        }
+        window.location.href = url.toString();
+      });
+    });
+  }
+
   // assets/js/index.js
   Modals();
   register();
@@ -25031,6 +25049,7 @@
   Accordion();
   BlogCategoryTabs();
   BlogArchiveSort();
+  InstockToggle();
   initAudioPlayers();
 })();
 /*! Bundled license information:
