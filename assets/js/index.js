@@ -18,6 +18,7 @@ import { BlogCategoryTabs } from "./functions/blogCategoryTabs";
 import { BlogArchiveSort } from "./functions/blogArchiveSort";
 import { InstockToggle } from "./functions/instockToggle";
 import { initAudioPlayers } from "./functions/wavesurfer";
+import { FaqTabs, FaqCard } from "./functions/faq";
 
 Modals();
 register();
@@ -34,3 +35,5 @@ BlogCategoryTabs();
 BlogArchiveSort();
 InstockToggle();
 initAudioPlayers();
+FaqTabs();
+FaqCard();

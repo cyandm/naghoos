@@ -44,6 +44,7 @@ class Register
 		self::makePostType('personnel', 'مولف (پرسنل)', 'مولف ها (پرسنل)', 'dashicons-groups', ['title', 'thumbnail']);
 		self::makePostType('faq', 'سوالات متداول', 'سوالات متداول', 'dashicons-editor-help', ['title', 'editor']);
 		self::makePostType('slider', 'اسلایدر', 'اسلایدر', 'dashicons-images-alt2', ['title']);
+		self::makePostType('testimonial', 'نظر', 'نظرات', 'dashicons-admin-comments', ['title', 'editor']);
 	}
 
 	public static function registerTaxonomy()

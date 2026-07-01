@@ -339,7 +339,7 @@ class WooCommerce
 
         return new \WP_Query([
             'post_type'      => 'product',
-            'posts_per_page' => 12,
+            'posts_per_page' => 4,
             'post__in'       => $ids !== [] ? $ids : [0],
             'orderby'        => 'post__in',
         ]);

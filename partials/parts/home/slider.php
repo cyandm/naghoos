@@ -17,10 +17,10 @@ $home_slider = new WP_Query([
 if (!$home_slider->have_posts()) return;
 ?>
 
-<section class="w-full">
+<section class="home-slider w-full max-md:-mt-4">
     <div class="relative">
 
-        <swiper-container class="lg:h-auto overflow-hidden max-w-[2000px] mx-auto" slides-per-view="1" space-between="0" autoplay="true" autoplay-delay="6000" direction="vertical" pagination="true" pagination-clickable="true" pagination-el=".swiper-pagination" fade="true">
+        <swiper-container class="h-[620px] lg:h-[740px]" slides-per-view="1" space-between="0" autoplay="true" loop="true" direction="vertical" pagination="true" pagination-clickable="true" pagination-el=".swiper-pagination" fade="true">
             <?php
             if ($home_slider->have_posts()) :
                 while ($home_slider->have_posts()) :
@@ -35,6 +35,6 @@ if (!$home_slider->have_posts()) return;
             wp_reset_postdata();
             ?>
         </swiper-container>
-        <div class="swiper-pagination [&>.swiper-pagination-bullet]:bg-[#7c7c7c] [&>.swiper-pagination-bullet]:opacity-100 [&>.swiper-pagination-bullet]:rounded-full [&>.swiper-pagination-bullet]:flex [&>.swiper-pagination-bullet.swiper-pagination-bullet-active]:bg-cynYellow [&>.swiper-pagination-bullet]:size-16 absolute bottom-4 -translate-x-1/2 left-1/2 z-10 flex flex-col justify-center items-center gap-1.5"></div>
+        <div class="swiper-pagination [&>.swiper-pagination-bullet]:opacity-100 [&>.swiper-pagination-bullet]:size-6 [&>.swiper-pagination-bullet]:border-2 [&>.swiper-pagination-bullet]:border-transparent [&>.swiper-pagination-bullet]:rounded-full [&>.swiper-pagination-bullet]:flex [&>.swiper-pagination-bullet:nth-child(4n+1)]:bg-gray-300 [&>.swiper-pagination-bullet:nth-child(4n+2)]:bg-yellow-300 [&>.swiper-pagination-bullet:nth-child(4n+3)]:bg-violet-300 [&>.swiper-pagination-bullet:nth-child(4n+4)]:bg-blue-300 [&>.swiper-pagination-bullet.swiper-pagination-bullet-active]:!bg-cynRed [&>.swiper-pagination-bullet.swiper-pagination-bullet-active]:!border-cynBlack absolute bottom-1/2 left-2/11 max-sm:hidden z-10 flex flex-col justify-center items-center gap-1.5"></div>
     </div>
 </section>

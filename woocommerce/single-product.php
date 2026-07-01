@@ -464,31 +464,13 @@ get_header();
 		<section class="mt-16 flex flex-col gap-3 md:gap-5">
 
 			<div class="max-md:text-center">
-				<p class="text-3xl md:text-[40px] text-cynBlack leading-11"><?php _e('شاید بپسندید', 'taghechian'); ?></p>
+				<p class="text-3xl font-bold text-cynBlack leading-11"><?php _e('شاید بپسندید', 'taghechian'); ?></p>
 			</div>
 
-			<div class="relative">
-				<swiper-container class="w-full" slides-per-view="1.25" space-between="8" centered-slides="true" breakpoints='{ "640":  { "slidesPerView": 3.15 }, "768":  { "slidesPerView": 3.15 }, "1024": { "slidesPerView": 3.25 }, "1280": { "slidesPerView": 4.15 }}' loop="true" autoplay="true" pagination="false" navigation="true" navigation-next-el="#relatedProductsNext" navigation-prev-el="#relatedProductsPrev">
-					<?php while ($related_products_query->have_posts()) : $related_products_query->the_post(); ?>
-						<swiper-slide>
-							<?php Templates::getCard('product', ['class' => 'px-1 py-1.5']); ?>
-						</swiper-slide>
-					<?php endwhile; ?>
-				</swiper-container>
-
-				<div class="flex justify-between items-center absolute top-1/2 -translate-y-1/2 left-0 right-0 px-4 pointer-events-none z-10">
-					<button id="relatedProductsPrev" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto">
-						<i class="text-white size-7 stroke-[1.5]">
-							<?php icon::print('Arrow-19') ?>
-						</i>
-					</button>
-					<button id="relatedProductsNext" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto">
-						<i class="text-white size-7 stroke-[1.5]">
-							<?php icon::print('Arrow-27') ?>
-						</i>
-					</button>
-				</div>
-
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 w-full [&_.product-card]:h-full">
+				<?php while ($related_products_query->have_posts()) : $related_products_query->the_post(); ?>
+					<?php Templates::getCard('product', ['product' => get_the_ID()]); ?>
+				<?php endwhile; ?>
 			</div>
 
 		</section>

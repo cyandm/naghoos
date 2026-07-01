@@ -151,7 +151,7 @@ header::before {
 }
 
 .primary-btn {
-  @apply py-3 px-5 text-sm font-medium bg-cynRed text-cynWhite rounded-4xl border border-cynRed hover:bg-cynWhite hover:text-cynRed transition-all duration-300;
+  @apply py-3 px-5 text-base font-medium bg-cynRed text-cynWhite rounded-4xl border border-cynRed hover:bg-cynWhite hover:text-cynRed transition-all duration-300;
 }
 
 .secondary-btn {

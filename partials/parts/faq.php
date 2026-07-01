@@ -45,13 +45,15 @@ if (!$has_faqs) {
 
         <div class="flex flex-col gap-2 max-md:text-center max-md:w-full">
 
-            <p class="text-3xl md:text-[40px] font-normal text-cynBlack max-md:text-center max-md:w-full">
+            <p class="text-3xl font-bold text-cynBlack max-md:text-center max-md:w-full">
                 <?php echo $faq_title; ?>
             </p>
 
-            <p class="text-cynBlack/50 text-base md:text-xl font-medium">
-                <?php echo $faq_under_title; ?>
-            </p>
+            <?php if ($faq_under_title) : ?>
+                <p class="text-cynBlack/50 text-base md:text-xl font-medium">
+                    <?php echo $faq_under_title; ?>
+                </p>
+            <?php endif; ?>
 
         </div>
 
@@ -69,7 +71,7 @@ if (!$has_faqs) {
                     <div class="fade-in-down"
                         anim-delay="<?php echo $index * 0.3 ?>">
                         <div id="<?php echo "faq-cat-" . $category->term_id ?>"
-                            class="faq-handler | bg-cynWhite text-cynBlack cursor-pointer hover:bg-cynOrange hover:text-cynWhite text-base font-medium duration-300 rounded-2xl py-3 px-4 max-md:px-2 w-full flex justify-center items-center whitespace-nowrap">
+                            class="faq-handler | bg-cynBgItem text-cynBlack cursor-pointer hover:bg-cynRed hover:text-cynWhite text-base font-medium duration-300 rounded-2xl py-3 px-4 max-md:px-2 w-full flex justify-center items-center whitespace-nowrap">
                             <?php echo $category->name ?>
                         </div>
                     </div>
