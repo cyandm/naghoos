@@ -350,11 +350,11 @@ $recommended_products_query = ThemeWooCommerce::getCartRecommendedProductsQuery(
 	}
 	?>
 
-	<section class="flex flex-col gap-5 my-14">
+	<section class="flex flex-col gap-5 my-14 hidden">
 
 		<div class="flex flex-col gap-2 max-lg:justify-center max-lg:text-center">
-			<p class="text-3xl md:text-[40px] font-normal"><?php _e('محصولات پیشنهادی', 'taghechian'); ?></p>
-			<p class="text-cynBlack/50 text-base md:text-xl font-medium"><?php _e('طبق سلیقه شما', 'taghechian'); ?></p>
+			<p class="text-3xl font-bold"><?php _e('محصولات پیشنهادی', 'naghoos'); ?></p>
+			<p class="text-cynBlack text-base font-medium"><?php _e('بر اساس انتخاب‌های شما', 'naghoos'); ?></p>
 		</div>
 
 		<div class="relative flex lg:hidden">
@@ -367,10 +367,10 @@ $recommended_products_query = ThemeWooCommerce::getCartRecommendedProductsQuery(
 			</swiper-container>
 
 			<div class="flex justify-between items-center absolute top-1/2 -translate-y-1/2 left-0 right-0 px-4 pointer-events-none z-10">
-				<button type="button" id="relatedPrev" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto" aria-label="<?php esc_attr_e('قبلی', 'taghechian'); ?>">
+				<button type="button" id="relatedPrev" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto" aria-label="<?php esc_attr_e('قبلی', 'naghoos'); ?>">
 					<i class="text-white size-7 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 				</button>
-				<button type="button" id="relatedNext" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto" aria-label="<?php esc_attr_e('بعدی', 'taghechian'); ?>">
+				<button type="button" id="relatedNext" class="bg-cynBlack p-1 cursor-pointer rounded-full pointer-events-auto" aria-label="<?php esc_attr_e('بعدی', 'naghoos'); ?>">
 					<i class="text-white size-7 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 				</button>
 			</div>
@@ -393,7 +393,7 @@ $recommended_products_query = ThemeWooCommerce::getCartRecommendedProductsQuery(
 			<!-- CENTER NAV -->
 			<div class="slider-center flex flex-col items-center justify-center gap-6 w-[10%] select-none">
 				<span class="vertical-text-modern-slider text-cynBlack/30">
-					<?php _e('پیشنهادی', 'taghechian'); ?>
+					<?php _e('پیشنهادی', 'naghoos'); ?>
 				</span>
 
 				<div class="flex gap-1.5">
@@ -410,7 +410,7 @@ $recommended_products_query = ThemeWooCommerce::getCartRecommendedProductsQuery(
 				</div>
 
 				<span class="vertical-text-modern-slider text-cynBlack/30 rtl-text-modern-slider">
-					<?php _e('recommend', 'taghechian'); ?>
+					<?php _e('recommend', 'naghoos'); ?>
 				</span>
 			</div>
 

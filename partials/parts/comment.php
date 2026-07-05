@@ -19,7 +19,7 @@ if (is_singular() && comments_open() && get_option('thread_comments')) {
 }
 
 // Custom comment callback function
-function taghechian_blog_comment_callback($comment, $args, $depth)
+function naghoos_blog_comment_callback($comment, $args, $depth)
 {
     $GLOBALS['comment'] = $comment;
     $is_reply = $comment->comment_parent ? true : false;
@@ -78,7 +78,7 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
     }
 
     // Function to close the comment tag properly
-    function taghechian_blog_comment_end_callback($comment, $args, $depth)
+    function naghoos_blog_comment_end_callback($comment, $args, $depth)
     {
         ?>
         </div><!-- Close comment-container -->
@@ -94,15 +94,15 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
     <div class="mb-2 flex flex-col gap-2">
 
         <h3 class="text-2xl text-cynBlack">
-            <?php _e('دیدگاه‌ها', 'taghechian'); ?>
+            <?php _e('دیدگاه‌ها', 'naghoos'); ?>
         </h3>
 
         <p class="text-xl font-medium text-cynBlack">
             <?php
             if ($comment_count < 1) {
-                echo __('بدون دیدگاه', 'taghechian');
+                echo __('بدون دیدگاه', 'naghoos');
             } else {
-                echo $comment_count . ' ' . __('دیدگاه', 'taghechian');
+                echo $comment_count . ' ' . __('دیدگاه', 'naghoos');
             }
             ?>
         </p>
@@ -113,16 +113,16 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
         <?php
         $commenter = wp_get_current_commenter();
         $comment_form = array(
-            'title_reply' => '<span class="text-base font-semibold text-cynBlack/50">' . __('شماهم توی این بحث شرکت کنید', 'taghechian') . '</span>',
-            'title_reply_to' => '<span class="text-base font-semibold text-cynBlack/50">' . __('پاسخ به %s', 'taghechian') . '</span>',
+            'title_reply' => '<span class="text-base font-semibold text-cynBlack/50">' . __('شماهم توی این بحث شرکت کنید', 'naghoos') . '</span>',
+            'title_reply_to' => '<span class="text-base font-semibold text-cynBlack/50">' . __('پاسخ به %s', 'naghoos') . '</span>',
             'title_reply_before' => '<p id="comment-form-title-wrap" class="mb-4">',
             'title_reply_after' => '</p>',
             'comment_notes_before' => '',
             'comment_notes_after' => '',
             'cancel_reply_before' => '<span class="mr-2">',
             'cancel_reply_after' => '</span>',
-            'cancel_reply_link' => '<span class="text-sm text-cynBlack cursor-pointer">' . __('لغو پاسخ', 'taghechian') . '</span>',
-            'label_submit' => __('ثبت دیدگاه', 'taghechian'),
+            'cancel_reply_link' => '<span class="text-sm text-cynBlack cursor-pointer">' . __('لغو پاسخ', 'naghoos') . '</span>',
+            'label_submit' => __('ثبت دیدگاه', 'naghoos'),
             'logged_in_as' => '',
             'comment_field' => '',
             'class_submit' => 'primary-btn text-cynBlack flex items-center gap-0.5 text-base font-semibold !px-6',
@@ -134,13 +134,13 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
         $name_email_required = (bool) get_option('require_name_email', 1);
         $fields = array(
             'author' => array(
-                'label' => __('نام شما', 'taghechian'),
+                'label' => __('نام شما', 'naghoos'),
                 'type' => 'text',
                 'value' => $commenter['comment_author'],
                 'required' => $name_email_required,
             ),
             'email' => array(
-                'label' => __('ایمیل شما', 'taghechian'),
+                'label' => __('ایمیل شما', 'naghoos'),
                 'type' => 'email',
                 'value' => $commenter['comment_author_email'],
                 'required' => $name_email_required,
@@ -170,7 +170,7 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
 
         // Login required message
         if (get_option('comment_registration') && !is_user_logged_in()) {
-            $comment_form['must_log_in'] = '<p class="must-log-in text-gray-500 mb-4">' . sprintf(__('برای ثبت دیدگاه باید %1$sوارد%2$s شوید.', 'taghechian'), '<a href="' . esc_url(wp_login_url(get_permalink())) . '" class="text-cynOrange">', '</a>') . '</p>';
+            $comment_form['must_log_in'] = '<p class="must-log-in text-gray-500 mb-4">' . sprintf(__('برای ثبت دیدگاه باید %1$sوارد%2$s شوید.', 'naghoos'), '<a href="' . esc_url(wp_login_url(get_permalink())) . '" class="text-cynOrange">', '</a>') . '</p>';
         }
 
         // Start comment_field with name and email fields first
@@ -187,7 +187,7 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
             $comment_form['comment_field'] .= '</span>';
             $comment_form['comment_field'] .= '</div>';
         }
-        $comment_form['comment_field'] .= '<textarea id="comment" name="comment" placeholder="' . esc_attr__('نظر شما', 'taghechian') . '" rows="6" required class="bg-white/50 rounded-2xl border border-cynBlack/20 text-base font-medium w-full ' . ($message_icon ? 'pr-11' : 'pr-3') . ' py-3 text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynOrange resize-none transition-all duration-200"></textarea>';
+        $comment_form['comment_field'] .= '<textarea id="comment" name="comment" placeholder="' . esc_attr__('نظر شما', 'naghoos') . '" rows="6" required class="bg-white/50 rounded-2xl border border-cynBlack/20 text-base font-medium w-full ' . ($message_icon ? 'pr-11' : 'pr-3') . ' py-3 text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynOrange resize-none transition-all duration-200"></textarea>';
         $comment_form['comment_field'] .= '</div>';
         $comment_form['comment_field'] .= '</div>';
 
@@ -202,8 +202,8 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
             <ol class="commentlist list-none p-0 m-0">
                 <?php
                 wp_list_comments(array(
-                    'callback' => 'taghechian_blog_comment_callback',
-                    'end-callback' => 'taghechian_blog_comment_end_callback',
+                    'callback' => 'naghoos_blog_comment_callback',
+                    'end-callback' => 'naghoos_blog_comment_end_callback',
                     'style'    => 'ol',
                     'avatar_size' => 48,
                     'max_depth' => 2, // Allow one level of replies
@@ -216,8 +216,8 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
             if (get_comment_pages_count() > 1 && get_option('page_comments')) :
                 echo '<nav class="comments-pagination mt-6">';
                 paginate_comments_links(array(
-                    'prev_text' => __('قبلی', 'taghechian'),
-                    'next_text' => __('بعدی', 'taghechian'),
+                    'prev_text' => __('قبلی', 'naghoos'),
+                    'next_text' => __('بعدی', 'naghoos'),
                     'type' => 'list',
                 ));
                 echo '</nav>';
@@ -287,7 +287,7 @@ function taghechian_blog_comment_callback($comment, $args, $depth)
                     var titleWrap = document.getElementById('comment-form-title-wrap');
                     if (titleWrap) {
                         var span = titleWrap.querySelector('span');
-                        if (span) span.textContent = authorName ? 'پاسخ به ' + authorName : '<?php echo esc_js(__("شماهم توی این بحث شرکت کنید", "taghechian")); ?>';
+                        if (span) span.textContent = authorName ? 'پاسخ به ' + authorName : '<?php echo esc_js(__("شماهم توی این بحث شرکت کنید", "naghoos")); ?>';
                     }
                 }, 100);
             }

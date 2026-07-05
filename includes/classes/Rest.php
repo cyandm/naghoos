@@ -24,34 +24,14 @@ class Rest
 	public static function registerRoutes()
 	{
 		self::makeRoute('/contact_form', 'POST', [__CLASS__, 'createForm']);
+		self::makeRoute('/customer_club_form', 'POST', [__CLASS__, 'createCustomerClubForm']);
 	}
 
 	public static function createForm(WP_REST_Request $request)
 	{
-		$ip = self::getClientIp();
-
-		// Minimum interval between two submissions (seconds)
-		$min_interval = 120; // 2 minutes
-		$rate_key = 'cyn_contact_last_' . md5($ip);
-		$last_time = get_transient($rate_key);
-		if ($last_time !== false && (time() - $last_time) < $min_interval) {
-			$wait = $min_interval - (time() - $last_time);
-			return new WP_REST_Response([
-				'error' => sprintf(__('لطفاً %d ثانیه صبر کنید و دوباره تلاش کنید.', 'taghechian'), $wait)
-			], 429);
-		}
-
-		// Maximum submissions per hour per IP
-		$max_per_hour = 2;
-		$count_key = 'cyn_contact_count_' . md5($ip);
-		$count_data = get_transient($count_key);
-		if ($count_data === false) {
-			$count_data = ['count' => 0, 'start' => time()];
-		}
-		if ($count_data['count'] >= $max_per_hour) {
-			return new WP_REST_Response([
-				'error' => __('تعداد ارسال‌های شما در این ساعت به حد مجاز رسیده. لطفاً بعداً تلاش کنید.', 'taghechian')
-			], 429);
+		$rate_limit = self::checkRateLimit('cyn_contact_');
+		if ($rate_limit instanceof WP_REST_Response) {
+			return $rate_limit;
 		}
 
 		$body = $request->get_body_params();
@@ -92,12 +72,96 @@ class Rest
 			return new WP_REST_Response(['error' => 'خطا در ثبت فرم، لطفاً دوباره تلاش کنید'], 500);
 		}
 
-		// Store time and count for rate limit
-		set_transient($rate_key, time(), $min_interval);
-		$count_data['count']++;
-		set_transient($count_key, $count_data, 3600); // 1 hour
+		self::recordRateLimit('cyn_contact_');
 
 		return new WP_REST_Response(['message' => 'فرم با موفقیت ارسال شد'], 200);
+	}
+
+	public static function createCustomerClubForm(WP_REST_Request $request)
+	{
+		$rate_limit = self::checkRateLimit('cyn_club_');
+		if ($rate_limit instanceof WP_REST_Response) {
+			return $rate_limit;
+		}
+
+		$body  = $request->get_body_params();
+		$phone = isset($body['phone']) ? sanitize_text_field($body['phone']) : '';
+
+		if (empty($phone)) {
+			return new WP_REST_Response(['error' => 'شماره تلفن الزامی است'], 400);
+		}
+
+		if (!preg_match('/^[0-9]{11}$/', $phone)) {
+			return new WP_REST_Response(['error' => 'شماره تلفن معتبر نیست'], 400);
+		}
+
+		$new_post = wp_insert_post([
+			'post_type'   => 'customer_club_form',
+			'post_title'  => $phone,
+			'post_status' => 'private',
+			'meta_input'  => [
+				'_phone' => $phone,
+			],
+		]);
+
+		if (is_wp_error($new_post)) {
+			return new WP_REST_Response(['error' => 'خطا در ثبت فرم، لطفاً دوباره تلاش کنید'], 500);
+		}
+
+		self::recordRateLimit('cyn_club_');
+
+		return new WP_REST_Response(['message' => 'عضویت با موفقیت ثبت شد'], 200);
+	}
+
+	/**
+	 * @return WP_REST_Response|null
+	 */
+	private static function checkRateLimit($prefix)
+	{
+		$ip           = self::getClientIp();
+		$min_interval = 120;
+		$rate_key     = $prefix . 'last_' . md5($ip);
+		$last_time    = get_transient($rate_key);
+
+		if ($last_time !== false && (time() - $last_time) < $min_interval) {
+			$wait = $min_interval - (time() - $last_time);
+			return new WP_REST_Response([
+				'error' => sprintf(__('لطفاً %d ثانیه صبر کنید و دوباره تلاش کنید.', 'naghoos'), $wait),
+			], 429);
+		}
+
+		$max_per_hour = 2;
+		$count_key    = $prefix . 'count_' . md5($ip);
+		$count_data   = get_transient($count_key);
+
+		if ($count_data === false) {
+			$count_data = ['count' => 0, 'start' => time()];
+		}
+
+		if ($count_data['count'] >= $max_per_hour) {
+			return new WP_REST_Response([
+				'error' => __('تعداد ارسال‌های شما در این ساعت به حد مجاز رسیده. لطفاً بعداً تلاش کنید.', 'naghoos'),
+			], 429);
+		}
+
+		return null;
+	}
+
+	private static function recordRateLimit($prefix)
+	{
+		$ip           = self::getClientIp();
+		$min_interval = 120;
+		$rate_key     = $prefix . 'last_' . md5($ip);
+		$count_key    = $prefix . 'count_' . md5($ip);
+		$count_data   = get_transient($count_key);
+
+		if ($count_data === false) {
+			$count_data = ['count' => 0, 'start' => time()];
+		}
+
+		set_transient($rate_key, time(), $min_interval);
+		$count_data['count']++;
+		set_transient($count_key, $count_data, 3600);
 	}
 
 

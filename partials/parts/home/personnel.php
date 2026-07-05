@@ -25,10 +25,10 @@ if (!empty($home_personnel_select)) {
 ?>
 
 <?php if ($home_personnel_query->have_posts()) : ?>
-    <section class="flex flex-col gap-5 my-15">
+    <section class="flex flex-col gap-3 md:gap-5 my-15">
 
-        <div class="flex container">
-            <p class="text-3xl font-bold text-cynBlack">
+        <div class="flex container max-md:justify-center">
+            <p class="text-3xl font-bold text-cynBlack max-md:text-center">
                 <?php echo $home_personnel_title ?>
             </p>
         </div>

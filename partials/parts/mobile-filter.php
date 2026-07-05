@@ -14,7 +14,7 @@ use Cyan\Theme\Helpers\Icon;
             </i>
 
             <span class="text-cynBlack text-base font-medium">
-                <?php esc_html_e('بستن فیلتر ها', 'taghechian'); ?>
+                <?php esc_html_e('بستن فیلتر ها', 'naghoos'); ?>
             </span>
 
         </div>

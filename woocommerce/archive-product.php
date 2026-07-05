@@ -73,23 +73,23 @@ get_header();
 			$archive_orderby_filters = array(
 				array(
 					'orderby' => 'popularity',
-					'label'   => __('محبوب ترین محصولات', 'taghechian'),
+					'label'   => __('محبوب ترین محصولات', 'naghoos'),
 					'icon'    => 'Heart,-Favorite,-Love',
 				),
 				array(
 					'orderby' => 'sale',
-					'label'   => __('محصولات تخفیف دار', 'taghechian'),
+					'label'   => __('محصولات تخفیف دار', 'naghoos'),
 					'icon'    => 'Sale,-Discount,-Promotion-6',
 				),
 				array(
 					'orderby' => 'date',
-					'label'   => __('جدیدترین محصولات', 'taghechian'),
+					'label'   => __('جدیدترین محصولات', 'naghoos'),
 					'icon'    => 'fire',
 				),
 			);
 			?>
 			<div class="flex justify-between items-center">
-				<h1 class="text-xl sm:text-3xl font-normal"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'taghechian')); ?></h1>
+				<h1 class="text-xl sm:text-3xl font-normal"><?php echo esc_html(is_product_category() && $term instanceof WP_Term ? $term->name : __('فروشگاه', 'naghoos')); ?></h1>
 
 				<div class="flex gap-2">
 					<?php foreach ($archive_orderby_filters as $filter) : ?>
@@ -111,18 +111,18 @@ get_header();
 						</a>
 					<?php endforeach; ?>
 
-					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed hover:text-white" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'taghechian'); ?>" modal-opener data-modal-name="filter-modal">
+					<div class="lg:hidden cursor-pointer py-3 px-3 rounded-3xl flex gap-1 items-center transition-all duration-300 bg-cynBgItem/15 hover:bg-cynRed hover:text-white" role="button" tabindex="0" aria-label="<?php esc_attr_e('نمایش فیلتر ها', 'naghoos'); ?>" modal-opener data-modal-name="filter-modal">
 						<i class="size-5">
 							<?php Icon::print('Filter,-Sort-1'); ?>
 						</i>
-						<span class="text-sm font-medium"><?php esc_html_e('نمایش فیلتر ها', 'taghechian'); ?></span>
+						<span class="text-sm font-medium"><?php esc_html_e('نمایش فیلتر ها', 'naghoos'); ?></span>
 					</div>
 
 					<?php if (wc_get_loop_prop('is_paginated') && woocommerce_products_will_display()) : ?>
 						<?php
 						$orderby_desktop_options = array(
-							'price'      => __('مرتب‌سازی بر اساس ارزان‌ترین', 'taghechian'),
-							'price-desc' => __('مرتب‌سازی بر اساس گران‌ترین', 'taghechian'),
+							'price'      => __('مرتب‌سازی بر اساس ارزان‌ترین', 'naghoos'),
+							'price-desc' => __('مرتب‌سازی بر اساس گران‌ترین', 'naghoos'),
 						);
 						?>
 
@@ -131,7 +131,7 @@ get_header();
 							<i class="size-5 text-cynBlack transition-all duration-300">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
-							<span class="text-sm font-medium text-cynBlack transition-all duration-300"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
+							<span class="text-sm font-medium text-cynBlack transition-all duration-300"><?php esc_html_e('مرتب سازی', 'naghoos'); ?></span>
 							<div class="absolute inset-0 opacity-0">
 								<?php
 								remove_filter('woocommerce_catalog_orderby', array(\Cyan\Theme\Classes\WooCommerce::class, 'catalogOrderbyRemoveOptions'), 20);
@@ -146,7 +146,7 @@ get_header();
 							<i class="size-5 transition-all duration-300">
 								<?php Icon::print('sort-ascending'); ?>
 							</i>
-							<span class="text-sm font-medium transition-all duration-300"><?php esc_html_e('مرتب سازی', 'taghechian'); ?></span>
+							<span class="text-sm font-medium transition-all duration-300"><?php esc_html_e('مرتب سازی', 'naghoos'); ?></span>
 							<div class="absolute inset-0 opacity-0">
 								<?php wc_get_template('loop/orderby-desktop.php', array('catalog_orderby_options' => $orderby_desktop_options)); ?>
 							</div>
@@ -175,7 +175,7 @@ get_header();
 
 					<div class="flex gap-2 xl:mt-5 flex-wrap items-center">
 						<?php foreach ($archive_active_filters as $filter) : ?>
-							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynRed/80 transition-all duration-300 hover:text-white" title="<?php esc_attr_e('حذف فیلتر', 'taghechian'); ?>">
+							<a href="<?php echo esc_url($filter['url']); ?>" class="flex items-center justify-center gap-1 px-3 py-1 bg-cynBgItem/15 rounded-xl group no-underline hover:bg-cynRed/80 transition-all duration-300 hover:text-white" title="<?php esc_attr_e('حذف فیلتر', 'naghoos'); ?>">
 								<span class="p-0.5 bg-[#c2c2c2] group-hover:bg-white transition-all duration-300 rounded-full size-5 flex items-center justify-center shrink-0">
 									<i class="size-5 stroke-[1.5] text-cynWhite group-hover:text-cynRed transition-all duration-300 pointer-events-none">
 										<?php Icon::print('Delete,-Disabled'); ?>

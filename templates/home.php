@@ -12,10 +12,12 @@ get_header(); ?>
     <?php Templates::getPart('home/discounted'); ?>
     <?php Templates::getPart('home/show-categories'); ?>
     <?php Templates::getPart('home/show-product-with-cat'); ?>
+    <?php Templates::getPart('home/weekend-highlights'); ?>
     <?php Templates::getPart('home/faq'); ?>
     <?php Templates::getPart('home/personnel'); ?>
     <?php Templates::getPart('home/testimonials'); ?>
     <?php Templates::getPart('home/history'); ?>
+    <?php Templates::getPart('home/customer-club'); ?>
     <?php Templates::getPart('home/attributes'); ?>
 </main>
 

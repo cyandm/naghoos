@@ -9,6 +9,7 @@
 namespace Cyan\Theme\Classes;
 
 use Cyan\Theme\Helpers\Templates;
+use Cyan\Theme\Helpers\StarRating;
 
 class WooCommerce
 {
@@ -66,6 +67,8 @@ class WooCommerce
         add_filter('woocommerce_catalog_orderby', [__CLASS__, 'catalogOrderbyRemoveOptions'], 20);
 
         add_filter('loop_shop_per_page', [__CLASS__, 'shopPerPage'], 20);
+
+        add_filter('woocommerce_product_get_rating_html', [__CLASS__, 'customRatingHtml'], 10, 3);
 
         add_action('widgets_init', [__CLASS__, 'registerShopSidebar']);
 
@@ -176,6 +179,24 @@ class WooCommerce
         $data['has_discount']  = ($sale > 0 && $sale < $regular);
 
         return $data;
+    }
+
+    /**
+     * Product card price amount in thousands (e.g. 490000 → "490").
+     */
+    public static function formatCardPriceAmount(float $price): string
+    {
+        $thousands = (int) round($price / 1000);
+
+        return number_format($thousands, 0, '.', ',');
+    }
+
+    /**
+     * Product card price label (e.g. 490000 → "490 هزار تومان").
+     */
+    public static function formatCardPriceThousands(float $price): string
+    {
+        return self::formatCardPriceAmount($price) . ' ' . __('هزار تومان', 'naghoos');
     }
 
     /**
@@ -473,7 +494,7 @@ class WooCommerce
      */
     public static function cartProceedButton()
     {
-        echo '<a href="' . esc_url(wc_get_checkout_url()) . '" class="primary-btn wc-forward block w-full text-center py-3 rounded-xl">' . esc_html__('تایید و تکمیل سفارش', 'taghechian') . '</a>';
+        echo '<a href="' . esc_url(wc_get_checkout_url()) . '" class="primary-btn wc-forward block w-full text-center py-3 rounded-xl">' . esc_html__('تایید و تکمیل سفارش', 'naghoos') . '</a>';
     }
 
     /**
@@ -484,7 +505,7 @@ class WooCommerce
      */
     public static function crossSellsHeading($heading)
     {
-        return __('محصولات پیشنهادی', 'taghechian');
+        return __('محصولات پیشنهادی', 'naghoos');
     }
 
     /**
@@ -588,16 +609,16 @@ class WooCommerce
     public static function addAddressPlaqueAndUnitFields($fields)
     {
         $fields['plaque'] = [
-            'label'       => __('پلاک', 'taghechian'),
-            'placeholder' => __('پلاک', 'taghechian'),
+            'label'       => __('پلاک', 'naghoos'),
+            'placeholder' => __('پلاک', 'naghoos'),
             'required'    => true,
             'class'       => ['form-row-first'],
             'priority'    => 55,
         ];
 
         $fields['unit'] = [
-            'label'       => __('واحد', 'taghechian'),
-            'placeholder' => __('واحد', 'taghechian'),
+            'label'       => __('واحد', 'naghoos'),
+            'placeholder' => __('واحد', 'naghoos'),
             'required'    => true,
             'class'       => ['form-row-last'],
             'priority'    => 56,
@@ -888,7 +909,7 @@ class WooCommerce
         }
 
         if ($product_id <= 0 || $nonce === '' || ! wp_verify_nonce($nonce, self::WISHLIST_TOGGLE_NONCE_ACTION . '_' . $product_id)) {
-            wc_add_notice(__('درخواست نامعتبر است. لطفاً دوباره تلاش کنید.', 'taghechian'), 'error');
+            wc_add_notice(__('درخواست نامعتبر است. لطفاً دوباره تلاش کنید.', 'naghoos'), 'error');
             wp_safe_redirect($redirect_url);
             exit;
         }
@@ -899,15 +920,15 @@ class WooCommerce
             : self::addProductToCurrentUserWishlist($product_id);
 
         if (! $result) {
-            wc_add_notice(__('امکان بروزرسانی علاقه‌مندی وجود ندارد.', 'taghechian'), 'error');
+            wc_add_notice(__('امکان بروزرسانی علاقه‌مندی وجود ندارد.', 'naghoos'), 'error');
             wp_safe_redirect($redirect_url);
             exit;
         }
 
         if ($is_liked) {
-            wc_add_notice(__('محصول از علاقه‌مندی‌ها حذف شد.', 'taghechian'), 'success');
+            wc_add_notice(__('محصول از علاقه‌مندی‌ها حذف شد.', 'naghoos'), 'success');
         } else {
-            wc_add_notice(__('محصول به علاقه‌مندی‌ها اضافه شد.', 'taghechian'), 'success');
+            wc_add_notice(__('محصول به علاقه‌مندی‌ها اضافه شد.', 'naghoos'), 'success');
         }
 
         wp_safe_redirect($redirect_url);
@@ -932,19 +953,19 @@ class WooCommerce
         $wishlist_url = wc_get_account_endpoint_url('wishlist');
 
         if ($product_id <= 0 || $nonce === '' || ! wp_verify_nonce($nonce, self::WISHLIST_REMOVE_NONCE_ACTION . '_' . $product_id)) {
-            wc_add_notice(__('درخواست نامعتبر است. لطفاً دوباره تلاش کنید.', 'taghechian'), 'error');
+            wc_add_notice(__('درخواست نامعتبر است. لطفاً دوباره تلاش کنید.', 'naghoos'), 'error');
             wp_safe_redirect($wishlist_url);
             exit;
         }
 
         $removed = self::removeProductFromCurrentUserWishlist($product_id);
         if (! $removed) {
-            wc_add_notice(__('امکان حذف محصول از علاقه‌مندی‌ها وجود ندارد.', 'taghechian'), 'error');
+            wc_add_notice(__('امکان حذف محصول از علاقه‌مندی‌ها وجود ندارد.', 'naghoos'), 'error');
             wp_safe_redirect($wishlist_url);
             exit;
         }
 
-        wc_add_notice(__('محصول از علاقه‌مندی‌ها حذف شد.', 'taghechian'), 'success');
+        wc_add_notice(__('محصول از علاقه‌مندی‌ها حذف شد.', 'naghoos'), 'success');
         wp_safe_redirect($wishlist_url);
         exit;
     }
@@ -1116,7 +1137,7 @@ class WooCommerce
      */
     public static function catalogOrderbyWithSale($options)
     {
-        $options['sale'] = __('محصولات تخفیف‌دار', 'taghechian');
+        $options['sale'] = __('محصولات تخفیف‌دار', 'naghoos');
         return $options;
     }
 
@@ -1133,34 +1154,34 @@ class WooCommerce
         unset($get['paged']);
 
         $orderby_labels = [
-            'menu_order' => __('مرتب‌سازی پیش‌فرض', 'taghechian'),
-            'popularity' => __('مرتب‌سازی بر اساس محبوبیت', 'taghechian'),
-            'rating'     => __('مرتب‌سازی بر اساس امتیاز', 'taghechian'),
-            'date'       => __('مرتب‌سازی بر اساس جدیدترین', 'taghechian'),
-            'price'      => __('مرتب‌سازی بر اساس ارزان‌ترین', 'taghechian'),
-            'price-desc' => __('مرتب‌سازی بر اساس گران‌ترین', 'taghechian'),
-            'sale'       => __('محصولات تخفیف‌دار', 'taghechian'),
+            'menu_order' => __('مرتب‌سازی پیش‌فرض', 'naghoos'),
+            'popularity' => __('مرتب‌سازی بر اساس محبوبیت', 'naghoos'),
+            'rating'     => __('مرتب‌سازی بر اساس امتیاز', 'naghoos'),
+            'date'       => __('مرتب‌سازی بر اساس جدیدترین', 'naghoos'),
+            'price'      => __('مرتب‌سازی بر اساس ارزان‌ترین', 'naghoos'),
+            'price-desc' => __('مرتب‌سازی بر اساس گران‌ترین', 'naghoos'),
+            'sale'       => __('محصولات تخفیف‌دار', 'naghoos'),
         ];
 
         // Price
         if (! empty($get['min_price']) || ! empty($get['max_price'])) {
             $parts = [];
             if (! empty($get['min_price'])) {
-                $parts[] = sprintf(__('از %s', 'taghechian'), strip_tags(wc_price($get['min_price'])));
+                $parts[] = sprintf(__('از %s', 'naghoos'), strip_tags(wc_price($get['min_price'])));
             }
             if (! empty($get['max_price'])) {
-                $parts[] = sprintf(__('تا %s', 'taghechian'), strip_tags(wc_price($get['max_price'])));
+                $parts[] = sprintf(__('تا %s', 'naghoos'), strip_tags(wc_price($get['max_price'])));
             }
             $params = $get;
             unset($params['min_price'], $params['max_price']);
-            $filters[] = ['label' => __('قیمت', 'taghechian') . ': ' . implode(' ', $parts), 'url' => add_query_arg($params, $base_url)];
+            $filters[] = ['label' => __('قیمت', 'naghoos') . ': ' . implode(' ', $parts), 'url' => add_query_arg($params, $base_url)];
         }
 
         // In stock
         if (! empty($get['instock']) && $get['instock'] === '1') {
             $params = $get;
             unset($params['instock']);
-            $filters[] = ['label' => __('موجود در انبار', 'taghechian'), 'url' => add_query_arg($params, $base_url)];
+            $filters[] = ['label' => __('موجود در انبار', 'naghoos'), 'url' => add_query_arg($params, $base_url)];
         }
 
         // product_age
@@ -1273,32 +1294,32 @@ class WooCommerce
     public static function addPlaceholders($fields)
     {
         if (isset($fields['billing']['billing_first_name'])) {
-            $fields['billing']['billing_first_name']['placeholder'] = __('نام', 'taghechian');
+            $fields['billing']['billing_first_name']['placeholder'] = __('نام', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_last_name'])) {
-            $fields['billing']['billing_last_name']['placeholder'] = __('نام خانوادگی', 'taghechian');
+            $fields['billing']['billing_last_name']['placeholder'] = __('نام خانوادگی', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_city'])) {
-            $fields['billing']['billing_city']['placeholder'] = __('نام شهر خود را وارد کنید', 'taghechian');
+            $fields['billing']['billing_city']['placeholder'] = __('نام شهر خود را وارد کنید', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_postcode'])) {
-            $fields['billing']['billing_postcode']['placeholder'] = __('کد پستی ده رقمی را وارد کنید', 'taghechian');
+            $fields['billing']['billing_postcode']['placeholder'] = __('کد پستی ده رقمی را وارد کنید', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_phone'])) {
-            $fields['billing']['billing_phone']['placeholder'] = __('09xxxxxxxxxx', 'taghechian');
+            $fields['billing']['billing_phone']['placeholder'] = __('09xxxxxxxxxx', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_plaque'])) {
-            $fields['billing']['billing_plaque']['placeholder'] = __('پلاک', 'taghechian');
+            $fields['billing']['billing_plaque']['placeholder'] = __('پلاک', 'naghoos');
             $fields['billing']['billing_plaque']['required']    = true;
         }
 
         if (isset($fields['billing']['billing_unit'])) {
-            $fields['billing']['billing_unit']['placeholder'] = __('واحد', 'taghechian');
+            $fields['billing']['billing_unit']['placeholder'] = __('واحد', 'naghoos');
             $fields['billing']['billing_unit']['required']    = true;
         }
 
@@ -1403,7 +1424,7 @@ class WooCommerce
         WC()->cart->calculate_totals();
 
         wp_send_json_success([
-            'message' => __('کد تخفیف با موفقیت حذف شد.', 'taghechian')
+            'message' => __('کد تخفیف با موفقیت حذف شد.', 'naghoos')
         ]);
     }
 
@@ -1513,7 +1534,7 @@ class WooCommerce
     ?>
         <tr class="form-field term-description-wrap cyn-term-description-wrap">
             <th scope="row">
-                <label for="cyn_product_cat_description"><?php esc_html_e('توضیحات دسته بندی', 'taghechian'); ?></label>
+                <label for="cyn_product_cat_description"><?php esc_html_e('توضیحات دسته بندی', 'naghoos'); ?></label>
             </th>
             <td>
                 <?php
@@ -1523,7 +1544,7 @@ class WooCommerce
                     self::getProductCategoryDescriptionEditorSettings()
                 );
                 ?>
-                <p class="description"><?php esc_html_e('توضیحات دسته‌بندی در انتهای صفحه آرشیو نمایش داده می‌شود.', 'taghechian'); ?></p>
+                <p class="description"><?php esc_html_e('توضیحات دسته‌بندی در انتهای صفحه آرشیو نمایش داده می‌شود.', 'naghoos'); ?></p>
             </td>
         </tr>
     <?php
@@ -1536,7 +1557,7 @@ class WooCommerce
     {
     ?>
         <div class="form-field term-description-wrap cyn-term-description-wrap">
-            <label for="cyn_product_cat_description"><?php esc_html_e('توضیح', 'taghechian'); ?></label>
+            <label for="cyn_product_cat_description"><?php esc_html_e('توضیح', 'naghoos'); ?></label>
             <?php
             wp_editor(
                 '',
@@ -1544,7 +1565,7 @@ class WooCommerce
                 self::getProductCategoryDescriptionEditorSettings()
             );
             ?>
-            <p class="description"><?php esc_html_e('توضیحات دسته‌بندی در انتهای صفحه آرشیو نمایش داده می‌شود.', 'taghechian'); ?></p>
+            <p class="description"><?php esc_html_e('توضیحات دسته‌بندی در انتهای صفحه آرشیو نمایش داده می‌شود.', 'naghoos'); ?></p>
         </div>
 <?php
     }
@@ -1755,5 +1776,36 @@ class WooCommerce
         }
 
         return self::getCustomerInternalEmail(get_current_user_id());
+    }
+
+    /**
+     * Replace default WooCommerce star rating HTML with theme star.svg markup.
+     */
+    public static function customRatingHtml(string $html, $rating, $count): string
+    {
+        if (! wc_review_ratings_enabled() || (float) $rating <= 0) {
+            return $html;
+        }
+
+        $rating = (float) $rating;
+        $count  = (int) $count;
+
+        if ($count > 0) {
+            $label = sprintf(
+                _n('Rated %1$s out of 5 based on %2$s customer rating', 'Rated %1$s out of 5 based on %2$s customer ratings', $count, 'woocommerce'),
+                $rating,
+                $count
+            );
+        } else {
+            $label = sprintf(__('Rated %s out of 5', 'woocommerce'), $rating);
+        }
+
+        return '<div class="star-rating woocommerce-product-rating-stars" role="img" aria-label="' . esc_attr($label) . '">'
+            . StarRating::render($rating, [
+                'id_prefix'    => 'wcProductRating' . wp_unique_id(),
+                'class'        => 'flex items-center gap-0.5',
+                'stroke_color' => '#E0E0E0',
+            ])
+            . '</div>';
     }
 }

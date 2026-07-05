@@ -43,7 +43,7 @@ if (!empty($visible_ids)) {
                 $relative_time = $published_ts > 0
                     ? sprintf(
                         /* translators: %s: human-readable time difference */
-                        esc_html__('%s پیش', 'taghechian'),
+                        esc_html__('%s پیش', 'naghoos'),
                         human_time_diff($published_ts, current_time('timestamp', true))
                     )
                     : '';
@@ -55,7 +55,7 @@ if (!empty($visible_ids)) {
                         <div class="flex items-center gap-2 min-w-0">
                             <?php if ($is_new_for_user) : ?>
                                 <span class="inline-block size-2 rounded-full bg-yellow-500 shrink-0" aria-hidden="true"></span>
-                                <span class="sr-only"><?php esc_html_e('اعلان جدید', 'taghechian'); ?></span>
+                                <span class="sr-only"><?php esc_html_e('اعلان جدید', 'naghoos'); ?></span>
                             <?php endif; ?>
                             <h3 class="text-base md:text-lg text-cynBlack truncate">
                                 <?php echo esc_html($title); ?>
@@ -84,7 +84,7 @@ if (!empty($visible_ids)) {
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
             </div>
-            <p class="text-gray-500"><?php esc_html_e('در حال حاضر اعلانی برای شما ثبت نشده است.', 'taghechian'); ?></p>
+            <p class="text-gray-500"><?php esc_html_e('در حال حاضر اعلانی برای شما ثبت نشده است.', 'naghoos'); ?></p>
         </div>
     <?php endif; ?>
 </section>

@@ -25,11 +25,11 @@ $link_for = function ($page) {
 };
 ?>
 
-<nav class="woocommerce-pagination flex justify-center items-center gap-2 my-8" aria-label="<?php esc_attr_e('صفحه‌بندی محصولات', 'taghechian'); ?>">
+<nav class="woocommerce-pagination flex justify-center items-center gap-2 my-8" aria-label="<?php esc_attr_e('صفحه‌بندی محصولات', 'naghoos'); ?>">
 
 	<!-- Previous -->
 	<?php if ($current > 1) : ?>
-		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current - 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ قبل', 'naghoos'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 		</a>
 	<?php else : ?>
@@ -67,7 +67,7 @@ $link_for = function ($page) {
 
 	<!-- Next -->
 	<?php if ($current < $total) : ?>
-		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'taghechian'); ?>">
+		<a href="<?php echo esc_url($link_for($current + 1)); ?>" class="size-11 rounded-full bg-cynRed hover:opacity-90 text-white flex items-center justify-center shrink-0 transition-opacity no-underline" aria-label="<?php esc_attr_e('صفحهٔ بعد', 'naghoos'); ?>">
 			<i class="size-6 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 		</a>
 	<?php else : ?>

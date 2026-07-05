@@ -81,9 +81,13 @@ class ACF
 		$acfGroup->relationshipFields->addTaxonomy('home_show_products_with_cat_selected', 'انتخاب یک دسته از محصولات (در صورت انتخاب نکردن این قسمت نمایش داده نخواهد شد)', ['taxonomy' => 'product_cat', 'return_format' => 'id', 'width' => '50%']);
 		$acfGroup->relationshipFields->addLink('home_show_products_with_cat_button', 'لینک و متن دکمه', ['width' => '50%']);
 
+		$acfGroup->layoutFields->addTab('home_highlights_tab', 'برترین های هفته');
+		$acfGroup->basicFields->addText('home_highlights_title', 'عنوان برترین های هفته', ['default_value' => 'برترین های هفته']);
+		$acfGroup->relationshipFields->addPostObject('home_highlights_select', 'انتخاب برترین های هفته (در صورت انتخاب نکردن به صورت دیفالت 12 تا از برترین های هفته نمایش داده خواهد شد)', ['post_type' => 'product', 'multiple' => 1]);
+
 		$acfGroup->layoutFields->addTab('home_personnel_tab', 'مولف ها (پرسنل)');
 		$acfGroup->basicFields->addText('home_personnel_title', 'عنوان مولف ها', ['default_value' => 'مولف ها']);
-		$acfGroup->relationshipFields->addPostObject('home_personnel_select', 'انتخاب افراد جهت نمایش (در صورت انتخاب نکردن به صورت دیفالت 12 تا از مولف ها نمایش داده خواهد شد)', ['post_type' => 'personnel', 'multiple' => 1]);
+		$acfGroup->relationshipFields->addPostObject('home_personnel_select', 'انتخاب افراد جهت نمایش (در صورت انتخاب نکردن به صورت دیفالت 4 تا از مولف ها نمایش داده خواهد شد)', ['post_type' => 'personnel', 'multiple' => 1]);
 
 		$acfGroup->layoutFields->addTab('home_testimonial_tab', 'نظرات همراهان');
 		$acfGroup->basicFields->addText('home_testimonial_title', 'عنوان نظرات همراهان', ['default_value' => 'نظرات همراهان']);
@@ -95,12 +99,9 @@ class ACF
 		$acfGroup->contentFields->addTextEditor('home_history_content', 'متن تاریخچه', ['toolbar' => 'advanced', 'width' => '50%']);
 		$acfGroup->contentFields->addImage('home_history_image', 'تصویر تاریخچه', ['width' => '50%']);
 
-		$acfGroup->layoutFields->addTab('home_events_tab', 'رویدادها');
-		$acfGroup->basicFields->addText('home_events_title', 'عنوان', ['width' => '33%']);
-		$acfGroup->basicFields->addText('home_events_under_title', 'متن زیر عنوان', ['width' => '33%']);
-		$acfGroup->relationshipFields->addLink('home_events_button', 'لینک و متن دکمه', ['width' => '33%']);
-		$acfGroup->contentFields->addImage('home_events_image_desktop', 'تصویر بنر برای دسکتاپ', ['width' => '50%']);
-		$acfGroup->contentFields->addImage('home_events_image_mobile', 'تصویر بنر برای موبایل', ['width' => '50%']);
+		$acfGroup->layoutFields->addTab('home_customer_club_tab', ' باشگاه مشتریان');
+		$acfGroup->basicFields->addText('home_customer_club_title', 'عنوان', ['width' => '33%', 'default_value' => 'باشگاه کتاب‌دوستا اینجاست']);
+		$acfGroup->basicFields->addText('home_customer_club_under_title', 'متن زیر عنوان', ['width' => '33%', 'default_value' => 'دسترسی انحصاری به نسخه‌های جدید، پیش‌فروش‌ها و پیشنهادهای محرمانه']);
 
 		$acfGroup->layoutFields->addTab('home_attributes_tab', 'ویژگی های ما');
 		for ($i = 1; $i <= 3; $i++) {

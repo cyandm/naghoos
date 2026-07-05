@@ -19,6 +19,7 @@
 defined('ABSPATH') || exit;
 
 use Cyan\Theme\Helpers\Icon;
+use Cyan\Theme\Helpers\StarRating;
 
 global $product;
 
@@ -32,22 +33,11 @@ if (is_singular() && comments_open() && get_option('thread_comments')) {
 }
 
 // Get product average rating
-$average_rating = $product->get_average_rating(); // e.g. 4.2
-$rating_count = $product->get_rating_count();
-$review_count = $product->get_review_count(); // Number of reviews
-
-// Set default rating if no reviews
-// if ($average_rating == 0) {
-// 	$average_rating = 5; // Or any default value you want
-// }
-
-// Calculate full and half stars
-$full_stars = floor($average_rating); // Full stars
-$half_star = ($average_rating - $full_stars) * 100; // Half star percentage
-$empty_stars = 5 - ceil($average_rating); // Empty stars
+$average_rating = (float) $product->get_average_rating();
+$rating_count   = (int) $product->get_rating_count();
 
 // Custom comment callback function
-function taghechian_product_review_callback($comment, $args, $depth)
+function naghoos_product_review_callback($comment, $args, $depth)
 {
 	$GLOBALS['comment'] = $comment;
 	$rating = intval(get_comment_meta($comment->comment_ID, 'rating', true));
@@ -124,15 +114,13 @@ function taghechian_product_review_callback($comment, $args, $depth)
 
 					<!-- Rating Stars (only for main comments, not replies) -->
 					<?php if ($rating && wc_review_ratings_enabled() && !$is_reply) : ?>
-						<div class="mb-2 flex gap-1">
+						<div class="mb-2">
 							<?php
-							for ($i = 1; $i <= 5; $i++) {
-								if ($i <= $rating) {
-									echo '<span class="text-cynStars text-lg">★</span>';
-								} else {
-									echo '<span class="text-gray-300 text-lg">★</span>';
-								}
-							}
+							StarRating::echo((float) $rating, [
+								'id_prefix'    => 'commentStar' . $comment->comment_ID,
+								'class'        => 'flex gap-1',
+								'stroke_color' => '#1E1311',
+							]);
 							?>
 						</div>
 					<?php endif; ?>
@@ -149,7 +137,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 							'max_depth' => $args['max_depth'],
 							'before'    => '<div class="reply-link mt-2 text-[#EFA114] text-sm font-medium cursor-pointer">',
 							'after'     => '</div>',
-							'reply_text' => __('پاسخ', 'taghechian'),
+							'reply_text' => __('پاسخ', 'naghoos'),
 						)));
 					endif;
 					?>
@@ -160,7 +148,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 	}
 
 	// Function to close the comment tag properly
-	function taghechian_product_review_end_callback($comment, $args, $depth)
+	function naghoos_product_review_end_callback($comment, $args, $depth)
 	{
 		?>
 		</div><!-- Close comment-container -->
@@ -178,8 +166,8 @@ function taghechian_product_review_callback($comment, $args, $depth)
 			<ol class="commentlist list-none p-0 m-0">
 				<?php
 				wp_list_comments(array(
-					'callback' => 'taghechian_product_review_callback',
-					'end-callback' => 'taghechian_product_review_end_callback',
+					'callback' => 'naghoos_product_review_callback',
+					'end-callback' => 'naghoos_product_review_end_callback',
 					'style'    => 'ol',
 					'avatar_size' => 48,
 					'max_depth' => 2, // Allow one level of replies
@@ -219,7 +207,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 			<div class="flex flex-col gap-5 mb-5">
 				<div class="p-6 bg-[#f8f8f8] rounded-3xl flex flex-col gap-6 justify-center">
 
-					<p class="text-[28px] font-medium text-cynBlack/80"><?php _e('دیدگاه و امتیاز خریداران', 'taghechian') ?></p>
+					<p class="text-[28px] font-medium text-cynBlack/80"><?php _e('دیدگاه و امتیاز خریداران', 'naghoos') ?></p>
 
 					<div class="flex gap-1 justify-end items-center">
 						<span class="text-green-600 font-semibold text-xl">
@@ -238,38 +226,19 @@ function taghechian_product_review_callback($comment, $args, $depth)
 
 						<div class="w-px h-6 bg-gray-300"></div>
 
-						<span class="flex items-center justify-center gap-0.5">
-							<?php
-							for ($i = 1; $i <= 5; $i++):
-								$fill_percentage = 0;
-
-								if ($i <= $full_stars) {
-									$fill_percentage = 100;
-								} elseif ($i == $full_stars + 1) {
-									$fill_percentage = $half_star;
-								} else {
-									$fill_percentage = 0;
-								}
-
-								$gradient_id = 'reviewStarGradient' . $i;
-							?>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
-									<defs>
-										<linearGradient id="<?php echo $gradient_id; ?>" x1="100%" y1="0%" x2="0%" y2="0%">
-											<stop offset="<?php echo $fill_percentage; ?>%" stop-color="#fecf00" />
-											<stop offset="<?php echo $fill_percentage; ?>%" stop-color="#E0E0E0" />
-										</linearGradient>
-									</defs>
-									<path d="M16.963,6.786c-.088-.271-.323-.469-.605-.51l-4.62-.671L9.672,1.418c-.252-.512-1.093-.512-1.345,0l-2.066,4.186-4.62,.671c-.282,.041-.517,.239-.605,.51-.088,.271-.015,.57,.19,.769l3.343,3.258-.79,4.601c-.048,.282,.067,.566,.298,.734,.231,.167,.538,.189,.79,.057l4.132-2.173,4.132,2.173c.11,.058,.229,.086,.349,.086,.155,0,.31-.048,.441-.143,.231-.168,.347-.452,.298-.734l-.79-4.601,3.343-3.258c.205-.199,.278-.498,.19-.769Z" fill="url(#<?php echo $gradient_id; ?>)" />
-								</svg>
-							<?php endfor ?>
-						</span>
+						<?php
+						StarRating::echo($average_rating, [
+							'id_prefix'    => 'reviewStarSummary',
+							'class'        => 'flex items-center justify-center gap-0.5',
+							'stroke_color' => '#1E1311',
+						]);
+						?>
 
 					</div>
 				</div>
 
 				<div class="flex flex-col justify-center items-center">
-					<p class="text-base font-medium text-center text-cynBlack/70"><?php _e('شما هم از تجربه خریدتون برامون بنویسین!', 'taghechian'); ?></p>
+					<p class="text-base font-medium text-center text-cynBlack/70"><?php _e('شما هم از تجربه خریدتون برامون بنویسین!', 'naghoos'); ?></p>
 				</div>
 
 			</div>
@@ -278,14 +247,14 @@ function taghechian_product_review_callback($comment, $args, $depth)
 			$commenter = wp_get_current_commenter();
 			$comment_form = array(
 				'title_reply' => '',
-				'title_reply_to' => __('پاسخ به %s', 'taghechian'),
+				'title_reply_to' => __('پاسخ به %s', 'naghoos'),
 				'title_reply_before' => '',
 				'title_reply_after' => '',
 				'comment_notes_after' => '',
 				'cancel_reply_before' => '',
 				'cancel_reply_after' => '',
-				'cancel_reply_link' => __('لغو پاسخ', 'taghechian'),
-				'label_submit' => __('افزودن دیدگاه', 'taghechian'),
+				'cancel_reply_link' => __('لغو پاسخ', 'naghoos'),
+				'label_submit' => __('افزودن دیدگاه', 'naghoos'),
 				'logged_in_as' => '',
 				'comment_field' => '',
 				'class_submit' => 'primary-btn text-white flex items-center justify-center gap-2 !py-3 !px-6 text-base font-medium text-cynBlack w-full',
@@ -295,13 +264,13 @@ function taghechian_product_review_callback($comment, $args, $depth)
 			$name_email_required = (bool) get_option('require_name_email', 1);
 			$fields = array(
 				'author' => array(
-					'label' => __('نام شما', 'taghechian'),
+					'label' => __('نام شما', 'naghoos'),
 					'type' => 'text',
 					'value' => $commenter['comment_author'],
 					'required' => $name_email_required,
 				),
 				'email' => array(
-					'label' => __('ایمیل شما', 'taghechian'),
+					'label' => __('ایمیل شما', 'naghoos'),
 					'type' => 'email',
 					'value' => $commenter['comment_author_email'],
 					'required' => $name_email_required,
@@ -331,7 +300,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 
 			$account_page_url = wc_get_page_permalink('myaccount');
 			if ($account_page_url) {
-				$comment_form['must_log_in'] = '<p class="must-log-in text-gray-500 mb-4">' . sprintf(esc_html__('برای ارسال دیدگاه باید %1$sوارد%2$s شوید.', 'taghechian'), '<a href="' . esc_url($account_page_url) . '" class="text-cynOrange">', '</a>') . '</p>';
+				$comment_form['must_log_in'] = '<p class="must-log-in text-gray-500 mb-4">' . sprintf(esc_html__('برای ارسال دیدگاه باید %1$sوارد%2$s شوید.', 'naghoos'), '<a href="' . esc_url($account_page_url) . '" class="text-cynOrange">', '</a>') . '</p>';
 			}
 
 			// Start comment_field with name and email fields first
@@ -348,7 +317,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 				$comment_form['comment_field'] .= '</span>';
 				$comment_form['comment_field'] .= '</div>';
 			}
-			$comment_form['comment_field'] .= '<textarea id="comment" name="comment" placeholder="' . esc_attr__('نظر شما', 'taghechian') . '" rows="6" required class="bg-white/50 rounded-2xl border border-cynBlack/20 text-base font-medium w-full ' . ($message_icon ? 'pr-11' : 'pr-3') . ' py-3 text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynOrange resize-none transition-all duration-200"></textarea>';
+			$comment_form['comment_field'] .= '<textarea id="comment" name="comment" placeholder="' . esc_attr__('نظر شما', 'naghoos') . '" rows="6" required class="bg-white/50 rounded-2xl border border-cynBlack/20 text-base font-medium w-full ' . ($message_icon ? 'pr-11' : 'pr-3') . ' py-3 text-cynBlack focus:outline-none focus:ring-2 focus:ring-cynOrange resize-none transition-all duration-200"></textarea>';
 			$comment_form['comment_field'] .= '</div>';
 			$comment_form['comment_field'] .= '</div>';
 
@@ -362,7 +331,7 @@ function taghechian_product_review_callback($comment, $args, $depth)
 
 				$comment_form['comment_field'] .= '<div class="comment-form-rating mb-4">';
 				$comment_form['comment_field'] .= '<div class="flex items-center gap-2 mb-1">';
-				$comment_form['comment_field'] .= '<span class="text-base font-medium text-cynBlack">' . __('ستاره دهید', 'taghechian') . '</span>';
+				$comment_form['comment_field'] .= '<span class="text-base font-medium text-cynBlack">' . __('ستاره دهید', 'naghoos') . '</span>';
 				$comment_form['comment_field'] .= '</div>';
 				$comment_form['comment_field'] .= '<div class="flex gap-1 items-center">';
 				$comment_form['comment_field'] .= '<select name="rating" id="rating" required style="display:none !important;">';
@@ -371,11 +340,10 @@ function taghechian_product_review_callback($comment, $args, $depth)
 					$comment_form['comment_field'] .= '<option value="' . $i . '">' . $i . '</option>';
 				}
 				$comment_form['comment_field'] .= '</select>';
-				$comment_form['comment_field'] .= '<div class="star-rating flex gap-1" data-rating="0">';
-				for ($i = 1; $i <= 5; $i++) {
-					$comment_form['comment_field'] .= '<span class="star text-2xl cursor-pointer text-gray-300 hover:text-cynStars transition-colors" data-value="' . $i . '">★</span>';
-				}
-				$comment_form['comment_field'] .= '</div>';
+				$comment_form['comment_field'] .= StarRating::renderInteractive([
+					'size'         => 24,
+					'stroke_color' => '#1E1311',
+				]);
 				$comment_form['comment_field'] .= '</div>';
 				$comment_form['comment_field'] .= '</div>';
 			}

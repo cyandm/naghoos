@@ -25,9 +25,9 @@ if (!empty($home_testimonial_select)) {
 
 <?php if ($home_testimonial_query->have_posts()) : ?>
 
-    <section class="flex flex-col gap-5 my-15">
+    <section class="flex flex-col gap-3 md:gap-5 my-15">
 
-        <div class="flex container">
+        <div class="flex container max-md:justify-center">
             <p class="text-3xl font-bold text-cynBlack">
                 <?php echo esc_html($home_testimonial_title); ?>
             </p>

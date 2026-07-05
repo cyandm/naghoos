@@ -137,10 +137,10 @@ get_header();
 				</swiper-container>
 				<!-- Navigation Buttons -->
 				<div class="absolute left-1/2 -translate-x-1/2 bottom-3 z-10 flex items-center justify-center gap-3">
-					<button type="button" id="productGalleryPrev" class="size-9 rounded-full bg-cynBlack text-white flex items-center justify-center hover:opacity-90 transition-opacity duration-300" aria-label="<?php echo esc_attr(__('قبلی', 'taghechian')); ?>">
+					<button type="button" id="productGalleryPrev" class="size-9 rounded-full bg-cynBlack text-white flex items-center justify-center hover:opacity-90 transition-opacity duration-300" aria-label="<?php echo esc_attr(__('قبلی', 'naghoos')); ?>">
 						<i class="size-5 stroke-[1.5]"><?php Icon::print('Arrow-19'); ?></i>
 					</button>
-					<button type="button" id="productGalleryNext" class="size-9 rounded-full bg-cynBlack text-white flex items-center justify-center hover:opacity-90 transition-opacity duration-300" aria-label="<?php echo esc_attr(__('بعدی', 'taghechian')); ?>">
+					<button type="button" id="productGalleryNext" class="size-9 rounded-full bg-cynBlack text-white flex items-center justify-center hover:opacity-90 transition-opacity duration-300" aria-label="<?php echo esc_attr(__('بعدی', 'naghoos')); ?>">
 						<i class="size-5 stroke-[1.5]"><?php Icon::print('Arrow-27'); ?></i>
 					</button>
 				</div>
@@ -181,9 +181,9 @@ get_header();
 				<div class="py-1 px-3 rounded-md bg-[#dd4a4a]/14 flex items-center justify-center w-fit">
 					<p class="text-[#dd4a4a] text-xs font-medium" id="stock-status-text">
 						<?php if (!$is_in_stock) : ?>
-							<?php _e('ناموجود', 'taghechian'); ?>
+							<?php _e('ناموجود', 'naghoos'); ?>
 						<?php elseif ($stock_quantity !== null && $stock_quantity <= 4) : ?>
-							<?php printf(__('فقط %s عدد باقیمانده', 'taghechian'), $stock_quantity); ?>
+							<?php printf(__('فقط %s عدد باقیمانده', 'naghoos'), $stock_quantity); ?>
 						<?php endif; ?>
 					</p>
 				</div>
@@ -249,13 +249,13 @@ get_header();
 
 			<div class="flex items-center justify-between">
 				<p class="text-cynBlack text-xl font-medium">
-					<?php _e('قیمت', 'taghechian'); ?>
+					<?php _e('قیمت', 'naghoos'); ?>
 				</p>
 				<p class="text-cynBlack text-xl font-medium transition-all duration-300 [&_span.price]:flex [&_span.price]:flex-col [&_del]:font-medium [&_del]:text-base [&_ins]:text-[#DD4A4A] [&_ins]:no-underline" id="product-price-display">
 					<?php
 					// Check stock status
 					if (!$is_in_stock) {
-						echo '<span class="text-[#dd4a4a]">' . __('ناموجود', 'taghechian') . '</span>';
+						echo '<span class="text-[#dd4a4a]">' . __('ناموجود', 'naghoos') . '</span>';
 					} else {
 						echo $product->get_price_html();
 					}
@@ -271,14 +271,14 @@ get_header();
 					<div class="flex items-center gap-2 justify-between w-full">
 
 						<p class="text-cynBlack text-xl font-medium">
-							<?php _e('سایز', 'taghechian'); ?>
+							<?php _e('سایز', 'naghoos'); ?>
 						</p>
 
 						<?php if ($product_size_guide): ?>
 
 							<div class="text-cynBlue flex items-center pt-0.5" id="sizeGuide" modal-opener data-modal-name="size-guide-modal">
 								<span class="text-sm font-normal cursor-pointer">
-									<?php _e('اطلاعات سایز', 'taghechian'); ?>
+									<?php _e('اطلاعات سایز', 'naghoos'); ?>
 								</span>
 
 								<i class="size-5"><?php Icon::print('ruler-1'); ?></i>
@@ -297,18 +297,18 @@ get_header();
 
 										<i class="size-8 text-cynBlack"><?php Icon::print('Delete,-Disabled'); ?></i>
 										<span class="text-xs font-semibold pb-0.5">
-											<?php _e('بستن', 'taghechian'); ?>
+											<?php _e('بستن', 'naghoos'); ?>
 										</span>
 									</div>
 
 									<div class="flex flex-col gap-4 text-cynBlack w-full">
 
 										<p class="text-2xl font-normal text-center">
-											<?php _e('راهنمای سایز', 'taghechian'); ?>
+											<?php _e('راهنمای سایز', 'naghoos'); ?>
 										</p>
 
 										<p class="text-sm font-light text-center">
-											<?php _e('برای انتخاب سایز مناسب، اندازه‌های خود را با جدول زیر مقایسه کنید.', 'taghechian'); ?>
+											<?php _e('برای انتخاب سایز مناسب، اندازه‌های خود را با جدول زیر مقایسه کنید.', 'naghoos'); ?>
 										</p>
 
 										<div class="w-full overflow-x-auto text-sm text-center transition-all [&_table]:w-full [&_table]:border-collapse [&_table]:rounded-xl [&_table]:overflow-hidden [&_th]:bg-[#ffd000] [&_th]:text-black [&_th]:font-semibold [&_th]:px-4 [&_th]:py-3 [&_th]:border [&_th]:border-gray-200 [&_td]:px-4 [&_td]:py-3 [&_td]:border [&_td]:border-gray-200 [&_tr:nth-child(even)]:bg-gray-50 [&_tr]:transition-colors [&_tr]:duration-200 [&_tr:hover]:bg-yellow-50">
@@ -334,18 +334,18 @@ get_header();
 			<form class="cart" method="post" enctype="multipart/form-data">
 				<div class="flex items-center justify-between gap-3 flex-wrap">
 					<div class="flex items-center gap-2">
-						<button type="button" id="shareBtn" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'taghechian')); ?>">
+						<button type="button" id="shareBtn" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 share-product p-3" aria-label="<?php echo esc_attr(__('اشتراک', 'naghoos')); ?>">
 							<i class="size-6 stroke-[1.5]"><?php Icon::print('Share-1'); ?></i>
 						</button>
 
 						<?php if ($reviews_enabled) : ?>
-							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'taghechian')); ?>">
+							<a href="#comments" class="rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed hover:text-cynWhite transition-all duration-300 p-3" aria-label="<?php echo esc_attr(__('نظرات', 'naghoos')); ?>">
 								<i class="size-6 stroke-[1.5]"><?php Icon::print('Messages,-Chat-18'); ?></i>
 							</a>
 						<?php endif; ?>
 
 						<!-- <//?php if (is_user_logged_in()) : ?>
-								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynRed hover:bg-cynRed'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
+								<a href="<//?php echo esc_url($wishlist_toggle_url); ?>" class="wishlist-heart-btn rounded-full border flex items-center justify-center transition-all duration-300 p-3 <//?php echo $wishlist_is_liked ? 'is-liked border-[#cf255d] bg-[#cf255d] text-white hover:bg-[#b91f53] hover:border-[#b91f53]' : 'border-cynBlack/10 text-cynBlack hover:border-cynRed hover:bg-cynRed'; ?>" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'naghoos')); ?>" aria-pressed="<//?php echo $wishlist_is_liked ? 'true' : 'false'; ?>">
 									<//?php if ($wishlist_is_liked) : ?>
 										<svg class="size-5" viewBox="0 0 20 20" aria-hidden="true">
 											<path fill="currentColor" d="M3.172 5.172a4 4 0 0 1 5.656 0L10 6.343l1.172-1.171a4 4 0 1 1 5.656 5.656L10 17.657l-6.828-6.829a4 4 0 0 1 0-5.656z" />
@@ -355,7 +355,7 @@ get_header();
 									<//?php endif; ?>
 								</a>
 							<//?php else : ?>
-								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'taghechian')); ?>">
+								<button type="button" class="wishlist-heart-btn wishlist-heart-guest rounded-full border border-cynBlack/10 flex items-center justify-center text-cynBlack hover:border-cynRed hover:bg-cynRed transition-all duration-300 p-3" aria-label="<//?php echo esc_attr(__('علاقه‌مندی', 'naghoos')); ?>">
 									<i class="size-6 stroke-[1.5]"><//?php Icon::print('Heart'); ?></i>
 								</button>
 							<//?php endif; ?> -->
@@ -374,14 +374,14 @@ get_header();
 						<?php
 						$comments_count = get_comments_number();
 						if ($comments_count == 0) {
-							_e('دیدگاهی برای این محصول ثبت نشده است', 'taghechian');
+							_e('دیدگاهی برای این محصول ثبت نشده است', 'naghoos');
 						} else {
 							$comments_link = '<a href="#reviews" class="text-cynBlue underline">'
 								. $comments_count . ' دیدگاه' .
 								'</a>';
 
 							printf(
-								__(' %s برای این محصول', 'taghechian'),
+								__(' %s برای این محصول', 'naghoos'),
 								$comments_link
 							);
 						}
@@ -464,7 +464,7 @@ get_header();
 		<section class="mt-16 flex flex-col gap-3 md:gap-5">
 
 			<div class="max-md:text-center">
-				<p class="text-3xl font-bold text-cynBlack leading-11"><?php _e('شاید بپسندید', 'taghechian'); ?></p>
+				<p class="text-3xl font-bold text-cynBlack leading-11"><?php _e('شاید بپسندید', 'naghoos'); ?></p>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 w-full [&_.product-card]:h-full">

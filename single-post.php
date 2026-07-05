@@ -110,7 +110,7 @@ get_header(); ?>
             <section class="container flex flex-col gap-3.5 my-14">
 
                 <div class="w-full">
-                    <p class="text-3xl font-bold text-cynBlack leading-11 max-md:text-center"><?php _e('شاید بپسندید', 'taghechian'); ?></p>
+                    <p class="text-3xl font-bold text-cynBlack leading-11 max-md:text-center"><?php _e('شاید بپسندید', 'naghoos'); ?></p>
                 </div>
 
                 <?php if ($related_posts_query->have_posts()) : ?>

@@ -47,14 +47,14 @@ $has_coupon      = $applied_coupons !== [];
 
 		<!-- جمع جزء -->
 		<div class="flex justify-between pt-2">
-			<span class="text-base md:text-xl font-medium text-cynBlack/80"><?php _e('مجموع سبد خرید', 'taghechian') ?></span>
+			<span class="text-base md:text-xl font-medium text-cynBlack/80"><?php _e('مجموع سبد خرید', 'naghoos') ?></span>
 			<div class="flex gap-1.5 flex-wrap">
 				<span class="text-sm font-medium text-cynBlack/80 flex items-center">
 					<?php wc_cart_totals_subtotal_html(); ?>
 				</span>
 
 				<a href="<?= wc_get_cart_url(); ?>" class="font-medium text-xs flex items-center text-cynBlue/80">
-					<?php _e('مشاهده سبد خرید', 'taghechian') ?>
+					<?php _e('مشاهده سبد خرید', 'naghoos') ?>
 					<i class="size-5">
 						<?php Icon::print('Arrow-27'); ?>
 					</i>
@@ -68,7 +68,7 @@ $has_coupon      = $applied_coupons !== [];
 		<!-- حمل و نقل -->
 		<?php if (WC()->cart->needs_shipping()) : ?>
 			<div class="flex justify-between flex-col gap-2">
-				<span class="text-base md:text-xl !font-medium text-cynBlack/80"><?php _e('حمل و نقل', 'taghechian') ?></span>
+				<span class="text-base md:text-xl !font-medium text-cynBlack/80"><?php _e('حمل و نقل', 'naghoos') ?></span>
 				<span class="text-base !font-medium text-cynBlack/80"><?php wc_cart_totals_shipping_html(); ?></span>
 			</div>
 		<?php endif; ?>
@@ -81,15 +81,15 @@ $has_coupon      = $applied_coupons !== [];
 
 					<span class="text-lg !font-medium text-[#C11B44]">
 						<?php echo $discount_total > 0
-							? esc_html__('مقدار تخفیف', 'taghechian')
-							: esc_html__('کد تخفیف', 'taghechian'); ?>
+							? esc_html__('مقدار تخفیف', 'naghoos')
+							: esc_html__('کد تخفیف', 'naghoos'); ?>
 					</span>
 
 					<span class="text-[#C11B44] text-sm flex delete-coupon-code cursor-pointer">
 						<i class="size-5">
 							<?php Icon::print('trash-delete-bin-2-1'); ?>
 						</i>
-						<?php _e('حذف', 'taghechian') ?>
+						<?php _e('حذف', 'naghoos') ?>
 					</span>
 
 				</div>
@@ -104,7 +104,7 @@ $has_coupon      = $applied_coupons !== [];
 								$coupon = new WC_Coupon($code);
 								$label  = $code;
 								if ($coupon->get_free_shipping()) {
-									$label .= ' (' . __('ارسال رایگان', 'taghechian') . ')';
+									$label .= ' (' . __('ارسال رایگان', 'naghoos') . ')';
 								}
 								$coupon_labels[] = $label;
 							}
@@ -121,7 +121,7 @@ $has_coupon      = $applied_coupons !== [];
 
 		<!-- مبلغ نهایی -->
 		<div class="flex justify-between items-center">
-			<span class="text-xl !font-medium text-cynBlack/80"><?php _e('قابل پرداخت', 'taghechian') ?></span>
+			<span class="text-xl !font-medium text-cynBlack/80"><?php _e('قابل پرداخت', 'naghoos') ?></span>
 			<span class="text-cynBlue/80 text-2xl [&_span]:!font-medium">
 				<?php wc_cart_totals_order_total_html(); ?>
 			</span>
@@ -139,7 +139,7 @@ $has_coupon      = $applied_coupons !== [];
 			</i>
 
 			<span class="text-base md:text-xl font-medium text-cynBlack/80">
-				<?php _e('کد تخفیف', 'taghechian') ?>
+				<?php _e('کد تخفیف', 'naghoos') ?>
 			</span>
 
 		</div>
@@ -147,7 +147,7 @@ $has_coupon      = $applied_coupons !== [];
 		<?php if ($has_coupon) : ?>
 			<div class="flex justify-between items-center gap-3 rounded-2xl border border-[#C11B44]/20 bg-[#C11B44]/5 px-4 py-3">
 				<span class="text-sm font-medium text-cynBlack/80">
-					<?php esc_html_e('کد اعمال‌شده:', 'taghechian'); ?>
+					<?php esc_html_e('کد اعمال‌شده:', 'naghoos'); ?>
 					<span class="text-[#C11B44]"><?php echo esc_html(implode(', ', $applied_coupons)); ?></span>
 				</span>
 				<button
@@ -156,7 +156,7 @@ $has_coupon      = $applied_coupons !== [];
 					<i class="size-5">
 						<?php Icon::print('trash-delete-bin-2-1'); ?>
 					</i>
-					<?php _e('حذف کد', 'taghechian'); ?>
+					<?php _e('حذف کد', 'naghoos'); ?>
 				</button>
 			</div>
 		<?php else : ?>
@@ -166,14 +166,14 @@ $has_coupon      = $applied_coupons !== [];
 					type="text"
 					name="coupon_code"
 					class="coupon_code flex-1 border border-gray-300 rounded-full px-5 py-3 text-sm"
-					placeholder="<?php esc_attr_e('کد تخفیف خود را وارد کنید', 'taghechian'); ?>" />
+					placeholder="<?php esc_attr_e('کد تخفیف خود را وارد کنید', 'naghoos'); ?>" />
 
 				<button
 					type="button"
 					name="apply_coupon"
 					value="1"
 					class="apply-coupon-btn primary-btn rounded-full px-8 py-3">
-					<?php _e('اعمال کد', 'taghechian'); ?>
+					<?php _e('اعمال کد', 'naghoos'); ?>
 				</button>
 
 			</div>

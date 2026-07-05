@@ -8,65 +8,47 @@
  */
 export function ProductReviews() {
   document.addEventListener("DOMContentLoaded", function () {
-    // // Debug: Check if children elements exist
-    // const childrenLists = document.querySelectorAll(".commentlist .children");
-    // if (childrenLists.length > 0) {
-    //   console.log("✓ Found " + childrenLists.length + " nested reply lists");
-    // } else {
-    //   console.log("✗ No nested replies found. Make sure:");
-    //   console.log(
-    //     "1. WordPress threaded comments are enabled (Settings → Discussion)"
-    //   );
-    //   console.log("2. Comments have replies (parent-child relationship)");
-    // }
-
-    // Star rating functionality
     const starRating = document.querySelector(".star-rating");
-    if (starRating) {
-      const stars = starRating.querySelectorAll(".star");
-      const ratingSelect = document.getElementById("rating");
+    if (!starRating) {
+      return;
+    }
 
-      stars.forEach((star) => {
-        star.addEventListener("click", function () {
-          const value = parseInt(this.getAttribute("data-value"));
-          ratingSelect.value = value;
-          updateStars(value);
-        });
+    const stars = starRating.querySelectorAll(".star");
+    const ratingSelect = document.getElementById("rating");
 
-        star.addEventListener("mouseenter", function () {
-          const value = parseInt(this.getAttribute("data-value"));
-          highlightStars(value);
-        });
+    if (!ratingSelect || !stars.length) {
+      return;
+    }
+
+    stars.forEach((star) => {
+      star.addEventListener("click", function () {
+        const value = parseInt(this.getAttribute("data-value"), 10);
+        ratingSelect.value = value;
+        updateStars(value);
       });
 
-      starRating.addEventListener("mouseleave", function () {
-        const currentValue = parseInt(ratingSelect.value) || 0;
-        updateStars(currentValue);
+      star.addEventListener("mouseenter", function () {
+        const value = parseInt(this.getAttribute("data-value"), 10);
+        highlightStars(value);
       });
+    });
 
-      function updateStars(value) {
-        stars.forEach((star, index) => {
-          if (index < value) {
-            star.classList.remove("text-gray-300");
-            star.classList.add("text-[#ffe31e]");
-          } else {
-            star.classList.remove("text-[#ffe31e]");
-            star.classList.add("text-gray-300");
-          }
-        });
-      }
+    starRating.addEventListener("mouseleave", function () {
+      const currentValue = parseInt(ratingSelect.value, 10) || 0;
+      updateStars(currentValue);
+    });
 
-      function highlightStars(value) {
-        stars.forEach((star, index) => {
-          if (index < value) {
-            star.classList.remove("text-gray-300");
-            star.classList.add("text-[#ffe31e]");
-          } else {
-            star.classList.remove("text-[#ffe31e]");
-            star.classList.add("text-gray-300");
-          }
-        });
-      }
+    function updateStars(value) {
+      stars.forEach((star, index) => {
+        star.classList.remove("is-highlighted");
+        star.classList.toggle("is-filled", index < value);
+      });
+    }
+
+    function highlightStars(value) {
+      stars.forEach((star, index) => {
+        star.classList.toggle("is-highlighted", index < value);
+      });
     }
   });
 }

@@ -32,7 +32,7 @@ if (wc_get_page_id('shop') > 0) : ?>
 
 		<div class="flex flex-col justify-center items-center gap-7">
 
-			<img src="<?php echo get_template_directory_uri(); ?>/assets/image/shopping-bag.svg" alt="<?php _e("سبد خرید شما خالی است", "taghechian") ?>">
+			<img src="<?php echo get_template_directory_uri(); ?>/assets/image/shopping-bag.svg" alt="<?php _e("سبد خرید شما خالی است", "naghoos") ?>">
 
 			<p class="font-medium text-xl text-cynBlack">سبد خرید شما خالی است</p>
 

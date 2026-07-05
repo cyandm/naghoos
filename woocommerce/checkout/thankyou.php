@@ -46,14 +46,14 @@ defined('ABSPATH') || exit;
 
 				<div class="flex flex-col justify-center items-center gap-7">
 
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/image/shopping-bag-por.svg" alt="<?php _e("سفارش با موفقیت ثبت شد!", "taghechian") ?>">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/image/shopping-bag-por.svg" alt="<?php _e("سفارش با موفقیت ثبت شد!", "naghoos") ?>">
 
-					<p class="font-medium text-xl text-cynBlack"><?php _e("سفارش با موفقیت ثبت شد!", "taghechian") ?></p>
+					<p class="font-medium text-xl text-cynBlack"><?php _e("سفارش با موفقیت ثبت شد!", "naghoos") ?></p>
 
 				</div>
 
 				<a href="<?php echo esc_url($order->get_view_order_url()); ?>" class="primary-btn flex justify-center items-center min-w-80">
-					<?php _e('مشاهده فاکتور', 'taghechian'); ?>
+					<?php _e('مشاهده فاکتور', 'naghoos'); ?>
 				</a>
 
 			</div>

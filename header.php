@@ -30,7 +30,7 @@ if (function_exists('pll_current_language')) {
 }
 $text_direction = ($current_lang === 'en') ? 'ltr' : 'rtl';
 
-$noise_url = get_template_directory_uri() . '/assets/image/noise.svg';
+$noise_url = get_template_directory_uri() . '/assets/image/noise-red.svg';
 ?>
 
 <html <?php language_attributes(); ?> dir="<?php echo esc_attr($text_direction); ?>">

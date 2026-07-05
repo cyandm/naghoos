@@ -37,7 +37,7 @@ if (empty($home_best_selling_products_title) && empty($home_best_selling_product
 wp_reset_postdata();
 ?>
 
-<section class="flex flex-col gap-4 my-14 container">
+<section class="flex flex-col gap-3 md:gap-5 my-14 container">
     <div class="flex justify-between items-center">
         <div class="flex flex-col gap-2 max-md:justify-center max-md:text-center max-md:w-full">
             <?php if ($home_best_selling_products_title) : ?>

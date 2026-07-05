@@ -63,7 +63,7 @@ wp_reset_postdata();
 ?>
 
 <section class="my-16 py-6 md:py-12 bg-cover bg-center bg-no-repeat"<?php echo $background_url ? ' style="background-image: url(' . esc_url($background_url) . ');"' : ''; ?>>
-    <div class="container flex flex-col gap-4">
+    <div class="container flex flex-col gap-3 md:gap-5">
         <div class="flex justify-between items-center">
             <div class="flex flex-col gap-2 max-md:justify-center max-md:text-center max-md:w-full">
                 <?php if ($home_discounted_products_title) : ?>

@@ -28,7 +28,7 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
     <div class="flex flex-col gap-3">
 
         <h2 class="text-xl md:text-2xl leading-tight text-cynBlack">
-            <?php esc_html_e('چیزی هست که بخوای به ما بگی', 'taghechian'); ?>
+            <?php esc_html_e('چیزی هست که بخوای به ما بگی', 'naghoos'); ?>
         </h2>
 
         <form
@@ -38,7 +38,7 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
             hx-target=".support-form-result"
             hx-swap="innerHTML"
             hx-on::before-request="(function(){ var submitBtn = document.getElementById('support-submit-btn'); if(!submitBtn){ return; } submitBtn.disabled = true; submitBtn.setAttribute('aria-busy', 'true'); submitBtn.classList.add('opacity-70', 'cursor-wait'); var idleText = submitBtn.querySelector('[data-submit-idle]'); var loadingText = submitBtn.querySelector('[data-submit-loading]'); if(idleText){ idleText.style.display = 'none'; } if(loadingText){ loadingText.style.display = 'inline-flex'; } })()"
-            hx-on::after-request="(function(ev){ var submitBtn = document.getElementById('support-submit-btn'); if(submitBtn){ submitBtn.disabled = false; submitBtn.removeAttribute('aria-busy'); submitBtn.classList.remove('opacity-70', 'cursor-wait'); var idleText = submitBtn.querySelector('[data-submit-idle]'); var loadingText = submitBtn.querySelector('[data-submit-loading]'); if(idleText){ idleText.style.display = 'inline'; } if(loadingText){ loadingText.style.display = 'none'; } } var resultEl = document.querySelector('.support-form-result'); resultEl.style.display = 'block'; resultEl.style.opacity = '1'; if(ev.detail.successful){ resultEl.textContent = '<?php echo esc_js(__('با موفقیت ارسال شد', 'taghechian')); ?>'; resultEl.style.background = ''; var f = document.getElementById('support_form'); if(f) f.reset(); var phoneInput = document.getElementById('support-phone'); if(phoneInput){ phoneInput.value = '<?php echo esc_js($default_phone); ?>'; } var nameInput = document.getElementById('support-name'); if(nameInput){ nameInput.value = '<?php echo esc_js($display_name); ?>'; } } else { try { var d = JSON.parse(ev.detail.xhr.responseText); resultEl.textContent = d.error || '<?php echo esc_js(__('خطا در ارسال', 'taghechian')); ?>'; } catch(e){ resultEl.textContent = '<?php echo esc_js(__('خطا در ارسال', 'taghechian')); ?>'; } resultEl.style.background = '#ef4444'; } setTimeout(function(){ resultEl.style.transition = 'opacity 0.5s ease-out'; resultEl.style.opacity = '0'; setTimeout(function(){ resultEl.style.display = 'none'; }, 500); }, 5000); })(event)"
+            hx-on::after-request="(function(ev){ var submitBtn = document.getElementById('support-submit-btn'); if(submitBtn){ submitBtn.disabled = false; submitBtn.removeAttribute('aria-busy'); submitBtn.classList.remove('opacity-70', 'cursor-wait'); var idleText = submitBtn.querySelector('[data-submit-idle]'); var loadingText = submitBtn.querySelector('[data-submit-loading]'); if(idleText){ idleText.style.display = 'inline'; } if(loadingText){ loadingText.style.display = 'none'; } } var resultEl = document.querySelector('.support-form-result'); resultEl.style.display = 'block'; resultEl.style.opacity = '1'; if(ev.detail.successful){ resultEl.textContent = '<?php echo esc_js(__('با موفقیت ارسال شد', 'naghoos')); ?>'; resultEl.style.background = ''; var f = document.getElementById('support_form'); if(f) f.reset(); var phoneInput = document.getElementById('support-phone'); if(phoneInput){ phoneInput.value = '<?php echo esc_js($default_phone); ?>'; } var nameInput = document.getElementById('support-name'); if(nameInput){ nameInput.value = '<?php echo esc_js($display_name); ?>'; } } else { try { var d = JSON.parse(ev.detail.xhr.responseText); resultEl.textContent = d.error || '<?php echo esc_js(__('خطا در ارسال', 'naghoos')); ?>'; } catch(e){ resultEl.textContent = '<?php echo esc_js(__('خطا در ارسال', 'naghoos')); ?>'; } resultEl.style.background = '#ef4444'; } setTimeout(function(){ resultEl.style.transition = 'opacity 0.5s ease-out'; resultEl.style.opacity = '0'; setTimeout(function(){ resultEl.style.display = 'none'; }, 500); }, 5000); })(event)"
             class="flex flex-col gap-3 md:gap-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <label for="support-name" class="relative">
@@ -51,7 +51,7 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
                         name="name"
                         required
                         value="<?php echo esc_attr($display_name); ?>"
-                        placeholder="<?php esc_attr_e('نام شما', 'taghechian'); ?>"
+                        placeholder="<?php esc_attr_e('نام شما', 'naghoos'); ?>"
                         class="focus:outline-none w-full text-base md:text-lg ps-10 pe-4 py-3 rounded-2xl border border-cynBlack/20 bg-white" />
                 </label>
 
@@ -68,7 +68,7 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
                         inputmode="numeric"
                         dir="rtl"
                         value="<?php echo esc_attr($default_phone); ?>"
-                        placeholder="<?php esc_attr_e('شماره تماس شما', 'taghechian'); ?>"
+                        placeholder="<?php esc_attr_e('شماره تماس شما', 'naghoos'); ?>"
                         class="focus:outline-none w-full text-base md:text-lg ps-10 pe-4 py-3 rounded-2xl border border-cynBlack/20 bg-white" />
                 </label>
             </div>
@@ -83,16 +83,16 @@ $default_phone = is_string($billing_phone) && $billing_phone !== ''
                     rows="3"
                     required
                     maxlength="65525"
-                    placeholder="<?php esc_attr_e('پیام شما', 'taghechian'); ?>"
+                    placeholder="<?php esc_attr_e('پیام شما', 'naghoos'); ?>"
                     class="focus:outline-none w-full text-base md:text-lg ps-10 pe-4 py-3 rounded-2xl border border-cynBlack/20 bg-white resize-y"></textarea>
             </label>
 
             <div class="flex justify-start md:justify-end">
                 <button id="support-submit-btn" type="submit" class="primary-btn !px-8 max-md:w-full inline-flex items-center justify-center gap-2">
-                    <span data-submit-idle><?php esc_html_e('ارسال پیام', 'taghechian'); ?></span>
+                    <span data-submit-idle><?php esc_html_e('ارسال پیام', 'naghoos'); ?></span>
                     <span data-submit-loading class="hidden items-center gap-2">
                         <span class="inline-block size-4 border-2 border-cynBlack/40 border-t-cynBlack rounded-full animate-spin"></span>
-                        <?php esc_html_e('در حال ارسال...', 'taghechian'); ?>
+                        <?php esc_html_e('در حال ارسال...', 'naghoos'); ?>
                     </span>
                 </button>
             </div>

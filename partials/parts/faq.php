@@ -59,14 +59,14 @@ if (!$has_faqs) {
 
 
         <a href="<?php echo esc_url($faq_button['url'] ?? (!empty($faq_button_link) ? 'tel:' . $faq_button_link : '/contact-us')); ?>" class="primary-btn text-base font-medium hidden md:block">
-            <?php _e('تماس با ما', 'taghechian'); ?>
+            <?php _e('تماس با ما', 'naghoos'); ?>
         </a>
 
     </div>
 
     <div class="flex flex-col <?php echo $has_cats ? '' : 'mt-5'; ?>">
         <?php if ($has_cats) : ?>
-            <div class="flex xl:justify-center items-center gap-2 overflow-x-scroll scrollbar py-5 max-lg:px-2 max-lg:ms-6 max-md:ms-2.5">
+            <div class="flex xl:justify-center items-center gap-2 overflow-x-scroll scrollbar py-3 md:py-5 max-lg:px-2 max-lg:ms-6 max-md:ms-2.5">
                 <?php foreach ($faq_cats as $index => $category) : ?>
                     <div class="fade-in-down"
                         anim-delay="<?php echo $index * 0.3 ?>">
@@ -108,7 +108,7 @@ if (!$has_faqs) {
     <div class="container flex justify-center items-center md:hidden mt-3">
 
         <a href="<?php echo esc_url($faq_button['url'] ?? (!empty($faq_button_link) ? 'tel:' . $faq_button_link : '/contact-us')); ?>" class="primary-btn text-base font-medium w-full text-center">
-            <?php _e('تماس با ما', 'taghechian'); ?>
+            <?php _e('تماس با ما', 'naghoos'); ?>
         </a>
 
     </div>

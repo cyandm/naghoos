@@ -41,6 +41,7 @@ class Register
 	public static function registerPostType()
 	{
 		self::makePostType('contact_form', 'فرم تماس با ما', 'فرم تماس با ما', 'dashicons-phone', ['title']);
+		self::makePostType('customer_club_form', 'فرم باشگاه مشتریان', 'فرم باشگاه مشتریان', 'dashicons-admin-users', ['title']);
 		self::makePostType('personnel', 'مولف (پرسنل)', 'مولف ها (پرسنل)', 'dashicons-groups', ['title', 'thumbnail']);
 		self::makePostType('faq', 'سوالات متداول', 'سوالات متداول', 'dashicons-editor-help', ['title', 'editor']);
 		self::makePostType('slider', 'اسلایدر', 'اسلایدر', 'dashicons-images-alt2', ['title']);

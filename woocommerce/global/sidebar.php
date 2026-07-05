@@ -54,14 +54,14 @@ $shop_base_link = (is_shop() || is_product_taxonomy()) ? remove_query_arg('paged
 // Query keys to preserve when switching category (so filters don’t reset)
 $sidebar_filter_query_keys = ['min_price', 'max_price', 'instock', 'product_age'];
 
-if (! function_exists('taghechian_term_link_with_filters')) {
+if (! function_exists('naghoos_term_link_with_filters')) {
 	/**
 	 * Append current sidebar filter query args to a term link (e.g. category) so filters stay in URL.
 	 *
 	 * @param string $term_link Term URL (e.g. from get_term_link()).
 	 * @return string
 	 */
-	function taghechian_term_link_with_filters($term_link)
+	function naghoos_term_link_with_filters($term_link)
 	{
 		global $sidebar_filter_query_keys;
 		if (! is_array($sidebar_filter_query_keys) || empty($_GET)) {
@@ -75,7 +75,7 @@ if (! function_exists('taghechian_term_link_with_filters')) {
 	}
 }
 
-if (! function_exists('taghechian_taxonomy_filter_term_link')) {
+if (! function_exists('naghoos_taxonomy_filter_term_link')) {
 	/**
 	 * Build URL that toggles a single taxonomy filter (product_age) in the current URL.
 	 *
@@ -85,7 +85,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 	 * @param bool   $is_active  Whether this term is currently selected.
 	 * @return string
 	 */
-	function taghechian_taxonomy_filter_term_link($base_link, $taxonomy, $term, $is_active)
+	function naghoos_taxonomy_filter_term_link($base_link, $taxonomy, $term, $is_active)
 	{
 		if (! $base_link) {
 			return '#';
@@ -111,8 +111,8 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 	$instock_active = isset($_GET['instock']) && $_GET['instock'] === '1';
 	?>
 	<div class="flex justify-between items-center gap-2 rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4">
-		<span class="text-cynBlack text-xs font-medium"><?php _e('نمایش کالاهای موجود', 'taghechian'); ?></span>
-		<button type="button" role="switch" aria-checked="<?php echo $instock_active ? 'true' : 'false'; ?>" data-instock-toggle class="instock-toggle-btn <?php echo $instock_active ? 'is-on ' : ''; ?>relative h-6 w-11 flex-shrink-0 rounded-full transition-all duration-300 focus:outline-none" aria-label="<?php esc_attr_e('نمایش کالاهای موجود', 'taghechian'); ?>">
+		<span class="text-cynBlack text-xs font-medium"><?php _e('نمایش کالاهای موجود', 'naghoos'); ?></span>
+		<button type="button" role="switch" aria-checked="<?php echo $instock_active ? 'true' : 'false'; ?>" data-instock-toggle class="instock-toggle-btn <?php echo $instock_active ? 'is-on ' : ''; ?>relative h-6 w-11 flex-shrink-0 rounded-full transition-all duration-300 focus:outline-none" aria-label="<?php esc_attr_e('نمایش کالاهای موجود', 'naghoos'); ?>">
 			<span class="absolute top-1 start-1 h-4 w-4 rounded-full bg-white shadow-sm transition-all duration-300" data-toggle-knob></span>
 		</button>
 	</div>
@@ -120,7 +120,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 	<div class="filter-cat rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product categories (main) -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-cat-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="true" aria-controls="<?php echo esc_attr($sid('filter-cat-main')); ?>">
-			<span class="text-sm font-medium"><?php _e('دسته‌بندی کالاها', 'taghechian'); ?></span>
+			<span class="text-sm font-medium"><?php _e('دسته‌بندی کالاها', 'naghoos'); ?></span>
 			<i class="accordion-icon size-6 stroke-[1.5] transition-all duration-300 flex-shrink-0" style="transform: rotate(180deg);">
 				<?php Icon::print('Arrow-28'); ?>
 			</i>
@@ -139,7 +139,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 								'order'      => 'ASC',
 							]);
 							$has_children = !empty($children) && !is_wp_error($children);
-							$parent_link = taghechian_term_link_with_filters(get_term_link($parent));
+							$parent_link = naghoos_term_link_with_filters(get_term_link($parent));
 							$is_parent_current = ($current_cat_id === (int) $parent->term_id);
 							$child_ids = $has_children ? array_map(function ($c) {
 								return (int) $c->term_id;
@@ -170,7 +170,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 											<div class="mt-1 flex flex-col gap-1.5 pb-2">
 												<?php
 												foreach ($children as $child) {
-													$child_link = taghechian_term_link_with_filters(get_term_link($child));
+													$child_link = naghoos_term_link_with_filters(get_term_link($child));
 													$is_active = ($current_cat_id === (int) $child->term_id);
 												?>
 													<a href="<?php echo esc_url($child_link); ?>" class="block p-1 rounded-md text-xs text-cynBlack transition-all duration-300 <?php echo $is_active ? 'bg-cynRed text-white' : 'bg-[#F5F5F5] hover:bg-cynRed hover:text-white'; ?>">
@@ -198,7 +198,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 	<div class="filter-age rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by age -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-age-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-age-main')); ?>">
-			<span class="text-sm font-medium"><?php _e('گروه سنی', 'taghechian'); ?></span>
+			<span class="text-sm font-medium"><?php _e('گروه سنی', 'naghoos'); ?></span>
 			<i class="accordion-icon size-6 stroke-[1.5] transition-all duration-300 flex-shrink-0" style="transform: rotate(0deg);">
 				<?php Icon::print('Arrow-28'); ?>
 			</i>
@@ -209,7 +209,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 					<?php
 					if ($shop_base_link && ! empty($product_ages) && ! is_wp_error($product_ages)) {
 						foreach ($product_ages as $age) {
-							$age_link = taghechian_taxonomy_filter_term_link($shop_base_link, 'product_age', $age, $current_age_slug === $age->slug);
+							$age_link = naghoos_taxonomy_filter_term_link($shop_base_link, 'product_age', $age, $current_age_slug === $age->slug);
 							$is_active = ($current_age_slug === $age->slug);
 					?>
 							<a href="<?php echo esc_url($age_link); ?>" class="block rounded-xl py-2 px-3 text-xs font-medium leading-6 transition-all duration-300 hover:bg-cynRed hover:text-white <?php echo $is_active ? 'bg-cynRed text-white' : 'bg-cynWhite text-cynBlack'; ?>">
@@ -227,7 +227,7 @@ if (! function_exists('taghechian_taxonomy_filter_term_link')) {
 	<div class="filter-price rounded-3xl border border-cynBorder bg-cynBgItem/15 p-4 mt-4">
 		<!-- Product filter by price -->
 		<button type="button" class="accordion-button flex w-full items-center justify-between gap-2 cursor-pointer list-none font-medium text-cynBlack py-1 text-start bg-transparent border-none" data-accordion-target="<?php echo esc_attr($sid('filter-price-main')); ?>" data-accordion-icon-rotate="180" aria-expanded="false" aria-controls="<?php echo esc_attr($sid('filter-price-main')); ?>">
-			<span class="text-sm font-medium"><?php _e('رنج قیمت', 'taghechian'); ?></span>
+			<span class="text-sm font-medium"><?php _e('رنج قیمت', 'naghoos'); ?></span>
 			<i class="accordion-icon size-6 stroke-[1.5] transition-all duration-300 flex-shrink-0" style="transform: rotate(0deg);">
 				<?php Icon::print('Arrow-28'); ?>
 			</i>

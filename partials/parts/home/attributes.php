@@ -23,9 +23,11 @@ if (empty($attributes)) {
 ?>
 
 <section class="container my-15">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-5">
-        <?php foreach ($attributes as $attribute) :
-            Templates::getCard('attribute', $attribute);
-        endforeach; ?>
+    <div class="flex flex-wrap justify-center gap-4">
+        <?php foreach ($attributes as $attribute) : ?>
+            <div class="w-full sm:w-[calc(50%-0.5rem)] xl:w-[calc(33.333%-0.67rem)]">
+                <?php Templates::getCard('attribute', $attribute); ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </section>
