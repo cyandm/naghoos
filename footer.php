@@ -17,6 +17,8 @@ $render_template = $args['render_template'] ?? true;
 		<?php Templates::getPart('backdrop'); ?>
 		<?php Templates::getPart('footer'); ?>
 	</footer>
+
+	<?php Templates::getPart('cart'); ?>
 <?php endif; ?>
 
 <div id="wp-footer">

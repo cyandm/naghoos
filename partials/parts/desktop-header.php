@@ -95,7 +95,7 @@ use Cyan\Theme\Helpers\Icon;
 
 			<?php if (class_exists('WooCommerce')): ?>
 
-				<a href="<?= (class_exists('WooCommerce')) ? wc_get_cart_url() : '#' ?>" class="hidden lg:flex items-center justify-center bg-cynWhite relative group border border-cynBlack hover:border-cynRed transition-all duration-300 p-2.5 rounded-full w-[50px]">
+				<a href="<?= (class_exists('WooCommerce')) ? wc_get_cart_url() : '#' ?>" class="hidden lg:flex items-center justify-center bg-cynWhite relative group border border-cynBlack hover:border-cynRed transition-all duration-300 p-2.5 rounded-full size-[52px]">
 
 					<?php $cart_count = (isset(WC()->cart)) ? WC()->cart->get_cart_contents_count() : 0; ?>
 

@@ -47,13 +47,13 @@ $logo_mobile_menu = get_option('logo_mobile_menu');
 
 		<?php if ($whatsapp_number || $twitter_link || $telegram_link || $instagram_link || $pinterest_link) : ?>
 
-			<p class="text-xs font-semibold"><?php _e('شبکه های اجتماعی', 'naghoos'); ?></p>
+			<p class="text-sm font-semibold"><?php _e('شبکه های اجتماعی', 'naghoos'); ?></p>
 
 			<div class="flex gap-4">
 
 				<?php if ($whatsapp_number) : ?>
 					<a href="<?php echo $whatsapp_number ?>" class="bg-cynBG rounded-xl text-cynBlack p-2 flex items-center gap-1">
-						<i class="size-6 flex items-center justify-center text-[#22C55E] stroke-2">
+						<i class="size-6 flex items-center justify-center stroke-2">
 							<?php Icon::print('Whatsup'); ?>
 						</i>
 					</a>
@@ -69,7 +69,7 @@ $logo_mobile_menu = get_option('logo_mobile_menu');
 
 				<?php if ($telegram_link) : ?>
 					<a href="<?php echo $telegram_link ?>" class="bg-cynBG rounded-xl text-cynBlack p-2 flex items-center gap-1">
-						<i class="size-6 flex items-center justify-center text-[#00BFE1] stroke-2">
+						<i class="size-6 flex items-center justify-center stroke-2">
 							<?php Icon::print('Telegram'); ?>
 						</i>
 					</a>
@@ -77,7 +77,7 @@ $logo_mobile_menu = get_option('logo_mobile_menu');
 
 				<?php if ($instagram_link) : ?>
 					<a href="<?php echo $instagram_link ?>" class="bg-cynBG rounded-xl text-cynBlack p-2 flex items-center gap-1">
-						<i class="size-6 flex items-center justify-center text-[#DB2777] stroke-2">
+						<i class="size-6 flex items-center justify-center stroke-2">
 							<?php Icon::print('Instagram'); ?>
 						</i>
 					</a>
@@ -85,7 +85,7 @@ $logo_mobile_menu = get_option('logo_mobile_menu');
 
 				<?php if ($pinterest_link) : ?>
 					<a href="<?php echo $pinterest_link ?>" class="bg-cynBG rounded-xl text-cynBlack p-2 flex items-center gap-1">
-						<i class="size-6 flex items-center justify-center text-[#E60023] stroke-2">
+						<i class="size-6 flex items-center justify-center stroke-2">
 							<?php Icon::print('Pinterest'); ?>
 						</i>
 					</a>

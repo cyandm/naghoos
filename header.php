@@ -51,7 +51,7 @@ $noise_url = get_template_directory_uri() . '/assets/image/noise-red.svg';
 			<?php Icon::print('Arrow-28') ?>
 		</div>
 
-		<header class="py-7 relative z-10 before:absolute before:content-[''] before:top-0 before:w-full before:h-1/2 before:bg-[url('<?php echo $noise_url ?>">
+		<header class="py-7 relative z-40 before:absolute before:content-[''] before:top-0 before:w-full before:h-1/2 before:bg-[url('<?php echo $noise_url ?>">
 			<?php Templates::getPart('desktop-header'); ?>
 			<?php Templates::getPart('mobile-header'); ?>
 		</header>

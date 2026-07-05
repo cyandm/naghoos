@@ -72,7 +72,7 @@ get_header(); ?>
     <?php endif; ?>
 
     <?php if ($about_personnel_query->have_posts()) : ?>
-        <section class="flex flex-col gap-3 md:gap-5 my-14">
+        <section class="flex flex-col gap-3 md:gap-5 my-14" id="personnel">
 
             <div class="flex container max-md:justify-center">
                 <p class="text-3xl font-bold text-cynBlack">

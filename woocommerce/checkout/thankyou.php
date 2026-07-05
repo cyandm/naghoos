@@ -44,7 +44,7 @@ defined('ABSPATH') || exit;
 
 			<div class="flex flex-col justify-center items-center gap-3">
 
-				<div class="flex flex-col justify-center items-center gap-7">
+				<div class="flex flex-col justify-center items-center">
 
 					<img src="<?php echo get_template_directory_uri(); ?>/assets/image/shopping-bag-por.svg" alt="<?php _e("سفارش با موفقیت ثبت شد!", "naghoos") ?>">
 
