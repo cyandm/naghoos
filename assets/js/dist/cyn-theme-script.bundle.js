@@ -25119,6 +25119,225 @@
     });
   }
 
+  // assets/js/functions/cart.js
+  function CartPage() {
+    function updateCartQuantity(cartKey, quantity) {
+      const cartItems = document.querySelectorAll(
+        `.cart-item[data-cart-key="${cartKey}"]`
+      );
+      if (!cartItems.length) return;
+      if (typeof cart_ajax_params === "undefined") return;
+      cartItems.forEach((item) => item.classList.add("loading"));
+      fetch(cart_ajax_params.ajax_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          action: "update_cart_quantity",
+          cart_key: cartKey,
+          quantity,
+          security: cart_ajax_params.nonce
+        })
+      }).then((response) => response.json()).then((data) => {
+        if (!data.success) {
+          alert(data.data.message || "\u062E\u0637\u0627 \u062F\u0631 \u0628\u0631\u0648\u0632\u0631\u0633\u0627\u0646\u06CC \u0633\u0628\u062F \u062E\u0631\u06CC\u062F");
+          return;
+        }
+        cartItems.forEach((cartItem) => {
+          const subtotalElement = cartItem.querySelector(".item-subtotal");
+          if (subtotalElement && data.data.item_subtotal) {
+            subtotalElement.innerHTML = data.data.item_subtotal;
+          }
+          if (quantity === 0) {
+            cartItem.remove();
+          }
+        });
+        if (quantity === 0) {
+          const remaining = document.querySelectorAll(".cart-item");
+          if (remaining.length === 0) location.reload();
+        }
+        const cartSubtotal = document.querySelector(".cart-subtotal-amount");
+        if (cartSubtotal && data.data.cart_subtotal) {
+          cartSubtotal.innerHTML = data.data.cart_subtotal;
+        }
+        const cartTotal = document.querySelector(".cart-total-amount");
+        if (cartTotal && data.data.cart_total) {
+          cartTotal.innerHTML = data.data.cart_total;
+        }
+        const cartSaving = document.querySelector(".cart-saving-amount");
+        if (cartSaving && data.data.cart_saving) {
+          cartSaving.innerHTML = data.data.cart_saving;
+        }
+      }).catch((error) => {
+        console.error("Error:", error);
+        alert("\u062E\u0637\u0627 \u062F\u0631 \u0627\u0631\u062A\u0628\u0627\u0637 \u0628\u0627 \u0633\u0631\u0648\u0631");
+      }).finally(() => {
+        cartItems.forEach((item) => item.classList.remove("loading"));
+      });
+    }
+    document.querySelectorAll(".quantity-btn").forEach((btn) => {
+      btn.addEventListener("click", function(e11) {
+        e11.preventDefault();
+        const cartKey = this.dataset.cartKey;
+        const cartItem = this.closest(".cart-item");
+        const input = cartItem && cartItem.querySelector("input.qty, input.product-quantity") || null;
+        if (!input) return;
+        const currentQty = parseInt(input.value, 10) || 0;
+        const maxAttr = input.getAttribute("max");
+        const maxQty = maxAttr !== null && maxAttr !== "" ? parseInt(maxAttr, 10) : 9999;
+        const minQty = parseInt(input.getAttribute("min"), 10) || 0;
+        let newQty = this.classList.contains("quantity-plus") ? Math.min(currentQty + 1, maxQty) : Math.max(currentQty - 1, minQty);
+        if (newQty !== currentQty) {
+          document.querySelectorAll(
+            `.cart-item[data-cart-key="${cartKey}"] input.qty, .cart-item[data-cart-key="${cartKey}"] input.product-quantity`
+          ).forEach((qtyInput) => {
+            qtyInput.value = newQty;
+          });
+          updateCartQuantity(cartKey, newQty);
+        }
+      });
+    });
+    document.querySelectorAll("input.qty, input.product-quantity").forEach((input) => {
+      input.addEventListener("change", function() {
+        const cartItem = this.closest(".cart-item");
+        if (!cartItem) return;
+        const cartKey = cartItem.dataset.cartKey;
+        const newQty = parseInt(this.value, 10) || 0;
+        const maxAttr = this.getAttribute("max");
+        const maxQty = maxAttr !== null && maxAttr !== "" ? parseInt(maxAttr, 10) : 9999;
+        const minQty = parseInt(this.getAttribute("min"), 10) || 0;
+        const validQty = Math.max(minQty, Math.min(newQty, maxQty));
+        this.value = validQty;
+        updateCartQuantity(cartKey, validQty);
+      });
+    });
+    document.querySelectorAll(".remove-item").forEach((link) => {
+      link.addEventListener("click", function(e11) {
+        e11.preventDefault();
+        if (confirm("\u0622\u06CC\u0627 \u0627\u0632 \u062D\u0630\u0641 \u0627\u06CC\u0646 \u0645\u062D\u0635\u0648\u0644 \u0627\u0637\u0645\u06CC\u0646\u0627\u0646 \u062F\u0627\u0631\u06CC\u062F\u061F")) {
+          const cartItem = this.closest(".cart-item");
+          if (!cartItem) return;
+          const cartKey = cartItem.dataset.cartKey;
+          updateCartQuantity(cartKey, 0);
+        }
+      });
+    });
+    jQuery(function($) {
+      var lastCouponMessage = "";
+      function extractLiText(htmlString) {
+        var $tmp = $("<div>").html(htmlString);
+        var text = $tmp.find("ul.woocommerce-error li, ul.woocommerce-message li").first().text().trim();
+        if (!text) {
+          text = $tmp.find(".woocommerce-error, .woocommerce-message").first().text().trim();
+        }
+        return text || htmlString;
+      }
+      function renderMessage($container, text) {
+        lastCouponMessage = text;
+        $container.find(".coupon_code_response").text(text);
+      }
+      $("body").on("updated_checkout", function() {
+        if (lastCouponMessage) {
+          $(".coupon_code_loader").each(function() {
+            $(this).find(".coupon_code_response").text(lastCouponMessage);
+          });
+        }
+      });
+      $(document).on(
+        "click",
+        ".coupon_code_loader .apply-coupon-btn",
+        function(e11) {
+          e11.preventDefault();
+          var $container = $(this).closest(".coupon_code_loader");
+          var $btn = $(this);
+          var coupon = $container.find(".coupon_code").val();
+          $btn.prop("disabled", true);
+          $container.find(".coupon_code_response").html(
+            '<div class="flex items-center gap-2 text-cynBlack/70"><span class="coupon-spinner"></span><span>\u062F\u0631 \u062D\u0627\u0644 \u0628\u0631\u0631\u0633\u06CC \u06A9\u062F \u062A\u062E\u0641\u06CC\u0641...</span></div>'
+          );
+          $.ajax({
+            type: "POST",
+            url: wc_checkout_params.wc_ajax_url.replace(
+              "%%endpoint%%",
+              "apply_coupon"
+            ),
+            data: {
+              coupon_code: coupon,
+              security: wc_checkout_params.apply_coupon_nonce
+            },
+            success: function(response) {
+              var messageText = "";
+              if (response && typeof response === "object" && response.messages) {
+                messageText = extractLiText(response.messages);
+              } else if (typeof response === "string") {
+                messageText = extractLiText(response);
+              } else {
+                messageText = "\u067E\u0627\u0633\u062E \u0646\u0627\u0645\u0639\u062A\u0628\u0631 \u0627\u0632 \u0633\u0631\u0648\u0631 \u062F\u0631\u06CC\u0627\u0641\u062A \u0634\u062F.";
+              }
+              renderMessage($container, messageText);
+              $("body").trigger("update_checkout");
+            },
+            error: function() {
+              renderMessage($container, "\u062E\u0637\u0627 \u062F\u0631 \u0627\u0631\u062A\u0628\u0627\u0637 \u0628\u0627 \u0633\u0631\u0648\u0631!");
+            },
+            complete: function() {
+              $btn.prop("disabled", false);
+            }
+          });
+        }
+      );
+    });
+    jQuery(function($) {
+      $("body").on("click", ".delete-coupon-code", function(e11) {
+        e11.preventDefault();
+        $.ajax({
+          url: themeData.ajaxUrl,
+          type: "POST",
+          data: {
+            action: "delete_coupon_code"
+          },
+          beforeSend: function() {
+            $(".delete-coupon-code").css("opacity", "0.5");
+          },
+          success: function(res) {
+            $(".delete-coupon-code").css("opacity", "1");
+            if (res.success) {
+              $(".coupon_code_response").html(
+                '<p class="text-red-600">' + res.data.message + "</p>"
+              );
+              $("body").trigger("update_checkout");
+            }
+          }
+        });
+      });
+    });
+  }
+
+  // assets/js/functions/personnelCards.js
+  function PersonnelCards() {
+    const cards = document.querySelectorAll(".personnel-card");
+    if (!cards.length) return;
+    const isTouchLike = () => window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    cards.forEach((card) => {
+      card.addEventListener("click", (e11) => {
+        if (!isTouchLike()) return;
+        e11.preventDefault();
+        e11.stopPropagation();
+        const wasActive = card.classList.contains("is-active");
+        cards.forEach((other) => other.classList.remove("is-active"));
+        if (!wasActive) {
+          card.classList.add("is-active");
+        }
+      });
+    });
+    document.addEventListener("click", (e11) => {
+      if (!isTouchLike()) return;
+      if (e11.target.closest(".personnel-card")) return;
+      cards.forEach((card) => card.classList.remove("is-active"));
+    });
+  }
+
   // assets/js/index.js
   Modals();
   register();
@@ -25137,6 +25356,8 @@
   initAudioPlayers();
   FaqTabs();
   FaqCard();
+  CartPage();
+  PersonnelCards();
 })();
 /*! Bundled license information:
 

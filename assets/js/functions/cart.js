@@ -1,6 +1,4 @@
 export function CartPage() {
-  console.log("Cart page initialized");
-
   function updateCartQuantity(cartKey, quantity) {
     const cartItems = document.querySelectorAll(
       `.cart-item[data-cart-key="${cartKey}"]`,
@@ -8,8 +6,9 @@ export function CartPage() {
 
     if (!cartItems.length) return;
 
-    // Add loading state
-    cartItems.forEach((addLoading) => addLoading.classList.add("loading"));
+    if (typeof cart_ajax_params === "undefined") return;
+
+    cartItems.forEach((item) => item.classList.add("loading"));
 
     fetch(cart_ajax_params.ajax_url, {
       method: "POST",
@@ -30,31 +29,22 @@ export function CartPage() {
           return;
         }
 
-        // -------------------------
-        // Update EACH cart item UI
-        // -------------------------
         cartItems.forEach((cartItem) => {
-          // Subtotal per item
           const subtotalElement = cartItem.querySelector(".item-subtotal");
           if (subtotalElement && data.data.item_subtotal) {
             subtotalElement.innerHTML = data.data.item_subtotal;
           }
 
-          // Handle removing item (when quantity = 0)
           if (quantity === 0) {
             cartItem.remove();
           }
         });
 
-        // If no items left, reload page
         if (quantity === 0) {
           const remaining = document.querySelectorAll(".cart-item");
           if (remaining.length === 0) location.reload();
         }
 
-        // -------------------------
-        // Update CART totals
-        // --------------------------
         const cartSubtotal = document.querySelector(".cart-subtotal-amount");
         if (cartSubtotal && data.data.cart_subtotal) {
           cartSubtotal.innerHTML = data.data.cart_subtotal;
@@ -75,9 +65,7 @@ export function CartPage() {
         alert("خطا در ارتباط با سرور");
       })
       .finally(() => {
-        cartItems.forEach((removeLoading) =>
-          removeLoading.classList.remove("loading"),
-        );
+        cartItems.forEach((item) => item.classList.remove("loading"));
       });
   }
 
@@ -87,44 +75,59 @@ export function CartPage() {
       e.preventDefault();
 
       const cartKey = this.dataset.cartKey;
+      const cartItem = this.closest(".cart-item");
+      const input =
+        (cartItem &&
+          cartItem.querySelector("input.qty, input.product-quantity")) ||
+        null;
 
-      const container =
-        this.closest(".quantity-container") || this.parentElement;
-      const input = container.querySelector("input.product-quantity");
+      if (!input) return;
 
-      const currentQty = parseInt(input.value) || 0;
-      const maxQty = parseInt(input.getAttribute("max")) || 9999;
-      const minQty = parseInt(input.getAttribute("min")) || 0;
+      const currentQty = parseInt(input.value, 10) || 0;
+      const maxAttr = input.getAttribute("max");
+      const maxQty =
+        maxAttr !== null && maxAttr !== "" ? parseInt(maxAttr, 10) : 9999;
+      const minQty = parseInt(input.getAttribute("min"), 10) || 0;
 
       let newQty = this.classList.contains("quantity-plus")
         ? Math.min(currentQty + 1, maxQty)
         : Math.max(currentQty - 1, minQty);
 
       if (newQty !== currentQty) {
-        input.value = newQty;
+        document
+          .querySelectorAll(
+            `.cart-item[data-cart-key="${cartKey}"] input.qty, .cart-item[data-cart-key="${cartKey}"] input.product-quantity`,
+          )
+          .forEach((qtyInput) => {
+            qtyInput.value = newQty;
+          });
         updateCartQuantity(cartKey, newQty);
       }
     });
   });
 
   // ========== Manual input change ==========
-  document.querySelectorAll("input.product-quantity").forEach((input) => {
-    input.addEventListener("change", function () {
-      const cartItem = this.closest(".cart-item");
-      if (!cartItem) return;
+  document
+    .querySelectorAll("input.qty, input.product-quantity")
+    .forEach((input) => {
+      input.addEventListener("change", function () {
+        const cartItem = this.closest(".cart-item");
+        if (!cartItem) return;
 
-      const cartKey = cartItem.dataset.cartKey;
+        const cartKey = cartItem.dataset.cartKey;
 
-      const newQty = parseInt(this.value) || 0;
-      const maxQty = parseInt(this.getAttribute("max")) || 9999;
-      const minQty = parseInt(this.getAttribute("min")) || 0;
+        const newQty = parseInt(this.value, 10) || 0;
+        const maxAttr = this.getAttribute("max");
+        const maxQty =
+          maxAttr !== null && maxAttr !== "" ? parseInt(maxAttr, 10) : 9999;
+        const minQty = parseInt(this.getAttribute("min"), 10) || 0;
 
-      const validQty = Math.max(minQty, Math.min(newQty, maxQty));
-      this.value = validQty;
+        const validQty = Math.max(minQty, Math.min(newQty, maxQty));
+        this.value = validQty;
 
-      updateCartQuantity(cartKey, validQty);
+        updateCartQuantity(cartKey, validQty);
+      });
     });
-  });
 
   // ========== Remove item ==========
   document.querySelectorAll(".remove-item").forEach((link) => {
@@ -252,7 +255,6 @@ export function CartPage() {
               '<p class="text-red-600">' + res.data.message + "</p>",
             );
 
-            // Refresh checkout fragments
             $("body").trigger("update_checkout");
           }
         },

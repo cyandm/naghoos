@@ -80,7 +80,7 @@ get_header(); ?>
                 </p>
             </div>
 
-            <swiper-container class="w-full" space-between="12" slides-per-view="auto" loop="true" navigation="false">
+            <swiper-container class="w-full" space-between="12" slides-per-view="auto" initial-slide="2" centered-slides="true" loop="true" navigation="false">
 
                 <?php while ($about_personnel_query->have_posts()) : $about_personnel_query->the_post(); ?>
                     <swiper-slide class="max-w-[183px] h-auto flex">

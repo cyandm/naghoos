@@ -19,6 +19,8 @@ import { BlogArchiveSort } from "./functions/blogArchiveSort";
 import { InstockToggle } from "./functions/instockToggle";
 import { initAudioPlayers } from "./functions/wavesurfer";
 import { FaqTabs, FaqCard } from "./functions/faq";
+import { CartPage } from "./functions/cart";
+import { PersonnelCards } from "./functions/personnelCards";
 
 Modals();
 register();
@@ -37,3 +39,5 @@ InstockToggle();
 initAudioPlayers();
 FaqTabs();
 FaqCard();
+CartPage();
+PersonnelCards();

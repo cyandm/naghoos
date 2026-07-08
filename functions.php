@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Naghoos Theme Functions
  * this file is used to initialize the theme
@@ -8,23 +9,21 @@
 
 
 //Constants
-define( 'THEME_DIR', get_template_directory() );
-define( 'THEME_URI', get_template_directory_uri() );
-define( 'THEME_VERSION', '1.0.0' );
-define( 'ENVIRONMENT', 'development' ); //development, production
-define( 'THEME_SLUG', 'naghoos' );
-define( 'THEME_NAME', 'Naghoos Theme' );
+define('THEME_DIR', get_template_directory());
+define('THEME_URI', get_template_directory_uri());
+define('THEME_VERSION', '1.0.0');
+define('ENVIRONMENT', 'development'); //development, production
+define('THEME_SLUG', 'naghoos');
+define('THEME_NAME', 'Naghoos Theme');
 
-define( 'THEME_ASSETS_DIR', THEME_DIR . '/assets' );
-define( 'THEME_ASSETS_URI', THEME_URI . '/assets' );
+define('THEME_ASSETS_DIR', THEME_DIR . '/assets');
+define('THEME_ASSETS_URI', THEME_URI . '/assets');
 
-define( 'THEME_IMAGES_DIR', THEME_DIR . '/assets/image' );
-define( 'THEME_IMAGES_URI', THEME_URI . '/assets/image' );
+define('THEME_IMAGES_DIR', THEME_DIR . '/assets/image');
+define('THEME_IMAGES_URI', THEME_URI . '/assets/image');
 
 //Autoload
 include_once THEME_DIR . '/vendor/autoload.php';
 
 //Setup Theme
 Cyan\Theme\Classes\Setup::init();
-
-

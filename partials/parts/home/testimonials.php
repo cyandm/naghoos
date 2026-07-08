@@ -33,7 +33,7 @@ if (!empty($home_testimonial_select)) {
             </p>
         </div>
 
-        <swiper-container class="w-full" space-between="8" initial-slide="2" centered-slides="true" slides-per-view="1.15" autoplay="true" delay="5000" loop="true" navigation="false" breakpoints='{ "240": { "slidesPerView": 1.15 }, "768": { "slidesPerView": 3.5 } }'>
+        <swiper-container class="w-full" space-between="8" initial-slide="2" centered-slides="true" slides-per-view="1.15" autoplay="true" delay="8000" loop="true" navigation="false" breakpoints='{ "240": { "slidesPerView": 1.15 }, "768": { "slidesPerView": 3.5 } }'>
 
             <?php while ($home_testimonial_query->have_posts()) : $home_testimonial_query->the_post(); ?>
                 <swiper-slide class="py-1.5 px-1">
