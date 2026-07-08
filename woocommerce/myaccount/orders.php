@@ -79,7 +79,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 
 			<!-- Desktop Tabs -->
 			<div class="hidden lg:flex items-center gap-8 border-b border-gray-200 pb-3" id="order-tabs-desktop">
-				<button class="tab-btn-desktop text-sm font-medium border-b-2 border-yellow-400 text-gray-900 pb-3"
+				<button class="tab-btn-desktop text-sm font-medium border-b-2 border-cynRed text-gray-900 pb-3"
 					data-filter="current">
 					جاری
 				</button>
@@ -133,7 +133,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						break;
 					case 'pending':
 						$badge_text = 'در انتظار پرداخت';
-						$badge_class = 'bg-yellow-50 text-yellow-600';
+						$badge_class = 'bg-cynRed/10 text-cynRed';
 						$filter_group = 'current';
 						break;
 					case 'on-hold':
@@ -273,7 +273,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 					case 'on-hold':
 						$badge_text = 'در انتظار پرداخت';
 						$badge_class = 'text-gray-700';
-						$badge_icon = '<svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+						$badge_icon = '<svg class="w-5 h-5 text-cynRed" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
 						$filter_group = 'current';
 						break;
 					case 'cancelled':
@@ -492,12 +492,12 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 
 				function setActiveDesktopTab(activeTab) {
 					desktopTabs.forEach(tab => {
-						tab.classList.remove('border-b-2', 'border-yellow-400', 'text-gray-900');
+						tab.classList.remove('border-b-2', 'border-cynRed', 'text-gray-900');
 						tab.classList.add('text-gray-500');
 
 						if (tab === activeTab) {
 							tab.classList.remove('text-gray-500');
-							tab.classList.add('border-b-2', 'border-yellow-400', 'text-gray-900');
+							tab.classList.add('border-b-2', 'border-cynRed', 'text-gray-900');
 						}
 					});
 				}
@@ -540,7 +540,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 
 		<div class="bg-white rounded-2xl border border-gray-200 p-12 text-center">
 			<p class="text-gray-500 mb-4">هنوز سفارشی ثبت نشده است.</p>
-			<a class="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+			<a class="inline-block px-6 py-3 bg-cynRed text-white rounded-lg hover:bg-cynRed/80"
 				href="<?php echo esc_url(apply_filters('woocommerce_return_to_shop_redirect', wc_get_page_permalink('shop'))); ?>">مشاهده
 				محصولات</a>
 		</div>

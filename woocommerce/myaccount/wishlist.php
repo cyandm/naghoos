@@ -51,7 +51,7 @@ if (! empty($wishlist_product_ids)) {
         <div class="min-h-[220px] flex flex-col items-center justify-center gap-3 text-center">
             <p class="text-gray-500">هنوز محصولی به علاقه‌مندی‌ها اضافه نشده است.</p>
             <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>"
-                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-yellow-400 text-gray-900 hover:bg-yellow-500 transition-colors duration-200">
+                class="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-cynRed text-cynWhite hover:bg-cynRed/90 transition-colors duration-200">
                 مشاهده محصولات
             </a>
         </div>

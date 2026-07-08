@@ -71,7 +71,7 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 								'rounded-xl',
 								'focus:outline-none',
 								'focus:ring-2',
-								'focus:ring-yellow-400',
+								'focus:ring-cynRed',
 								'text-right',
 								'text-gray-900',
 							)
@@ -91,11 +91,11 @@ do_action('woocommerce_before_edit_account_address_form'); ?>
 
 				<div class="flex justify-end gap-3">
 					<a href="<?php echo esc_url($address_index_url); ?>"
-						class="px-8 py-3 border-2 border-yellow-400 text-gray-900 font-medium rounded-xl hover:bg-yellow-50 transition">
+						class="px-8 py-3 border-2 border-cynRed text-gray-900 font-medium rounded-xl hover:bg-cynRed/10 transition">
 						<?php esc_html_e('Cancel', 'woocommerce'); ?>
 					</a>
 					<button type="submit"
-						class="px-8 py-3 bg-yellow-400 text-gray-900 font-medium rounded-xl hover:bg-yellow-500 transition"
+						class="px-8 py-3 bg-cynRed text-cynWhite font-medium rounded-xl hover:bg-cynRed/90 transition"
 						name="save_address" value="<?php esc_attr_e('Save address', 'woocommerce'); ?>">
 						<?php esc_html_e('Save address', 'woocommerce'); ?>
 					</button>

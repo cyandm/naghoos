@@ -12,6 +12,7 @@ class Meta
     protected static $unread_badge_config = [
         'contact_form'       => ['read_meta' => '_read'],
         'customer_club_form' => ['read_meta' => '_read'],
+        'support_form'       => ['read_meta' => '_read'],
     ];
 
     public static function init()
@@ -21,6 +22,8 @@ class Meta
         add_action('manage_contact_form_posts_custom_column', [__CLASS__, 'contact_form_table_column'], 10, 2);
         add_filter('manage_customer_club_form_posts_columns', [__CLASS__, 'customer_club_form_table_head']);
         add_action('manage_customer_club_form_posts_custom_column', [__CLASS__, 'customer_club_form_table_column'], 10, 2);
+        add_filter('manage_support_form_posts_columns', [__CLASS__, 'support_form_table_head']);
+        add_action('manage_support_form_posts_custom_column', [__CLASS__, 'support_form_table_column'], 10, 2);
         add_action('load-post.php', [__CLASS__, 'markCurrentPostAsRead']);
         add_action('admin_menu', [__CLASS__, 'addUnreadCountToMenu'], 999);
         add_action('manage_posts_extra_tablenav', [__CLASS__, 'renderCustomerClubExportButton'], 10, 1);
@@ -54,6 +57,21 @@ class Meta
             add_meta_box('customer_club_information', 'اطلاعات عضویت', function () {
                 $meta_group = [
                     ['name' => '_phone', 'label' => 'تلفن همراه:'],
+                ];
+
+                include get_template_directory() . '/partials/parts/metabox.php';
+            }, null, 'advanced', 'high');
+
+            return;
+        }
+
+        if ($post->post_type === 'support_form') {
+            add_meta_box('support_form_information', 'اطلاعات پشتیبانی', function () {
+                $meta_group = [
+                    ['name' => '_name', 'label' => 'نام:'],
+                    ['name' => '_phone', 'label' => 'تلفن همراه:'],
+                    ['name' => '_message', 'label' => 'پیام:'],
+                    ['name' => '_user_id', 'label' => 'شناسه کاربر:'],
                 ];
 
                 include get_template_directory() . '/partials/parts/metabox.php';
@@ -105,6 +123,35 @@ class Meta
         }
 
         if ($column_name === 'club_date') {
+            echo esc_html(get_the_date('Y/m/d H:i', $post_id));
+        }
+    }
+
+    public static function support_form_table_head($columns)
+    {
+        $columns['name']         = __('نام', 'naghoos');
+        $columns['phone']        = __('تلفن همراه', 'naghoos');
+        $columns['message']      = __('پیام', 'naghoos');
+        $columns['support_date'] = __('تاریخ ثبت', 'naghoos');
+
+        return $columns;
+    }
+
+    public static function support_form_table_column($column_name, $post_id)
+    {
+        if ($column_name === 'name') {
+            echo esc_html(get_post_meta($post_id, '_name', true));
+        }
+
+        if ($column_name === 'phone') {
+            echo esc_html(get_post_meta($post_id, '_phone', true));
+        }
+
+        if ($column_name === 'message') {
+            echo esc_html(get_post_meta($post_id, '_message', true));
+        }
+
+        if ($column_name === 'support_date') {
             echo esc_html(get_the_date('Y/m/d H:i', $post_id));
         }
     }

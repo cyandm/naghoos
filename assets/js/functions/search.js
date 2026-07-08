@@ -1,5 +1,5 @@
 export function SearchPage() {
-  const searchForm = document.querySelector("form#search-form");
+  const searchForm = document.querySelector("#search-page form#search-form");
 
   if (!searchForm) return;
 

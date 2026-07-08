@@ -23545,7 +23545,7 @@
 
   // assets/js/functions/search.js
   function SearchPage() {
-    const searchForm = document.querySelector("form#search-form");
+    const searchForm = document.querySelector("#search-page form#search-form");
     if (!searchForm) return;
     const filterRadios = searchForm.querySelectorAll('input[name="search-type"]');
     filterRadios.forEach((radio) => {
@@ -25042,12 +25042,12 @@
     if (!panels || !handlers) return;
     function activateTab(element) {
       if (!element) return;
-      element.classList.replace("bg-cynBgItem", "bg-cynRed");
+      element.classList.replace("bg-cynWhite", "bg-cynRed");
       element.classList.replace("text-cynBlack", "text-cynWhite");
     }
     function deActivateTab(element) {
       if (!element) return;
-      element.classList.replace("bg-cynRed", "bg-cynBgItem");
+      element.classList.replace("bg-cynRed", "bg-cynWhite");
       element.classList.replace("text-cynWhite", "text-cynBlack");
     }
     function activatePanel(element) {

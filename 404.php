@@ -24,7 +24,7 @@ Description: A template for displaying a 404 error page.
 		</p>
 
 		<div class="mt-2 flex justify-center">
-			<a href="/" class="primary-btn w-full max-w-xs sm:w-auto">
+			<a href="<?php echo home_url(); ?>" class="primary-btn w-full max-w-xs sm:w-auto">
 				<?php _e('بازگشت به صفحه اصلی', 'naghoos'); ?>
 			</a>
 		</div>

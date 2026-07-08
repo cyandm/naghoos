@@ -7,14 +7,14 @@ export function FaqTabs() {
   function activateTab(element) {
     if (!element) return;
 
-    element.classList.replace("bg-cynBgItem", "bg-cynRed");
+    element.classList.replace("bg-cynWhite", "bg-cynRed");
     element.classList.replace("text-cynBlack", "text-cynWhite");
   }
 
   function deActivateTab(element) {
     if (!element) return;
 
-    element.classList.replace("bg-cynRed", "bg-cynBgItem");
+    element.classList.replace("bg-cynRed", "bg-cynWhite");
     element.classList.replace("text-cynWhite", "text-cynBlack");
   }
 

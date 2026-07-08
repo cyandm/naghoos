@@ -71,7 +71,7 @@ if (!$has_faqs) {
                     <div class="fade-in-down"
                         anim-delay="<?php echo $index * 0.3 ?>">
                         <div id="<?php echo "faq-cat-" . $category->term_id ?>"
-                            class="faq-handler | bg-cynBgItem text-cynBlack cursor-pointer hover:bg-cynRed hover:text-cynWhite text-base font-medium duration-300 rounded-2xl py-3 px-4 max-md:px-2 w-full flex justify-center items-center whitespace-nowrap">
+                            class="faq-handler | bg-cynWhite text-cynBlack cursor-pointer hover:bg-cynRed hover:text-cynWhite text-base font-medium duration-300 rounded-2xl py-3 px-4 max-md:px-2 w-full flex justify-center items-center whitespace-nowrap shadow-cart">
                             <?php echo $category->name ?>
                         </div>
                     </div>

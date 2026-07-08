@@ -31,7 +31,7 @@ if (!empty($home_highlights_select)) {
             <?php echo esc_html($home_highlights_title); ?>
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-5 md:pt-8 overflow-visible max-md:hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-5 overflow-visible max-md:hidden">
             <?php
             $index = 0;
             while ($home_highlights_query->have_posts()) :

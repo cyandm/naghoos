@@ -25,6 +25,7 @@ class Rest
 	{
 		self::makeRoute('/contact_form', 'POST', [__CLASS__, 'createForm']);
 		self::makeRoute('/customer_club_form', 'POST', [__CLASS__, 'createCustomerClubForm']);
+		self::makeRoute('/support_form', 'POST', [__CLASS__, 'createSupportForm']);
 	}
 
 	public static function createForm(WP_REST_Request $request)
@@ -111,6 +112,50 @@ class Rest
 		self::recordRateLimit('cyn_club_');
 
 		return new WP_REST_Response(['message' => 'عضویت با موفقیت ثبت شد'], 200);
+	}
+
+	public static function createSupportForm(WP_REST_Request $request)
+	{
+		$rate_limit = self::checkRateLimit('cyn_support_');
+		if ($rate_limit instanceof WP_REST_Response) {
+			return $rate_limit;
+		}
+
+		$body    = $request->get_body_params();
+		$name    = isset($body['name']) ? sanitize_text_field($body['name']) : '';
+		$phone   = isset($body['phone']) ? sanitize_text_field($body['phone']) : '';
+		$message = isset($body['message']) ? sanitize_textarea_field($body['message']) : '';
+
+		if (empty($name) || empty($phone) || empty($message)) {
+			return new WP_REST_Response(['error' => 'نام، شماره تلفن و پیام الزامی هستند'], 400);
+		}
+
+		if (!preg_match('/^[0-9]{11}$/', $phone)) {
+			return new WP_REST_Response(['error' => 'شماره تلفن معتبر نیست'], 400);
+		}
+
+		$user_id = get_current_user_id();
+
+		$new_post = wp_insert_post([
+			'post_type'   => 'support_form',
+			'post_title'  => $name,
+			'post_status' => 'private',
+			'post_author' => $user_id > 0 ? $user_id : 0,
+			'meta_input'  => [
+				'_name'    => $name,
+				'_phone'   => $phone,
+				'_message' => $message,
+				'_user_id' => $user_id > 0 ? $user_id : '',
+			],
+		]);
+
+		if (is_wp_error($new_post)) {
+			return new WP_REST_Response(['error' => 'خطا در ثبت فرم، لطفاً دوباره تلاش کنید'], 500);
+		}
+
+		self::recordRateLimit('cyn_support_');
+
+		return new WP_REST_Response(['message' => 'پیام پشتیبانی با موفقیت ارسال شد'], 200);
 	}
 
 	/**

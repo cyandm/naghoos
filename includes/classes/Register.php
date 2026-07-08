@@ -46,6 +46,7 @@ class Register
 		self::makePostType('faq', 'سوالات متداول', 'سوالات متداول', 'dashicons-editor-help', ['title', 'editor']);
 		self::makePostType('slider', 'اسلایدر', 'اسلایدر', 'dashicons-images-alt2', ['title']);
 		self::makePostType('testimonial', 'نظر', 'نظرات', 'dashicons-admin-comments', ['title', 'editor']);
+		self::makePostType('support_form', 'فرم پشتیبانی', 'فرم پشتیبانی', 'dashicons-sos', ['title']);
 	}
 
 	public static function registerTaxonomy()

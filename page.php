@@ -2,12 +2,7 @@
 
 use Cyan\Theme\Helpers\Templates;
 
-
-if (function_exists('is_account_page') && is_account_page()) {
-    get_header('', ['header_type' => 'dashboard']);
-} else {
-    get_header();
-}
+get_header();
 ?>
 
 <?php

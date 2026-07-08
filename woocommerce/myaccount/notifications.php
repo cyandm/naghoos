@@ -50,11 +50,11 @@ if (!empty($visible_ids)) {
                 $is_new_for_user = !isset($read_map[$notification_id]);
             ?>
                 <li
-                    class="relative flex flex-col gap-2 rounded-2xl border border-cynBlack/10 bg-white px-4 py-4 md:px-5 md:py-5 transition-colors duration-200 <?php echo $is_new_for_user ? 'bg-yellow-50/60 border-yellow-300' : ''; ?>">
+                    class="relative flex flex-col gap-2 rounded-2xl border border-cynBlack/10 bg-white px-4 py-4 md:px-5 md:py-5 transition-colors duration-200 <?php echo $is_new_for_user ? 'bg-cynRed/10 border-cynRed' : ''; ?>">
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex items-center gap-2 min-w-0">
                             <?php if ($is_new_for_user) : ?>
-                                <span class="inline-block size-2 rounded-full bg-yellow-500 shrink-0" aria-hidden="true"></span>
+                                <span class="inline-block size-2 rounded-full bg-cynRed shrink-0" aria-hidden="true"></span>
                                 <span class="sr-only"><?php esc_html_e('اعلان جدید', 'naghoos'); ?></span>
                             <?php endif; ?>
                             <h3 class="text-base md:text-lg text-cynBlack truncate">
@@ -78,7 +78,7 @@ if (!empty($visible_ids)) {
         </ul>
     <?php else : ?>
         <div class="min-h-[220px] flex flex-col items-center justify-center gap-3 text-center">
-            <div class="size-14 rounded-full bg-yellow-100 text-yellow-500 flex items-center justify-center">
+            <div class="size-14 rounded-full bg-cynRed/10 text-cynRed flex items-center justify-center">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />

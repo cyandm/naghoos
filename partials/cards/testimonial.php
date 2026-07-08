@@ -20,7 +20,7 @@ if ($title === '' && $content === '') {
 }
 ?>
 
-<div class="bg-white rounded-3xl shadow-cart p-5 flex flex-col gap-4 text-right h-full w-full">
+<div class="bg-white rounded-3xl shadow-cart p-5 flex flex-col gap-4 text-right h-full w-full cursor-pointer border border-transparent hover:border-cynBlack transition-all duration-300">
     <?php if ($title !== '') : ?>
         <h3 class="text-base font-medium text-cynBlack">
             <?php echo esc_html($title); ?>

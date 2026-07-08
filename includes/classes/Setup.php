@@ -22,6 +22,8 @@ class Setup
 
 		Register::init();
 
+		Search::init();
+
 		Rest::init();
 
 		Meta::init();
@@ -29,5 +31,7 @@ class Setup
 		ViewsCount::init();
 
 		WooCommerce::init();
+
+		Notifications::init();
 	}
 }

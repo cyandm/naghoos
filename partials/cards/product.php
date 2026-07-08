@@ -23,7 +23,7 @@ $writer          = wc_get_product_terms($product_id, 'pa_writer', ['fields' => '
 $is_vertical = $layout === 'vertical';
 $fixed       = $fixed && $is_vertical;
 
-$link_classes = 'flex h-full relative group rounded-3xl bg-white/20 hover:bg-white transition-all duration-300 shadow-cart w-full items-stretch';
+$link_classes = 'flex h-full relative group rounded-3xl bg-white/20 hover:bg-white border border-transparent hover:border-cynBlack transition-all duration-300 shadow-cart w-full items-stretch';
 
 if ($responsive) {
     $link_classes .= $is_vertical

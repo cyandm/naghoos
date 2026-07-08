@@ -34,7 +34,11 @@ if ($address_first_name === '') {
 	$address_first_name = is_string($current_user->display_name) ? trim($current_user->display_name) : '';
 }
 $billing_phone = get_user_meta($customer_id, 'smartlogin_mobile', true);
-$display_phone = ! empty($billing_phone) ? '0' . $billing_phone : 'شماره موبایل ثبت نشده است';
+$billing_phone = is_string($billing_phone) ? preg_replace('/\D/', '', $billing_phone) : '';
+$has_verified_phone = $billing_phone !== '';
+$display_phone = $has_verified_phone
+	? (str_starts_with($billing_phone, '0') ? $billing_phone : '0' . $billing_phone)
+	: 'شماره موبایل ثبت نشده است';
 
 $account_balance = get_user_meta($customer_id, '_wallet_balance', true);
 $balance_amount  = ! empty($account_balance) ? number_format($account_balance) : '۰';
@@ -104,7 +108,7 @@ foreach ($address_items as &$address_item) {
 				'rounded-xl',
 				'focus:outline-none',
 				'focus:ring-2',
-				'focus:ring-yellow-400',
+				'focus:ring-cynRed',
 				'text-right',
 				'text-gray-900',
 			)
@@ -140,12 +144,14 @@ foreach ($address_items as $address_item) {
 	<div class="bg-white rounded-2xl border-1 border-gray-200 p-6">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
-				<div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center">
-					<div class="w-16 h-16 bg-yellow-500 rounded-full"></div>
+				<div class="w-20 h-20 bg-cynRed rounded-full flex items-center justify-center">
+					<div class="w-16 h-16 bg-cynWhite rounded-full">
+						<img src="<?= get_template_directory_uri(); ?>/assets/image/dashboard-icon.svg" alt="profile" class="size-full">
+					</div>
 				</div>
-				<div class="text-left">
+				<div class="text-right">
 					<!--<p class="text-blue-600 text-sm mb-1">تغییر آواتار</p>-->
-					<p class="text-2xl font-bold text-gray-900"><?php echo esc_html($display_phone); ?></p>
+					<p class="text-lg md:text-2xl font-bold text-gray-900"><?php echo esc_html($display_phone); ?></p>
 				</div>
 			</div>
 			<!--         <div class="text-right">
@@ -170,17 +176,28 @@ foreach ($address_items as $address_item) {
 			<p class="text-gray-500 text-sm">شماره موبایل</p>
 
 			<div class="text-right">
-				<p class="font-semibold text-gray-900"><?php echo esc_html($display_phone); ?></p>
+				<p class="text-sm md:text-lg font-semibold text-gray-900"><?php echo esc_html($display_phone); ?></p>
 			</div>
 
-			<span class="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm">
-				<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-					<path fill-rule="evenodd"
-						d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-						clip-rule="evenodd" />
-				</svg>
-				تایید شده
-			</span>
+			<?php if ($has_verified_phone) : ?>
+				<span class="inline-flex items-center gap-1 px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm">
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd"
+							d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+							clip-rule="evenodd" />
+					</svg>
+					تایید شده
+				</span>
+			<?php else : ?>
+				<span class="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-cynRed rounded-full text-sm">
+					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd"
+							d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+							clip-rule="evenodd" />
+					</svg>
+					ثبت نشده
+				</span>
+			<?php endif; ?>
 
 			<!-- <a href="<?php echo esc_url($account_url); ?>" class="text-blue-500 flex items-center gap-1 text-sm">
                 ویرایش
@@ -201,15 +218,15 @@ foreach ($address_items as $address_item) {
 		<h2 class="text-xl font-medium text-gray-900 mb-6">اطلاعات ثانویه</h2>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 			<input type="text" name="account_first_name" placeholder="نام" value="<?php echo esc_attr($first_name); ?>"
-				class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right text-gray-900" />
+				class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cynRed text-right text-gray-900" />
 			<input type="text" name="account_last_name" placeholder="نام خانوادگی"
 				value="<?php echo esc_attr($last_name); ?>"
-				class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right text-gray-900" />
+				class="px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cynRed text-right text-gray-900" />
 		</div>
 		<!--  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="relative">
                 <select name="gender"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right appearance-none text-gray-900">
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cynRed text-right appearance-none text-gray-900">
                     <option value="">جنسیت</option>
                     <option value="male">مرد</option>
                     <option value="female">زن</option>
@@ -221,7 +238,7 @@ foreach ($address_items as $address_item) {
             </div>
             <div class="relative">
                 <input type="text" name="birthdate" placeholder="تاریخ تولد"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-right text-gray-900" />
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cynRed text-right text-gray-900" />
                 <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -230,8 +247,8 @@ foreach ($address_items as $address_item) {
             </div>
         </div> -->
 		<div class="flex justify-end gap-3">
-			<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="px-10 py-2 border-2 border-yellow-400 text-gray-900 font-medium rounded-full hover:bg-yellow-50 transition">انصراف</a>
-			<button type="submit" class="px-10 py-2 bg-yellow-400 text-gray-900 font-medium rounded-full hover:bg-yellow-500 transition">تایید</button>
+			<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="px-10 py-2 border-2 border-cynRed text-gray-900 font-medium rounded-full hover:bg-cynRed/10 transition">انصراف</a>
+			<button type="submit" class="px-10 py-2 bg-cynRed text-cynWhite font-medium rounded-full hover:bg-cynRed/90 transition">تایید</button>
 		</div>
 		<input type="hidden" name="action" value="save_account_details" />
 		<input type="hidden" name="account_display_name" value="<?php echo esc_attr($current_user->display_name); ?>" />
@@ -279,8 +296,8 @@ foreach ($address_items as $address_item) {
 			<?php endforeach; ?>
 		</div>
 		<div class="flex justify-end gap-3">
-			<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="px-10 py-2 border-2 border-yellow-400 text-gray-900 font-medium rounded-full hover:bg-yellow-50 transition">انصراف</a>
-			<button type="button" class="px-10 py-2 bg-yellow-400 text-gray-900 font-medium rounded-full hover:bg-yellow-500 transition">تایید</button>
+			<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="px-10 py-2 border-2 border-cynRed text-gray-900 font-medium rounded-full hover:bg-cynRed/10 transition">انصراف</a>
+			<button type="button" class="px-10 py-2 bg-cynRed text-cynWhite font-medium rounded-full hover:bg-cynRed/90 transition">تایید</button>
 		</div>
 	</div>
 </div>

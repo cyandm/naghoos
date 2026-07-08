@@ -35,7 +35,7 @@ use Cyan\Theme\Helpers\Icon;
 			<div class="desktop-menu hidden lg:flex">
 				<?php wp_nav_menu([
 					'menu_id' => 'main-menu',
-					'menu_class' => 'gap-3 text-sm font-medium flex items-center text-cynBlack [&>li>a]:px-2 [&>li>a]:py-1.5 [&>li>a]:rounded-xl [&>li>a]:transition-all [&>li>a]:duration-300 [&>li>a:hover]:text-cynWhite [&>li>a:hover]:bg-cynRed [&>li>a[aria-current=page]]:text-cynWhite [&>li>a[aria-current=page]]:bg-cynRed [&>li>ul>li>a:hover]:text-cynRed [&>li>ul>li>a]:transition-all [&>li>ul>li>a]:duration-300 [&_li]:duration-300 [&_li]:transition-all [&_li_a_svg]:transition-all [&_li_a_svg]:duration-200 [&_li:hover_svg]:rotate-180',
+					'menu_class' => 'gap-3 text-sm font-medium flex items-center text-cynBlack [&>li]:px-2 [&>li]:py-1.5 [&>li]:rounded-xl [&>li]:transition-[background-color] [&>li]:duration-300 [&>li>a]:transition-all [&>li>a]:duration-300 [&>li:hover]:bg-cynRed [&>li:hover>a]:text-cynWhite [&>li[aria-current=page]]:bg-cynRed [&>li[aria-current=page]>a]:text-cynWhite [&>li>ul>li:hover>a]:text-cynRed [&>li>ul>li>a]:transition-all [&>li>ul>li>a]:duration-300 [&_li_a_svg]:transition-transform [&_li_a_svg]:duration-300 [&>li:hover>a_svg]:rotate-180 [&>li>ul>li:hover>a_svg]:rotate-90',
 					'depth' => '3',
 					'theme_location' => 'header-menu',
 					'container' => 'ul'
@@ -45,21 +45,22 @@ use Cyan\Theme\Helpers\Icon;
 
 		<div class="flex justify-end gap-3">
 
-			<form id="search-form" class="hidden lg:flex justify-between items-center relative">
+			<form id="header-search-form" method="get" action="<?php echo esc_url(home_url('/')); ?>" class="hidden lg:flex justify-between items-center relative">
 				<i class="absolute inset-0 top-1/2 -translate-y-1/2 flex items-center ps-3.5 pointer-events-none text-[#8C847F] size-9">
 					<?php Icon::print('Search,-Loupe'); ?>
 				</i>
 
 				<input type="text"
-					id="email-address-icon"
+					id="header-search-input"
 					name="s"
 					value="<?php the_search_query() ?>"
 					class="text-cynBlack text-base font-medium rounded-full border border-cynBorder/10 focus:outline-none focus:ring-cynRed focus:border-cynRed block w-full ps-10 p-3 pt-3.5 transition-all duration-300 md:min-w-64"
 					placeholder="<?php _e('جستجو کنید', 'naghoos'); ?>">
+				<input type="hidden" name="search-type" value="all">
 			</form>
 
 			<div class="relative flex justify-center group" id="login-btn">
-				<a href="<?= !is_user_logged_in() ? get_site_url() . '/panel' : '#' ?>" class="flex items-center justify-between gap-1 text-cynWhite bg-cynBlack min-w-34 py-3 ps-4 <?php echo is_user_logged_in() ? 'md:!ps-6 !pe-3' : 'pe-5'; ?> rounded-full text-sm font-medium transition-all duration-300 group-hover:bg-cynRed group-hover:text-cynWhite">
+				<a href="<?= !is_user_logged_in() ? get_site_url() . '/my-account' : '#' ?>" class="flex items-center justify-between gap-1 text-cynWhite bg-cynBlack min-w-34 py-3 ps-4 <?php echo is_user_logged_in() ? 'md:!ps-6 !pe-3' : 'pe-5'; ?> rounded-full text-sm font-medium transition-all duration-300 group-hover:bg-cynRed group-hover:text-cynWhite">
 
 					<?php if (!is_user_logged_in()): ?>
 						<i class="size-6 text-cynRed stroke-2 group-hover:text-cynWhite transition-all duration-300">

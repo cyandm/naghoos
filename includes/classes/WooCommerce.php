@@ -85,11 +85,13 @@ class WooCommerce
 
         add_action('template_redirect', [__CLASS__, 'redirectAccountAliasToMyAccount'], 1);
         add_filter('wp_redirect', [__CLASS__, 'maybeRedirectAccountSaveToDashboard'], 10, 2);
-        add_action('init', [__CLASS__, 'registerAccountWishlistEndpoint']);
+        // Wishlist temporarily disabled.
+        // add_action('init', [__CLASS__, 'registerAccountWishlistEndpoint']);
+        // add_action('template_redirect', [__CLASS__, 'maybeHandleWishlistToggle'], 8);
+        // add_action('template_redirect', [__CLASS__, 'maybeHandleWishlistRemove'], 9);
+        // add_action('woocommerce_account_wishlist_endpoint', [__CLASS__, 'renderWishlistEndpointContent']);
+
         add_action('init', [__CLASS__, 'registerAccountSupportEndpoint']);
-        add_action('template_redirect', [__CLASS__, 'maybeHandleWishlistToggle'], 8);
-        add_action('template_redirect', [__CLASS__, 'maybeHandleWishlistRemove'], 9);
-        add_action('woocommerce_account_wishlist_endpoint', [__CLASS__, 'renderWishlistEndpointContent']);
         add_action('woocommerce_account_support_endpoint', [__CLASS__, 'renderSupportEndpointContent']);
 
         add_filter('woocommerce_default_address_fields', [__CLASS__, 'addAddressPlaqueAndUnitFields']);
