@@ -25338,6 +25338,62 @@
     });
   }
 
+  // assets/js/functions/checkoutPaymentMethods.js
+  function CheckoutPaymentMethods() {
+    if (!document.body.classList.contains("woocommerce-checkout")) {
+      return;
+    }
+    function updatePaymentStyle() {
+      document.querySelectorAll(".wc_payment_methods li").forEach((li) => {
+        const input = li.querySelector('input[type="radio"]');
+        const label = li.querySelector("label");
+        if (!input || !label) return;
+        label.classList.toggle("is-selected", input.checked);
+      });
+    }
+    document.addEventListener("DOMContentLoaded", updatePaymentStyle);
+    document.addEventListener("change", (e11) => {
+      if (e11.target && e11.target.name === "payment_method") {
+        updatePaymentStyle();
+      }
+    });
+    if (typeof jQuery !== "undefined") {
+      jQuery(document.body).on(
+        "updated_checkout payment_method_selected",
+        updatePaymentStyle
+      );
+    }
+    if (document.readyState !== "loading") {
+      updatePaymentStyle();
+    }
+  }
+
+  // assets/js/functions/headerLoginMenu.js
+  function HeaderLoginMenu() {
+    const loginBtn = document.getElementById("login-btn");
+    const navLogged = document.getElementById("navlogged");
+    if (!loginBtn || !navLogged) return;
+    const toggleLink = loginBtn.querySelector("a");
+    if (!toggleLink) return;
+    const isTouchLike = () => window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const setOpen = (open) => {
+      loginBtn.classList.toggle("is-open", open);
+      toggleLink.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    toggleLink.addEventListener("click", (e11) => {
+      if (!isTouchLike()) return;
+      e11.preventDefault();
+      e11.stopPropagation();
+      const isOpen = loginBtn.classList.contains("is-open");
+      setOpen(!isOpen);
+    });
+    document.addEventListener("click", (e11) => {
+      if (!isTouchLike()) return;
+      if (e11.target.closest("#login-btn")) return;
+      setOpen(false);
+    });
+  }
+
   // assets/js/index.js
   Modals();
   register();
@@ -25358,6 +25414,8 @@
   FaqCard();
   CartPage();
   PersonnelCards();
+  CheckoutPaymentMethods();
+  HeaderLoginMenu();
 })();
 /*! Bundled license information:
 

@@ -21,6 +21,8 @@ import { initAudioPlayers } from "./functions/wavesurfer";
 import { FaqTabs, FaqCard } from "./functions/faq";
 import { CartPage } from "./functions/cart";
 import { PersonnelCards } from "./functions/personnelCards";
+import { CheckoutPaymentMethods } from "./functions/checkoutPaymentMethods";
+import { HeaderLoginMenu } from "./functions/headerLoginMenu";
 
 Modals();
 register();
@@ -41,3 +43,5 @@ FaqTabs();
 FaqCard();
 CartPage();
 PersonnelCards();
+CheckoutPaymentMethods();
+HeaderLoginMenu();

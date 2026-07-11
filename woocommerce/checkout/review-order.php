@@ -48,7 +48,7 @@ $has_coupon      = $applied_coupons !== [];
 		<!-- جمع جزء -->
 		<div class="flex justify-between pt-2">
 			<span class="text-base md:text-xl font-medium text-cynBlack/80"><?php _e('مجموع سبد خرید', 'naghoos') ?></span>
-			<div class="flex gap-1.5 flex-wrap">
+			<div class="flex gap-1.5 flex-wrap max-sm:flex-col">
 				<span class="text-sm font-medium text-cynBlack/80 flex items-center">
 					<?php wc_cart_totals_subtotal_html(); ?>
 				</span>
@@ -63,10 +63,10 @@ $has_coupon      = $applied_coupons !== [];
 			</div>
 		</div>
 
-		<div class="h-px w-full bg-cynBlack/10 my-1"></div>
-
 		<!-- حمل و نقل -->
 		<?php if (WC()->cart->needs_shipping()) : ?>
+			<div class="h-px w-full bg-cynBlack/10 my-1"></div>
+
 			<div class="flex justify-between flex-col gap-2">
 				<span class="text-base md:text-xl !font-medium text-cynBlack/80"><?php _e('حمل و نقل', 'naghoos') ?></span>
 				<span class="text-base !font-medium text-cynBlack/80"><?php wc_cart_totals_shipping_html(); ?></span>
@@ -160,7 +160,7 @@ $has_coupon      = $applied_coupons !== [];
 				</button>
 			</div>
 		<?php else : ?>
-			<div class="flex gap-2">
+			<div class="flex gap-2 max-sm:flex-col">
 
 				<input
 					type="text"

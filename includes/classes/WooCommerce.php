@@ -47,6 +47,14 @@ class WooCommerce
         // Add placeholders to fields
         add_filter('woocommerce_checkout_fields', [__CLASS__, 'addPlaceholders'], 9999);
 
+        // Final checkout field order + phone required label
+        add_filter('woocommerce_checkout_fields', [__CLASS__, 'reorderCheckoutBillingFields'], 10000);
+
+        // Force WooCommerce phone visibility option to required (used by locale/JS)
+        add_filter('pre_option_woocommerce_checkout_phone_field', static function () {
+            return 'required';
+        });
+
         // Customize coupon success messages
         add_filter('woocommerce_coupon_message', [__CLASS__, 'customizeCouponMessages'], 10, 3);
 
@@ -95,6 +103,9 @@ class WooCommerce
         add_action('woocommerce_account_support_endpoint', [__CLASS__, 'renderSupportEndpointContent']);
 
         add_filter('woocommerce_default_address_fields', [__CLASS__, 'addAddressPlaqueAndUnitFields']);
+        add_filter('woocommerce_get_country_locale', [__CLASS__, 'customizeCountryLocaleAddressFields']);
+        add_filter('woocommerce_get_country_locale_default', [__CLASS__, 'customizeDefaultLocaleAddressFields']);
+        add_filter('woocommerce_get_country_locale_base', [__CLASS__, 'customizeDefaultLocaleAddressFields']);
         add_filter('woocommerce_my_account_my_address_formatted_address', [__CLASS__, 'appendAddressPlaqueAndUnit'], 10, 3);
         add_filter('woocommerce_localisation_address_formats', [__CLASS__, 'localisationAddressFormats']);
         add_filter('woocommerce_formatted_address_replacements', [__CLASS__, 'formattedAddressPlaqueAndUnitReplacements'], 10, 2);
@@ -610,6 +621,28 @@ class WooCommerce
      */
     public static function addAddressPlaqueAndUnitFields($fields)
     {
+        if (isset($fields['address_1'])) {
+            $fields['address_1']['label']       = __('آدرس پستی', 'naghoos');
+            $fields['address_1']['placeholder'] = __('نام خیابان و کوچه یا بن بست', 'naghoos');
+            $fields['address_1']['priority']    = 50;
+            $fields['address_1']['class']       = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['state'])) {
+            $fields['state']['priority'] = 30;
+            $fields['state']['class']    = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['city'])) {
+            $fields['city']['priority'] = 40;
+            $fields['city']['class']    = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['postcode'])) {
+            $fields['postcode']['priority'] = 60;
+            $fields['postcode']['class']    = ['form-row-wide', 'address-field'];
+        }
+
         $fields['plaque'] = [
             'label'       => __('پلاک', 'naghoos'),
             'placeholder' => __('پلاک', 'naghoos'),
@@ -627,6 +660,64 @@ class WooCommerce
         ];
 
         return $fields;
+    }
+
+    /**
+     * Keep address_1 label/placeholder after WooCommerce country-locale JS refresh.
+     */
+    public static function customizeDefaultLocaleAddressFields($fields)
+    {
+        if (isset($fields['address_1'])) {
+            $fields['address_1']['label']       = __('آدرس پستی', 'naghoos');
+            $fields['address_1']['placeholder'] = __('نام خیابان و کوچه یا بن بست', 'naghoos');
+            $fields['address_1']['priority']    = 50;
+        }
+
+        if (isset($fields['state'])) {
+            $fields['state']['priority'] = 30;
+        }
+
+        if (isset($fields['city'])) {
+            $fields['city']['priority'] = 40;
+        }
+
+        if (isset($fields['postcode'])) {
+            $fields['postcode']['priority'] = 60;
+        }
+
+        // address-i18n.js forces optional when phone.required is missing from locale
+        $fields['phone'] = [
+            'label'    => __('شماره تلفن', 'naghoos'),
+            'required' => true,
+            'priority' => 70,
+            'class'    => ['form-row-wide'],
+        ];
+
+        return $fields;
+    }
+
+    /**
+     * Override Iran (and any country) locale so checkout JS does not restore default labels.
+     */
+    public static function customizeCountryLocaleAddressFields($locale)
+    {
+        foreach ($locale as $country => $fields) {
+            if (! is_array($fields)) {
+                continue;
+            }
+
+            $locale[$country]['address_1']['label']       = __('آدرس پستی', 'naghoos');
+            $locale[$country]['address_1']['placeholder'] = __('نام خیابان و کوچه یا بن بست', 'naghoos');
+            $locale[$country]['address_1']['priority']    = 50;
+            $locale[$country]['state']['priority']        = 30;
+            $locale[$country]['city']['priority']         = 40;
+            $locale[$country]['postcode']['priority']     = 60;
+            $locale[$country]['phone']['label']           = __('شماره تلفن', 'naghoos');
+            $locale[$country]['phone']['required']        = true;
+            $locale[$country]['phone']['priority']        = 70;
+        }
+
+        return $locale;
     }
 
     /**
@@ -1234,16 +1325,16 @@ class WooCommerce
      */
     public static function removeCheckoutFields($fields)
     {
-        // $fields_to_remove = [
-        //     'billing_address_2',
-        // ];
+        $fields_to_remove = [
+            'billing_address_2',
+        ];
 
-        // foreach ($fields_to_remove as $field_key) {
-        //     if (isset($fields['billing'][$field_key])) {
-        //         $fields['billing'][$field_key]['required'] = false;
-        //         unset($fields['billing'][$field_key]);
-        //     }
-        // }
+        foreach ($fields_to_remove as $field_key) {
+            if (isset($fields['billing'][$field_key])) {
+                $fields['billing'][$field_key]['required'] = false;
+                unset($fields['billing'][$field_key]);
+            }
+        }
 
         if (isset($fields['billing']['billing_email'])) {
             $fields['billing']['billing_email']['required'] = false;
@@ -1254,13 +1345,15 @@ class WooCommerce
             $fields['billing']['billing_email']['placeholder'] = '';
         }
 
-        add_filter('woocommerce_checkout_fields', function ($fields) {
-
+        if (isset($fields['billing']['billing_country'])) {
             $fields['billing']['billing_country']['default'] = 'IR';
             $fields['billing']['billing_country']['class'][] = 'hidden';
+        }
 
-            return $fields;
-        });
+        if (isset($fields['billing']['billing_address_1'])) {
+            $fields['billing']['billing_address_1']['label'] = 'آدرس پستی';
+            $fields['billing']['billing_address_1']['placeholder'] = 'نام خیابان و کوچه یا بن بست';
+        }
 
         remove_action(
             'woocommerce_before_checkout_form',
@@ -1271,6 +1364,82 @@ class WooCommerce
         return $fields;
     }
 
+
+    /**
+     * Checkout billing field order:
+     * نام، نام خانوادگی، استان، شهر، آدرس پستی، پلاک، واحد، کد پستی، تلفن، یادداشت سفارش
+     */
+    public static function reorderCheckoutBillingFields($fields)
+    {
+        $priorities = [
+            'billing_first_name' => 10,
+            'billing_last_name'  => 20,
+            'billing_country'    => 25, // hidden
+            'billing_state'      => 30,
+            'billing_city'       => 40,
+            'billing_address_1'  => 50,
+            'billing_plaque'     => 55,
+            'billing_unit'       => 56,
+            'billing_postcode'   => 60,
+            'billing_phone'      => 70,
+            'billing_email'      => 80, // hidden
+        ];
+
+        foreach ($priorities as $key => $priority) {
+            if (isset($fields['billing'][$key])) {
+                $fields['billing'][$key]['priority'] = $priority;
+            }
+        }
+
+        if (isset($fields['billing']['billing_first_name'])) {
+            $fields['billing']['billing_first_name']['class'] = ['form-row-first'];
+        }
+
+        if (isset($fields['billing']['billing_last_name'])) {
+            $fields['billing']['billing_last_name']['class'] = ['form-row-last'];
+        }
+
+        if (isset($fields['billing']['billing_state'])) {
+            $fields['billing']['billing_state']['class'] = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['billing']['billing_city'])) {
+            $fields['billing']['billing_city']['class'] = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['billing']['billing_address_1'])) {
+            $fields['billing']['billing_address_1']['class'] = ['form-row-wide', 'address-field'];
+            $fields['billing']['billing_address_1']['label'] = __('آدرس پستی', 'naghoos');
+            $fields['billing']['billing_address_1']['placeholder'] = __('نام خیابان و کوچه یا بن بست', 'naghoos');
+        }
+
+        if (isset($fields['billing']['billing_plaque'])) {
+            $fields['billing']['billing_plaque']['class'] = ['form-row-first'];
+        }
+
+        if (isset($fields['billing']['billing_unit'])) {
+            $fields['billing']['billing_unit']['class'] = ['form-row-last'];
+        }
+
+        if (isset($fields['billing']['billing_postcode'])) {
+            $fields['billing']['billing_postcode']['class'] = ['form-row-wide', 'address-field'];
+        }
+
+        if (isset($fields['billing']['billing_phone'])) {
+            $fields['billing']['billing_phone']['required']    = true;
+            $fields['billing']['billing_phone']['label']       = __('شماره تلفن', 'naghoos');
+            $fields['billing']['billing_phone']['placeholder'] = __('09xxxxxxxxxx', 'naghoos');
+            $fields['billing']['billing_phone']['class']       = ['form-row-wide'];
+        }
+
+        if (isset($fields['order']['order_comments'])) {
+            $fields['order']['order_comments']['priority']    = 10;
+            $fields['order']['order_comments']['label']       = __('یادداشت سفارش', 'naghoos');
+            $fields['order']['order_comments']['placeholder'] = __('یادداشت‌هایی درباره سفارش شما، مثلاً نکات ویژه برای تحویل.', 'naghoos');
+        }
+
+        return $fields;
+    }
 
     /**
      * Make phone field required
@@ -1308,7 +1477,7 @@ class WooCommerce
         }
 
         if (isset($fields['billing']['billing_postcode'])) {
-            $fields['billing']['billing_postcode']['placeholder'] = __('کد پستی ده رقمی را وارد کنید', 'naghoos');
+            $fields['billing']['billing_postcode']['placeholder'] = __('کد پستی ده رقمی', 'naghoos');
         }
 
         if (isset($fields['billing']['billing_phone'])) {

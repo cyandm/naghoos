@@ -1164,3 +1164,22 @@ input:-webkit-autofill:active {
   display: flex;
   align-items: center;
 }
+
+.woocommerce form .form-row-first,
+.woocommerce form .form-row-last,
+.woocommerce-page form .form-row-first,
+.woocommerce-page form .form-row-last {
+  @apply max-sm:!w-full;
+}
+
+/* Checkout payment method selected state */
+.wc_payment_methods label {
+  background: #ffffff;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.wc_payment_methods label.is-selected {
+  background: #b03030;
+  color: #ffffff;
+  border-color: #b03030;
+}

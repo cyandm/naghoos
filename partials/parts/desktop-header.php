@@ -54,24 +54,24 @@ use Cyan\Theme\Helpers\Icon;
 					id="header-search-input"
 					name="s"
 					value="<?php the_search_query() ?>"
-					class="text-cynBlack text-base font-medium rounded-full border border-cynBorder/10 focus:outline-none focus:ring-cynRed focus:border-cynRed block w-full ps-10 p-3 pt-3.5 transition-all duration-300 md:min-w-64"
+					class="text-cynBlack text-base font-medium rounded-full border border-cynBorder/10 focus:outline-none focus:ring-cynRed focus:border-cynRed block w-full ps-10 p-3 pt-3.5 transition-all duration-300 md:min-w-56"
 					placeholder="<?php _e('جستجو کنید', 'naghoos'); ?>">
 				<input type="hidden" name="search-type" value="all">
 			</form>
 
 			<div class="relative flex justify-center group" id="login-btn">
-				<a href="<?= !is_user_logged_in() ? get_site_url() . '/my-account' : '#' ?>" class="flex items-center justify-between gap-1 text-cynWhite bg-cynBlack min-w-34 py-3 ps-4 <?php echo is_user_logged_in() ? 'md:!ps-6 !pe-3' : 'pe-5'; ?> rounded-full text-sm font-medium transition-all duration-300 group-hover:bg-cynRed group-hover:text-cynWhite">
+				<a href="<?= !is_user_logged_in() ? get_site_url() . '/my-account' : '#' ?>" <?php echo is_user_logged_in() ? 'role="button" aria-haspopup="true" aria-expanded="false"' : ''; ?> class="flex items-center justify-between gap-1 text-cynWhite bg-cynBlack min-w-25 sm:min-w-34 py-3.25 ps-2.5 sm:ps-3 <?php echo is_user_logged_in() ? 'sm:!ps-6 !pe-2 group-[.is-open]:bg-cynRed group-[.is-open]:text-cynWhite' : 'pe-3 sm:pe-5'; ?> rounded-full text-xs sm:text-sm font-medium transition-all duration-300 group-hover:bg-cynRed group-hover:text-cynWhite">
 
 					<?php if (!is_user_logged_in()): ?>
-						<i class="size-6 text-cynRed stroke-2 group-hover:text-cynWhite transition-all duration-300">
+						<i class="size-5 md:size-6 text-cynRed stroke-2 group-hover:text-cynWhite transition-all duration-300">
 							<?php Icon::print('User,-Profile'); ?>
 						</i>
 					<?php endif; ?>
 
-					<span class="inline-block max-w-[110px] truncate whitespace-nowrap" title="<?= is_user_logged_in() ? esc_html(wp_get_current_user()->display_name) : '' ?>"><?= is_user_logged_in() ? esc_html(wp_get_current_user()->display_name) : __('ورود / ثبت نام', 'naghoos'); ?></span>
+					<span class="inline-block max-w-16 sm:max-w-28 truncate whitespace-nowrap" title="<?= is_user_logged_in() ? esc_html(wp_get_current_user()->display_name) : '' ?>"><?= is_user_logged_in() ? esc_html(wp_get_current_user()->display_name) : __('ورود/ثبت نام', 'naghoos'); ?></span>
 
 					<?php if (is_user_logged_in()): ?>
-						<i class=" size-6 text-cynWhite group-hover:rotate-180 transition-all duration-300 stroke-2">
+						<i class="size-5 md:size-6 text-cynWhite group-hover:rotate-180 group-[.is-open]:rotate-180 transition-all duration-300 stroke-2">
 							<?php Icon::print('Arrow-28'); ?>
 						</i>
 					<?php endif; ?>
@@ -79,7 +79,7 @@ use Cyan\Theme\Helpers\Icon;
 				</a>
 
 				<?php if (is_user_logged_in()) : ?>
-					<div class="absolute top-13.5 md:top-14 left-0 right-0 w-full p-4 bg-cynWhite text-cynBlack rounded-3xl shadow-item border border-cynBlack pointer-events-none group-hover:pointer-events-auto invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300" id="navlogged">
+					<div class="absolute top-13.5 md:top-14 left-0 right-0 w-full p-4 bg-cynWhite text-cynBlack rounded-3xl shadow-item border border-cynBlack pointer-events-none group-hover:pointer-events-auto group-[.is-open]:pointer-events-auto invisible group-hover:visible group-[.is-open]:visible opacity-0 group-hover:opacity-100 group-[.is-open]:opacity-100 transition-all duration-300" id="navlogged">
 
 						<?php wp_nav_menu([
 							'menu_id' => 'login-menu',
