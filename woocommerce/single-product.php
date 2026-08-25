@@ -40,9 +40,14 @@ $wishlist_toggle_url = ThemeWooCommerce::getWishlistToggleUrl($product->get_id()
 $featured_image_id = get_post_thumbnail_id(get_the_ID());
 
 $product_excert = get_field('product_excert', $product->get_id());
+if (empty($product_excert)) {
+	$product_excert = $product->get_description();
+}
+if (empty(trim(wp_strip_all_tags((string) $product_excert)))) {
+	$product_excert = '';
+}
 $product_excert_voice_id  = get_field('product_excert_voice', $product->get_id());
 $product_excert_voice_url = $product_excert_voice_id ? wp_get_attachment_url($product_excert_voice_id) : '';
-$product_size_guide = get_field('product_size_guide', $product->get_id());
 
 $related_products_query = ThemeWooCommerce::getRelatedProductsQuery($product->get_id());
 
@@ -262,72 +267,6 @@ get_header();
 					?>
 				</p>
 			</div>
-
-			<?php if (!empty($product_size_guide)) : ?>
-				<hr class="border-cynBgItem/30 h-px w-full my-5">
-
-				<div class="flex items-center justify-between">
-
-					<div class="flex items-center gap-2 justify-between w-full">
-
-						<p class="text-cynBlack text-xl font-medium">
-							<?php _e('سایز', 'naghoos'); ?>
-						</p>
-
-						<?php if ($product_size_guide): ?>
-
-							<div class="text-cynBlue flex items-center pt-0.5" id="sizeGuide" modal-opener data-modal-name="size-guide-modal">
-								<span class="text-sm font-normal cursor-pointer">
-									<?php _e('اطلاعات سایز', 'naghoos'); ?>
-								</span>
-
-								<i class="size-5"><?php Icon::print('ruler-1'); ?></i>
-							</div>
-
-							<div class="container flex justify-center items-center h-fit top-1/2 -translate-y-1/2 fixed inset-0 z-50 opacity-0 pointer-events-none w-full md:!w-6/10 data-[active='true']:opacity-100 data-[active='true']:pointer-events-auto duration-500"
-								modal
-								data-modal-name="size-guide-modal"
-								data-active="false">
-
-								<div class="w-full px-6 pb-6 pt-8 bg-cynWhite rounded-3xl shadow-item flex flex-col gap-6 justify-center items-center relative border border-cynBlack/10">
-
-									<div class="absolute top-3 right-3 w-fit cursor-pointer flex items-center"
-										modal-closer
-										data-modal-name="size-guide-modal">
-
-										<i class="size-8 text-cynBlack"><?php Icon::print('Delete,-Disabled'); ?></i>
-										<span class="text-xs font-semibold pb-0.5">
-											<?php _e('بستن', 'naghoos'); ?>
-										</span>
-									</div>
-
-									<div class="flex flex-col gap-4 text-cynBlack w-full">
-
-										<p class="text-2xl font-normal text-center">
-											<?php _e('راهنمای سایز', 'naghoos'); ?>
-										</p>
-
-										<p class="text-sm font-light text-center">
-											<?php _e('برای انتخاب سایز مناسب، اندازه‌های خود را با جدول زیر مقایسه کنید.', 'naghoos'); ?>
-										</p>
-
-										<div class="w-full overflow-x-auto text-sm text-center transition-all [&_table]:w-full [&_table]:border-collapse [&_table]:rounded-xl [&_table]:overflow-hidden [&_th]:bg-[#ffd000] [&_th]:text-black [&_th]:font-semibold [&_th]:px-4 [&_th]:py-3 [&_th]:border [&_th]:border-gray-200 [&_td]:px-4 [&_td]:py-3 [&_td]:border [&_td]:border-gray-200 [&_tr:nth-child(even)]:bg-gray-50 [&_tr]:transition-colors [&_tr]:duration-200 [&_tr:hover]:bg-yellow-50">
-											<?= $product_size_guide ?>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-						<?php endif; ?>
-
-					</div>
-
-				</div>
-
-			<?php endif; ?>
 
 			<hr class="border-cynBgItem/30 h-px w-full my-5">
 

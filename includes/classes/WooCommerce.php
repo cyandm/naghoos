@@ -575,21 +575,38 @@ class WooCommerce
             return $location;
         }
 
-        if (!is_account_page() || !is_user_logged_in()) {
+        // جلوگیری از اجرا در wp-admin و هنگام فعال سازی یا غیرفعال بودن WooCommerce
+        if (
+            is_admin()
+            || !function_exists('is_account_page')
+            || !function_exists('wc_get_page_permalink')
+            || !function_exists('wc_get_endpoint_url')
+        ) {
             return $location;
         }
 
-        $posted_action = isset($_POST['action']) ? sanitize_text_field(wp_unslash($_POST['action'])) : '';
-        $my_account_url = wc_get_page_permalink('myaccount');
+        if (!\is_account_page() || !\is_user_logged_in()) {
+            return $location;
+        }
+
+        $posted_action = isset($_POST['action'])
+            ? \sanitize_text_field(\wp_unslash($_POST['action']))
+            : '';
+
+        $my_account_url = \wc_get_page_permalink('myaccount');
 
         if ($posted_action === 'save_account_details') {
-            $form_source = isset($_POST['cyn_account_form_source']) ? sanitize_text_field(wp_unslash($_POST['cyn_account_form_source'])) : '';
+            $form_source = isset($_POST['cyn_account_form_source'])
+                ? \sanitize_text_field(\wp_unslash($_POST['cyn_account_form_source']))
+                : '';
+
             if ($form_source !== 'dashboard_names') {
                 return $location;
             }
 
-            $edit_account_url = wc_get_endpoint_url('edit-account', '', $my_account_url);
-            if (untrailingslashit($location) !== untrailingslashit($edit_account_url)) {
+            $edit_account_url = \wc_get_endpoint_url('edit-account', '', $my_account_url);
+
+            if (\untrailingslashit($location) !== \untrailingslashit($edit_account_url)) {
                 return $location;
             }
 
@@ -597,13 +614,17 @@ class WooCommerce
         }
 
         if ($posted_action === 'edit_address') {
-            $form_source = isset($_POST['cyn_address_form_source']) ? sanitize_text_field(wp_unslash($_POST['cyn_address_form_source'])) : '';
+            $form_source = isset($_POST['cyn_address_form_source'])
+                ? \sanitize_text_field(\wp_unslash($_POST['cyn_address_form_source']))
+                : '';
+
             if ($form_source !== 'dashboard_modal') {
                 return $location;
             }
 
-            $edit_address_url = wc_get_endpoint_url('edit-address', '', $my_account_url);
-            if (untrailingslashit($location) !== untrailingslashit($edit_address_url)) {
+            $edit_address_url = \wc_get_endpoint_url('edit-address', '', $my_account_url);
+
+            if (\untrailingslashit($location) !== \untrailingslashit($edit_address_url)) {
                 return $location;
             }
 
@@ -612,6 +633,7 @@ class WooCommerce
 
         return $location;
     }
+
 
     /**
      * Register plaque and unit on all WooCommerce address forms (checkout, my account).
